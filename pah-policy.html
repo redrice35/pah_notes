@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PAH 치료 방침 — Interactive Reference</title>
+<style>
+  :root, .viz-root {
+    color-scheme: light;
+    --surface-1:   #fcfcfb;
+    --plane:       #f9f9f7;
+    --text-primary:   #0b0b0b;
+    --text-secondary: #52514e;
+    --text-muted:     #898781;
+    --grid:        #e1e0d9;
+    --baseline:    #c3c2b7;
+    --border:      rgba(11,11,11,0.10);
+    --success-text: #006300;
+
+    --series-1: #2a78d6; /* blue   - ERA */
+    --series-2: #eb6834; /* orange - PDE5i/sGC */
+    --series-3: #1baf7a; /* aqua   - prostacyclin */
+    --series-6: #008300; /* green  - CCB responder path */
+
+    --seq-100: #cde2fb; --seq-150:#b7d3f6; --seq-200:#9ec5f4; --seq-250:#86b6ef;
+    --seq-300: #6da7ec; --seq-350:#5598e7; --seq-400:#3987e5; --seq-450:#2a78d6;
+    --seq-500: #256abf; --seq-550:#1c5cab; --seq-600:#184f95; --seq-650:#104281; --seq-700:#0d366b;
+
+    --status-good: #0ca30c;
+    --status-warning: #fab219;
+    --status-serious: #ec835a;
+    --status-critical: #d03b3b;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:where(:not([data-theme="light"])) {
+      color-scheme: dark;
+      --surface-1: #1a1a19; --plane:#0d0d0d;
+      --text-primary:#ffffff; --text-secondary:#c3c2b7; --text-muted:#898781;
+      --grid:#2c2c2a; --baseline:#383835; --border: rgba(255,255,255,0.10);
+      --success-text:#0ca30c;
+      --series-1:#3987e5; --series-2:#d95926; --series-3:#199e70; --series-6:#008300;
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --surface-1: #1a1a19; --plane:#0d0d0d;
+    --text-primary:#ffffff; --text-secondary:#c3c2b7; --text-muted:#898781;
+    --grid:#2c2c2a; --baseline:#383835; --border: rgba(255,255,255,0.10);
+    --success-text:#0ca30c;
+    --series-1:#3987e5; --series-2:#d95926; --series-3:#199e70; --series-6:#008300;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin:0; padding:0; }
+  body {
+    font-family: system-ui, -apple-system, "Segoe UI", "Malgun Gothic", sans-serif;
+    background: var(--plane);
+    color: var(--text-primary);
+    line-height: 1.55;
+  }
+  a { color: var(--series-1); }
+
+  header.top {
+    position: sticky; top:0; z-index:20;
+    background: var(--surface-1);
+    border-bottom: 1px solid var(--border);
+    padding: 10px 20px;
+    display:flex; align-items:center; gap:16px; flex-wrap:wrap;
+  }
+  header.top h1 { font-size:15px; margin:0; font-weight:600; white-space:nowrap; }
+  nav.tabs { display:flex; gap:4px; flex-wrap:wrap; margin-left:auto; }
+  nav.tabs a {
+    text-decoration:none; color: var(--text-secondary); font-size:13px;
+    padding:7px 10px; border-radius:6px;
+  }
+  nav.tabs a:hover { background: var(--grid); color: var(--text-primary); }
+  #themeToggle {
+    border:1px solid var(--border); background:var(--surface-1); color:var(--text-primary);
+    border-radius:6px; padding:6px 10px; font-size:12px; cursor:pointer;
+  }
+  #themeToggle:hover { background: var(--grid); }
+
+  main { max-width: 980px; margin: 0 auto; padding: 24px 20px 80px; }
+  .disclaimer {
+    font-size:12px; color:var(--text-muted); background:var(--surface-1);
+    border:1px solid var(--border); border-radius:8px; padding:10px 14px; margin-bottom:28px;
+  }
+
+  section { margin-bottom:52px; scroll-margin-top:64px; }
+  section h2 {
+    font-size:20px; margin:0 0 4px; padding-bottom:8px; border-bottom:1px solid var(--grid);
+  }
+  section .subtitle { color:var(--text-secondary); font-size:13px; margin:6px 0 20px; }
+
+  .card {
+    background: var(--surface-1); border:1px solid var(--border); border-radius:10px;
+    padding:18px 20px; margin-bottom:14px;
+  }
+
+  /* KPI row */
+  .kpi-row { display:grid; grid-template-columns: repeat(auto-fit, minmax(150px,1fr)); gap:12px; }
+  .kpi { background:var(--surface-1); border:1px solid var(--border); border-radius:10px; padding:14px 16px; }
+  .kpi .label { font-size:12px; color:var(--text-secondary); margin-bottom:6px; }
+  .kpi .value { font-size:24px; font-weight:600; color:var(--text-primary); }
+  .kpi .delta { font-size:12px; color:var(--success-text); margin-top:4px; }
+  .kpi .note { font-size:11px; color:var(--text-muted); margin-top:4px; }
+
+  table { width:100%; border-collapse:collapse; font-size:13px; }
+  table caption { text-align:left; font-size:12px; color:var(--text-muted); margin-bottom:6px; }
+  th, td { text-align:left; padding:7px 10px; border-bottom:1px solid var(--grid); vertical-align:top; }
+  th { color:var(--text-secondary); font-weight:600; font-size:12px; white-space:nowrap; }
+  td.num, th.num { font-variant-numeric: tabular-nums; text-align:right; }
+  tbody tr:hover { background: var(--grid); }
+
+  /* tabs (risk model switch) */
+  .seg { display:inline-flex; border:1px solid var(--border); border-radius:8px; overflow:hidden; margin-bottom:14px; }
+  .seg button {
+    border:none; background:var(--surface-1); color:var(--text-secondary); font-size:13px;
+    padding:8px 14px; cursor:pointer;
+  }
+  .seg button + button { border-left:1px solid var(--border); }
+  .seg button[aria-selected="true"] { background: var(--series-1); color:#fff; }
+  .panel { display:none; }
+  .panel.active { display:block; }
+
+  .badge {
+    display:inline-flex; align-items:center; gap:6px; font-size:12px; font-weight:600;
+    padding:4px 10px; border-radius:999px; color:#fff;
+  }
+  .badge.good { background: var(--status-good); }
+  .badge.warning { background: var(--status-warning); color:#0b0b0b; }
+  .badge.serious { background: var(--status-serious); }
+  .badge.critical { background: var(--status-critical); }
+
+  /* calculator */
+  .calc-grid { display:grid; grid-template-columns: repeat(auto-fit,minmax(200px,1fr)); gap:16px; margin-bottom:14px; }
+  .field label { display:block; font-size:12px; color:var(--text-secondary); margin-bottom:6px; }
+  .field select, .field input {
+    width:100%; padding:8px 10px; border-radius:6px; border:1px solid var(--border);
+    background:var(--plane); color:var(--text-primary); font-size:13px;
+  }
+  .calc-result { display:flex; align-items:center; gap:14px; flex-wrap:wrap; }
+  .calc-result .risk-text { font-size:14px; }
+  .calc-result .risk-text b { font-size:16px; }
+
+  /* decision tree */
+  .step { margin-bottom:16px; }
+  .step .q { font-size:13px; font-weight:600; margin-bottom:8px; }
+  .choice-row { display:flex; gap:8px; flex-wrap:wrap; }
+  .choice-row button {
+    border:1px solid var(--border); background:var(--plane); color:var(--text-primary);
+    border-radius:8px; padding:9px 14px; font-size:13px; cursor:pointer;
+  }
+  .choice-row button:hover { background:var(--grid); }
+  .choice-row button.active { background: var(--series-1); color:#fff; border-color:var(--series-1); }
+  .outcome {
+    margin-top:14px; padding:14px 16px; border-radius:8px;
+    background: var(--plane); border:1px dashed var(--border); font-size:13px; display:none;
+  }
+  .outcome.show { display:block; }
+  .outcome .tag {
+    display:inline-block; font-size:11px; font-weight:600; padding:2px 8px; border-radius:5px;
+    margin-right:8px; color:#fff;
+  }
+  .hidden-step { display:none; }
+  .hidden-step.show { display:block; }
+
+  /* drug class cards */
+  .drug-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(260px,1fr)); gap:14px; }
+  .drug-card { border-radius:10px; border:1px solid var(--border); background:var(--surface-1); overflow:hidden; }
+  .drug-card .head { padding:14px 16px; color:#fff; }
+  .drug-card .head .name { font-size:14px; font-weight:700; }
+  .drug-card .head .eng { font-size:11px; opacity:0.85; }
+  .drug-card .body { padding:14px 16px; font-size:13px; }
+  .drug-card .body ul { margin:0; padding-left:18px; }
+  .drug-card .body li { margin-bottom:6px; }
+  .drug-card .foot { padding:10px 16px; font-size:11.5px; color:var(--text-muted); border-top:1px solid var(--grid); }
+  details.more summary { cursor:pointer; color: var(--series-1); font-size:12.5px; margin-top:8px; }
+
+  /* legend */
+  .legend { display:flex; gap:16px; flex-wrap:wrap; font-size:12px; color:var(--text-secondary); margin-bottom:10px; }
+  .legend .key { display:inline-flex; align-items:center; gap:6px; }
+  .legend .swatch { width:10px; height:10px; border-radius:2px; display:inline-block; }
+
+  /* bar chart */
+  .chart-wrap { position:relative; }
+  .bars { display:flex; align-items:flex-end; gap:28px; height:220px; padding:10px 10px 0; border-bottom:1px solid var(--baseline); position:relative; }
+  .bar-col { display:flex; flex-direction:column; align-items:center; justify-content:flex-end; flex:1; height:100%; position:relative; }
+  .bar-col .tip-label { font-size:12px; font-weight:600; margin-bottom:6px; color:var(--text-primary); }
+  .bar {
+    width:36px; max-width:100%; border-radius:4px 4px 0 0; background: var(--series-1);
+    transition: filter .15s;
+  }
+  .bar-col:hover .bar { filter: brightness(1.12); }
+  .xaxis { display:flex; gap:28px; padding:8px 10px 0; }
+  .xaxis .x-label { flex:1; font-size:11px; color:var(--text-secondary); text-align:center; }
+  .gridline { position:absolute; left:0; right:0; border-top:1px solid var(--grid); font-size:10px; color:var(--text-muted); pointer-events:none; }
+  .gridline span { position:absolute; left:-6px; top:-8px; background:var(--surface-1); padding-right:4px; }
+
+  .tooltip {
+    position:absolute; background:var(--text-primary); color:var(--surface-1);
+    font-size:12px; padding:8px 10px; border-radius:6px; pointer-events:none;
+    transform: translate(-50%, -110%); white-space:nowrap; z-index:30; opacity:0; transition:opacity .1s;
+  }
+  .tooltip b { font-variant-numeric: tabular-nums; }
+  .tooltip.show { opacity:1; }
+
+  /* heat table */
+  .heat-cell { position:relative; cursor:default; }
+  .heat-sub { font-size:10.5px; color:var(--text-muted); display:block; }
+
+  footer { color:var(--text-muted); font-size:11.5px; border-top:1px solid var(--grid); padding-top:16px; margin-top:40px; }
+  code { background:var(--grid); padding:1px 5px; border-radius:4px; font-size:12px; }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <h1>PAH 치료 방침 — Interactive Reference</h1>
+  <nav class="tabs">
+    <a href="#overview">개요</a>
+    <a href="#risk">위험도 평가</a>
+    <a href="#algorithm">치료 알고리즘</a>
+    <a href="#drugs">약물 계열</a>
+    <a href="#evidence">Sotatercept 근거</a>
+    <a href="#safety">안전성</a>
+  </nav>
+  <button id="themeToggle" type="button">🌙 다크모드</button>
+</header>
+
+<main class="viz-root">
+
+<div class="disclaimer">
+  이 페이지는 이 vault의 <code>wiki/Pulmonary Arterial Hypertension/</code> 문서들
+  (<code>Pulmonary Arterial Hypertension.md</code>, <code>PAH Risk Stratification.md</code>,
+  <code>Background Therapy for Pulmonary Arterial Hypertension.md</code>, <code>Sotatercept.md</code>
+  및 각 트라이얼 문서)만을 근거로 작성되었습니다 — 인터넷 조회 없음. 교육/개인 참고용이며 실제 임상 결정은
+  최신 원문 가이드라인과 전문의 판단을 따라야 합니다.
+</div>
+
+<!-- ===================== OVERVIEW ===================== -->
+<section id="overview">
+  <h2>개요</h2>
+  <p class="subtitle">Pulmonary Arterial Hypertension (PAH, WHO Group 1) — 정의 및 병태생리 핵심 수치</p>
+
+  <div class="kpi-row">
+    <div class="kpi">
+      <div class="label">혈류역학적 정의 (2022 ESC/ERS)</div>
+      <div class="value">mPAP &gt;20</div>
+      <div class="note">mmHg, PAWP ≤15 mmHg (pre-capillary PH)</div>
+    </div>
+    <div class="kpi">
+      <div class="label">PVR 임계값</div>
+      <div class="value">&gt;2 WU</div>
+      <div class="note">Wood units — pre-capillary 혈관병 기준</div>
+    </div>
+    <div class="kpi">
+      <div class="label">전세계 PH 유병률</div>
+      <div class="value">~1%</div>
+      <div class="note">Group 1 PAH: 6 / 백만명 (발생), 48–55 / 백만명 (유병)</div>
+    </div>
+    <div class="kpi">
+      <div class="label">치료 목표</div>
+      <div class="value">Low risk</div>
+      <div class="note">저위험 상태 도달·유지가 권고 치료 목표</div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:14px;">
+    <b>병태생리:</b> BMPR2 신호전달 저하 → activin/GDF (activin A, GDF8, GDF11) 증가 → ActRIIA–Smad2/3 경로 활성화(증식 촉진) 및
+    gremlin-1/noggin을 통한 BMP–Smad1/5/8 경로 억제(항증식 감소) → 폐혈관 재형성. 기존 3대 약물 경로
+    (endothelin / NO-cGMP / prostacyclin)는 혈관확장 위주이며, <b>Sotatercept</b>는 이 activin/GDF–BMP 불균형 자체를 표적하는
+    최초의 승인 약물입니다.
+  </div>
+</section>
+
+<!-- ===================== RISK ===================== -->
+<section id="risk">
+  <h2>위험도 평가</h2>
+  <p class="subtitle">WHO 기능분류(WHO-FC) 및 ESC/ERS 위험도 모델 — 초진(3단계) vs. 추적관찰(4단계)</p>
+
+  <div class="card">
+    <table>
+      <caption>WHO Functional Class</caption>
+      <thead><tr><th>Class</th><th>설명</th></tr></thead>
+      <tbody>
+        <tr><td>I</td><td>신체활동 제한 없음</td></tr>
+        <tr><td>II</td><td>경미한 제한; 안정 시 편안, 일상 활동에서 증상</td></tr>
+        <tr><td>III</td><td>뚜렷한 제한; 안정 시 편안, 일상보다 적은 활동에서도 증상</td></tr>
+        <tr><td>IV</td><td>어떤 활동도 불가; 우심부전 징후; 안정 시에도 증상 가능</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="seg" role="tablist" aria-label="위험도 모델 선택">
+    <button role="tab" aria-selected="true" data-panel="p3">3단계 모델 (초진용)</button>
+    <button role="tab" aria-selected="false" data-panel="p4">4단계 모델 (추적관찰용)</button>
+  </div>
+
+  <div class="panel active card" id="p3">
+    <table>
+      <thead><tr><th>위험도</th><th class="num">1년 사망률</th><th>WHO-FC</th><th>6MWD</th><th>NT-proBNP</th></tr></thead>
+      <tbody>
+        <tr><td><span class="badge good">Low</span></td><td class="num">&lt;5%</td><td>I, II</td><td>&gt;440 m</td><td>&lt;300 ng/L</td></tr>
+        <tr><td><span class="badge serious">Intermediate</span></td><td class="num">5–20%</td><td>III</td><td>165–440 m</td><td>300–1100 ng/L</td></tr>
+        <tr><td><span class="badge critical">High</span></td><td class="num">&gt;20%</td><td>IV</td><td>&lt;165 m</td><td>&gt;1100 ng/L</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="panel card" id="p4">
+    <table>
+      <thead><tr><th>위험도</th><th class="num">점수</th><th>WHO-FC</th><th>6MWD</th><th>NT-proBNP</th></tr></thead>
+      <tbody>
+        <tr><td><span class="badge good">Low</span></td><td class="num">1</td><td>I or II</td><td>&gt;440 m</td><td>&lt;300 ng/L</td></tr>
+        <tr><td><span class="badge warning">Intermediate-low</span></td><td class="num">2</td><td>—</td><td>320–440 m</td><td>300–649 ng/L</td></tr>
+        <tr><td><span class="badge serious">Intermediate-high</span></td><td class="num">3</td><td>III</td><td>165–319 m</td><td>650–1100 ng/L</td></tr>
+        <tr><td><span class="badge critical">High</span></td><td class="num">4</td><td>IV</td><td>&lt;165 m</td><td>&gt;1100 ng/L</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <b style="font-size:13px;">4단계 위험도 계산기</b>
+    <p class="subtitle" style="margin-top:4px;">세 변수의 점수를 평균 후 반올림 (가이드라인 방식). 교육용 참고 도구입니다.</p>
+    <div class="calc-grid">
+      <div class="field">
+        <label for="calcFC">WHO Functional Class</label>
+        <select id="calcFC">
+          <option value="1">I 또는 II</option>
+          <option value="3">III</option>
+          <option value="4">IV</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="calc6MWD">6분 보행거리 (m)</label>
+        <input id="calc6MWD" type="number" value="380" min="0" max="800" step="10">
+      </div>
+      <div class="field">
+        <label for="calcBNP">NT-proBNP (ng/L)</label>
+        <input id="calcBNP" type="number" value="500" min="0" max="20000" step="10">
+      </div>
+    </div>
+    <div class="calc-result">
+      <span id="calcBadge" class="badge good">Low</span>
+      <span class="risk-text" id="calcText">위험도 계산 결과가 여기에 표시됩니다.</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== ALGORITHM ===================== -->
+<section id="algorithm">
+  <h2>치료 알고리즘</h2>
+  <p class="subtitle">2022 ESC/ERS Figure 9 기반 — I/H/D-PAH 및 PAH-CTD 환자, 혈관반응성검사 음성 후</p>
+
+  <div class="card">
+    <div class="step">
+      <div class="q">1. 심폐 동반질환(비만/고혈압/당뇨/관상동맥질환 또는 저-DLCO 폐질환)이 있습니까?</div>
+      <div class="choice-row" id="q1">
+        <button data-val="no">아니오</button>
+        <button data-val="yes">예</button>
+      </div>
+    </div>
+
+    <div class="hidden-step" id="branchYes">
+      <div class="outcome show">
+        <span class="tag" style="background:var(--series-2)">Class IIa</span>
+        위험도와 무관하게 <b>초기 경구 단일요법</b> (PDE5i 또는 ERA 중 택 1) 시작 → 추적관찰하며 개별화된 요법 조정.
+      </div>
+    </div>
+
+    <div class="hidden-step" id="branchNo">
+      <div class="step">
+        <div class="q">2. 초진 시 위험도 (3단계 모델)는?</div>
+        <div class="choice-row" id="q2">
+          <button data-val="low">Low / Intermediate</button>
+          <button data-val="high">High</button>
+        </div>
+      </div>
+      <div class="hidden-step" id="q2out">
+        <div class="outcome show" id="q2outLow">
+          <span class="tag" style="background:var(--status-good)">Class I</span>
+          초기 <b>ERA + PDE5i</b> 병용요법 (double therapy).
+        </div>
+        <div class="outcome show" id="q2outHigh" style="display:none;">
+          <span class="tag" style="background:var(--status-critical)">Class IIa</span>
+          초기 <b>ERA + PDE5i + 정맥/피하 prostacyclin analogue</b> 병용요법 (triple therapy).
+        </div>
+      </div>
+
+      <div class="step" style="margin-top:18px;">
+        <div class="q">3. 추적관찰 위험도 (4단계 모델)는?</div>
+        <div class="choice-row" id="q3">
+          <button data-val="low">Low</button>
+          <button data-val="ilow">Intermediate-low</button>
+          <button data-val="ihigh">Intermediate-high</button>
+          <button data-val="high">High</button>
+        </div>
+      </div>
+      <div class="outcome" id="q3out"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== DRUGS ===================== -->
+<section id="drugs">
+  <h2>약물 계열 (Background Therapy)</h2>
+  <p class="subtitle">모든 sotatercept 트라이얼에서 "background therapy"로 지칭되는 3대 경로. Sotatercept는 이 위에 추가되는 add-on.</p>
+
+  <div class="drug-grid">
+    <div class="drug-card">
+      <div class="head" style="background:var(--series-1);">
+        <div class="name">Endothelin Receptor Antagonists</div>
+        <div class="eng">ERA</div>
+      </div>
+      <div class="body">
+        <ul>
+          <li><b>Ambrisentan</b> — 선택적 ETA 차단, 5/10 mg 1일 1회</li>
+          <li><b>Bosentan</b> — dual ETA/ETB, 125 mg 1일 2회, <b>매월 간기능 모니터링</b> 필요 (~10% 간수치 상승)</li>
+          <li><b>Macitentan</b> — dual ETA/ETB, ~4.3%에서 Hb &lt;8 g/dL</li>
+        </ul>
+        <details class="more"><summary>주의사항</summary>
+          <p style="font-size:12.5px; color:var(--text-secondary);">계열 공통: <b>기형 유발 가능 — 임신 중 금기</b>.</p>
+        </details>
+      </div>
+      <div class="foot">기전: endothelin-1 매개 혈관수축·증식 차단</div>
+    </div>
+
+    <div class="drug-card">
+      <div class="head" style="background:var(--series-2);">
+        <div class="name">PDE5 Inhibitors / sGC Stimulators</div>
+        <div class="eng">PDE5i / sGC stimulator</div>
+      </div>
+      <div class="body">
+        <ul>
+          <li><b>Sildenafil</b> — 20 mg 1일 3회. 부작용: 두통, 홍조, 비출혈</li>
+          <li><b>Tadalafil</b> — 최대 40 mg 1일 1회</li>
+          <li><b>Riociguat</b> — 최대 2.5 mg 1일 3회 (NO 비의존적 직접 sGC 자극)</li>
+        </ul>
+        <details class="more"><summary>주의사항</summary>
+          <p style="font-size:12.5px; color:var(--text-secondary);"><b>PDE5i와 sGC stimulator는 서로 병용 금지</b>, nitrate와도 병용 금지 (전신 저혈압 위험).</p>
+        </details>
+      </div>
+      <div class="foot">기전: NO–cGMP 경로 증강</div>
+    </div>
+
+    <div class="drug-card">
+      <div class="head" style="background:var(--series-3);">
+        <div class="name">Prostacyclin Analogues / Receptor Agonists</div>
+        <div class="eng">Prostacyclin pathway</div>
+      </div>
+      <div class="body">
+        <ul>
+          <li><b>Epoprostenol</b> (IV) — 반감기 짧음, 1년 유지용량 16–30 ng/kg/min</li>
+          <li><b>Treprostinil</b> — SC/IV/흡입/경구 제형 다양</li>
+          <li><b>Selexipag</b> (경구) — 3상 RCT(n=1156)에서 복합 이병률/사망률 40% 상대위험 감소</li>
+          <li><b>Beraprost</b> (경구) — 단기 효과만, 유럽 미승인</li>
+        </ul>
+        <details class="more"><summary>주의사항</summary>
+          <p style="font-size:12.5px; color:var(--text-secondary);">계열 공통 부작용: 두통, 홍조, 턱통증, 설사 (혈관확장 관련).</p>
+        </details>
+      </div>
+      <div class="foot">기전: 혈관확장 + 항혈소판 + 세포보호/항증식</div>
+    </div>
+
+    <div class="drug-card">
+      <div class="head" style="background:var(--series-6);">
+        <div class="name">Calcium Channel Blockers</div>
+        <div class="eng">CCB — vasoreactivity responders only</div>
+      </div>
+      <div class="body">
+        <ul>
+          <li>급성 혈관반응성검사 <b>양성 반응자</b>에게만 사용 (mPAP ≥10 mmHg 하강, ≤40 mmHg, CO 유지/증가)</li>
+          <li>Amlodipine, diltiazem, felodipine</li>
+          <li>비반응자에게는 <b>권고되지 않음</b> (Class III)</li>
+        </ul>
+      </div>
+      <div class="foot">idiopathic/heritable/drug-associated PAH의 소수(주로 acute responder)에 적용</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== EVIDENCE ===================== -->
+<section id="evidence">
+  <h2>Sotatercept 임상 근거</h2>
+  <p class="subtitle">사망/임상악화 복합 종료점 — 상대위험감소(RRR) 비교. 각 트라이얼의 복합 종료점 정의는 서로 다름 (아래 표 참고).</p>
+
+  <div class="card">
+    <div class="chart-wrap">
+      <div class="bars" id="rrrChart" style="position:relative;">
+        <div class="gridline" style="bottom:0;"><span>0%</span></div>
+        <div class="gridline" style="bottom:25%;"><span>25%</span></div>
+        <div class="gridline" style="bottom:50%;"><span>50%</span></div>
+        <div class="gridline" style="bottom:75%;"><span>75%</span></div>
+        <div class="gridline" style="bottom:100%;"><span>100%</span></div>
+      </div>
+      <div class="xaxis" id="rrrLabels"></div>
+    </div>
+    <div id="tooltip" class="tooltip"></div>
+  </div>
+
+  <div class="card">
+    <table>
+      <caption>사망/임상악화 복합 종료점 상세</caption>
+      <thead>
+        <tr><th>트라이얼</th><th>모집단</th><th class="num">HR (95% CI)</th><th class="num">RRR</th><th>복합 종료점 정의(요약)</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>STELLAR</td><td>WHO FC II/III, 장기 PAH</td><td class="num">0.16 (0.08–0.35)</td><td class="num">84%</td><td>사망, 이식대기등재, rescue therapy/prostacyclin↑≥10%, 심방중격절개, PAH 입원≥24h, FC악화+6MWD↓≥15%</td></tr>
+        <tr><td>PULSAR+STELLAR pooled</td><td>WHO FC II/III, 장기 PAH</td><td class="num">0.16 (0.08–0.33)</td><td class="num">84%</td><td>위와 동일 (두 트라이얼 pooled)</td></tr>
+        <tr><td>ZENITH</td><td>WHO FC III/IV, 고위험 (REVEAL≥9)</td><td class="num">0.24 (0.13–0.43)</td><td class="num">76%</td><td><b>사망, 폐이식, PAH 입원≥24h 만</b> (기능악화 제외한 hard outcome)</td></tr>
+        <tr><td>HYPERION</td><td>WHO FC II/III, 진단 1년 이내</td><td class="num">0.24 (0.14–0.41)</td><td class="num">76%</td><td>사망, PAH 입원≥24h, 심방중격절개, 폐이식, 운동능력 악화(6MWD↓+FC악화/RV부전징후/신규요법/경정맥전환)</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ===================== SAFETY ===================== -->
+<section id="safety">
+  <h2>안전성 프로필 비교</h2>
+  <p class="subtitle">Sotatercept군 발생률 (%) — 색 농도는 발생률 크기를 나타냄; 셀 하단은 위약군 비교치</p>
+
+  <div class="card">
+    <table id="heatTable">
+      <thead>
+        <tr><th>트라이얼</th><th class="num">Epistaxis</th><th class="num">Telangiectasia</th><th class="num">↑Hemoglobin</th><th class="num">Thrombocytopenia</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>STELLAR</td>
+          <td class="num heat-cell" data-v="12.3" data-sub="위약 1.9%">12.3%<span class="heat-sub">vs 1.9%</span></td>
+          <td class="num heat-cell" data-v="10.4" data-sub="위약 3.1%">10.4%<span class="heat-sub">vs 3.1%</span></td>
+          <td class="num heat-cell" data-v="5.5" data-sub="위약 0%">5.5%<span class="heat-sub">vs 0%</span></td>
+          <td class="num heat-cell" data-v="6.1" data-sub="위약 2.5%">6.1%<span class="heat-sub">vs 2.5%</span></td>
+        </tr>
+        <tr>
+          <td>ZENITH</td>
+          <td class="num heat-cell" data-v="44.2" data-sub="위약 9.3%">44.2%<span class="heat-sub">vs 9.3%</span></td>
+          <td class="num heat-cell" data-v="25.6" data-sub="위약 3.5%">25.6%<span class="heat-sub">vs 3.5%</span></td>
+          <td class="num heat-cell" data-v="12.8" data-sub="위약 1.2%">12.8%<span class="heat-sub">vs 1.2%</span></td>
+          <td class="num heat-cell" data-v="12.8" data-sub="AE 기준">12.8%<span class="heat-sub">AE 기준</span></td>
+        </tr>
+        <tr>
+          <td>HYPERION</td>
+          <td class="num heat-cell" data-v="31.9" data-sub="위약 6.9%">31.9%<span class="heat-sub">vs 6.9%</span></td>
+          <td class="num heat-cell" data-v="26.2" data-sub="위약 11.2%">26.2%<span class="heat-sub">vs 11.2%</span></td>
+          <td class="num heat-cell" data-v="11.2" data-sub="위약 1.2%">11.2%<span class="heat-sub">vs 1.2%</span></td>
+          <td class="num heat-cell" data-v="14.0" data-sub="AE 기준">14.0%<span class="heat-sub">AE 기준</span></td>
+        </tr>
+        <tr>
+          <td>SOTERIA (장기, 단일군)</td>
+          <td class="num heat-cell" data-v="22.1" data-sub="비교대상 없음(open-label)">22.1%<span class="heat-sub">전체기간 TEAE</span></td>
+          <td class="num heat-cell" data-v="16.9" data-sub="rollover 후 신규 발생">16.9%<span class="heat-sub">신규 발생</span></td>
+          <td class="num heat-cell" data-v="13.8" data-sub="중등도-중증">13.8%<span class="heat-sub">중등도-중증</span></td>
+          <td class="num heat-cell" data-v="3.3" data-sub="중증 혈소판감소">3.3%<span class="heat-sub">중증</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <p style="font-size:11.5px; color:var(--text-muted); margin-top:10px;">
+      Serious bleeding은 대부분 트라이얼에서 balanced 또는 소폭 증가에 그침 (concomitant prostacyclin/항응고제/저혈소판 등
+      다중 위험요인 보유자에 집중) — 자세한 내용은 <code>SOTERIA Study.md</code> 참고.
+    </p>
+  </div>
+</section>
+
+<footer>
+  출처: <code>wiki/Pulmonary Arterial Hypertension/</code> 내 Pulmonary Arterial Hypertension, Hypertension Pulmonary,
+  PAH Risk Stratification, Background Therapy for Pulmonary Arterial Hypertension, Sotatercept, PULSAR/STELLAR/ZENITH/HYPERION/SOTERIA
+  Trial 문서 (2026-07 컴파일 기준). 생성일 기준 최신 raw 자료 반영, 인터넷 조회 없음.
+</footer>
+
+</main>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ---------- theme toggle ---------- */
+  var root = document.documentElement;
+  var btn = document.getElementById('themeToggle');
+  function applyLabel(){
+    var t = root.getAttribute('data-theme');
+    btn.textContent = (t === 'dark') ? '☀️ 라이트모드' : '🌙 다크모드';
+  }
+  btn.addEventListener('click', function(){
+    var cur = root.getAttribute('data-theme');
+    var next = (cur === 'dark') ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    applyLabel();
+  });
+  applyLabel();
+
+  /* ---------- risk model tabs ---------- */
+  var tabs = document.querySelectorAll('.seg [role="tab"]');
+  tabs.forEach(function(tab){
+    tab.addEventListener('click', function(){
+      tabs.forEach(function(t){ t.setAttribute('aria-selected','false'); });
+      tab.setAttribute('aria-selected','true');
+      document.querySelectorAll('.panel').forEach(function(p){ p.classList.remove('active'); });
+      document.getElementById(tab.getAttribute('data-panel')).classList.add('active');
+    });
+  });
+
+  /* ---------- 4-strata calculator ---------- */
+  var fc = document.getElementById('calcFC');
+  var mwd = document.getElementById('calc6MWD');
+  var bnp = document.getElementById('calcBNP');
+  var badge = document.getElementById('calcBadge');
+  var text = document.getElementById('calcText');
+
+  function mwdPoint(v){
+    if (v > 440) return 1;
+    if (v >= 320) return 2;
+    if (v >= 165) return 3;
+    return 4;
+  }
+  function bnpPoint(v){
+    if (v < 300) return 1;
+    if (v <= 649) return 2;
+    if (v <= 1100) return 3;
+    return 4;
+  }
+  var riskMeta = {
+    1: {label:'Low', cls:'good', action:'현재 요법 유지 (four-strata follow-up: 저위험 유지 시 escalate 불필요).'},
+    2: {label:'Intermediate-low', cls:'warning', action:'Prostacyclin receptor agonist 추가(Class IIa) 또는 PDE5i→sGC stimulator 전환(Class IIb) 고려.'},
+    3: {label:'Intermediate-high', cls:'serious', action:'정맥/피하 prostacyclin 추가 및/또는 폐이식 평가(Class IIa); sotatercept add-on 근거 검토.'},
+    4: {label:'High', cls:'critical', action:'정맥/피하 prostacyclin 추가 및/또는 폐이식 평가(Class IIa); sotatercept add-on 근거(ZENITH/HYPERION) 적극 검토.'}
+  };
+  function recalc(){
+    var fcP = parseInt(fc.value, 10);
+    var mwdP = mwdPoint(parseFloat(mwd.value) || 0);
+    var bnpP = bnpPoint(parseFloat(bnp.value) || 0);
+    var avg = (fcP + mwdP + bnpP) / 3;
+    var risk = Math.round(avg);
+    if (risk < 1) risk = 1;
+    if (risk > 4) risk = 4;
+    var meta = riskMeta[risk];
+    badge.className = 'badge ' + meta.cls;
+    badge.textContent = meta.label;
+    text.innerHTML = '';
+    var strong = document.createElement('b');
+    strong.textContent = 'Risk score ' + avg.toFixed(2) + ' → ' + meta.label + '. ';
+    text.appendChild(strong);
+    text.appendChild(document.createTextNode(meta.action));
+  }
+  [fc, mwd, bnp].forEach(function(el){ el.addEventListener('input', recalc); el.addEventListener('change', recalc); });
+  recalc();
+
+  /* ---------- decision tree ---------- */
+  function wireChoice(rowId, cb){
+    var row = document.getElementById(rowId);
+    row.querySelectorAll('button').forEach(function(b){
+      b.addEventListener('click', function(){
+        row.querySelectorAll('button').forEach(function(x){ x.classList.remove('active'); });
+        b.classList.add('active');
+        cb(b.getAttribute('data-val'));
+      });
+    });
+  }
+  wireChoice('q1', function(val){
+    document.getElementById('branchYes').classList.toggle('show', val === 'yes');
+    document.getElementById('branchNo').classList.toggle('show', val === 'no');
+  });
+  wireChoice('q2', function(val){
+    document.getElementById('q2out').classList.add('show');
+    document.getElementById('q2outLow').style.display = (val === 'low') ? 'block' : 'none';
+    document.getElementById('q2outHigh').style.display = (val === 'high') ? 'block' : 'none';
+  });
+  var q3text = {
+    low: {tag:'Class I', color:'var(--status-good)', txt:'현재 요법 유지.'},
+    ilow: {tag:'Class IIa/IIb', color:'var(--status-warning)', txt:'Prostacyclin receptor agonist 추가 또는 PDE5i→sGC stimulator 전환 고려.'},
+    ihigh: {tag:'Class IIa', color:'var(--status-serious)', txt:'정맥/피하 prostacyclin 추가 및/또는 폐이식 평가; sotatercept add-on 검토.'},
+    high: {tag:'Class IIa', color:'var(--status-critical)', txt:'정맥/피하 prostacyclin 추가 및/또는 폐이식 평가; sotatercept add-on 근거(ZENITH/HYPERION) 적극 검토.'}
+  };
+  wireChoice('q3', function(val){
+    var out = document.getElementById('q3out');
+    var meta = q3text[val];
+    out.classList.add('show');
+    out.innerHTML = '';
+    var tag = document.createElement('span');
+    tag.className = 'tag';
+    tag.style.background = meta.color;
+    tag.textContent = meta.tag;
+    out.appendChild(tag);
+    out.appendChild(document.createTextNode(meta.txt));
+  });
+
+  /* ---------- RRR bar chart ---------- */
+  var rrrData = [
+    {label:'STELLAR', sub:'HR 0.16 (0.08–0.35)', rrr:84},
+    {label:'PULSAR+STELLAR pooled', sub:'HR 0.16 (0.08–0.33)', rrr:84},
+    {label:'ZENITH', sub:'HR 0.24 (0.13–0.43)', rrr:76},
+    {label:'HYPERION', sub:'HR 0.24 (0.14–0.41)', rrr:76}
+  ];
+  var chart = document.getElementById('rrrChart');
+  var labelsRow = document.getElementById('rrrLabels');
+  var tooltip = document.getElementById('tooltip');
+  rrrData.forEach(function(d){
+    var col = document.createElement('div');
+    col.className = 'bar-col';
+
+    var tipLabel = document.createElement('div');
+    tipLabel.className = 'tip-label';
+    tipLabel.textContent = d.rrr + '%';
+    col.appendChild(tipLabel);
+
+    var bar = document.createElement('div');
+    bar.className = 'bar';
+    bar.style.height = d.rrr + '%';
+    col.appendChild(bar);
+
+    var xlabel = document.createElement('div');
+    xlabel.className = 'x-label';
+    xlabel.textContent = d.label;
+    labelsRow.appendChild(xlabel);
+
+    col.addEventListener('pointermove', function(e){
+      tooltip.innerHTML = '';
+      var strong = document.createElement('b');
+      strong.textContent = 'RRR ' + d.rrr + '%';
+      tooltip.appendChild(strong);
+      tooltip.appendChild(document.createElement('br'));
+      tooltip.appendChild(document.createTextNode(d.sub));
+      var rect = chart.getBoundingClientRect();
+      tooltip.style.left = (e.clientX - rect.left) + 'px';
+      tooltip.style.top = (e.clientY - rect.top) + 'px';
+      tooltip.classList.add('show');
+    });
+    col.addEventListener('pointerleave', function(){ tooltip.classList.remove('show'); });
+
+    chart.appendChild(col);
+  });
+
+  /* ---------- safety heatmap tint ---------- */
+  var seqSteps = ['--seq-100','--seq-150','--seq-200','--seq-250','--seq-300','--seq-350','--seq-400','--seq-450','--seq-500','--seq-550','--seq-600'];
+  document.querySelectorAll('.heat-cell').forEach(function(cell){
+    var v = parseFloat(cell.getAttribute('data-v')) || 0;
+    var idx = Math.min(seqSteps.length - 1, Math.round((v / 45) * (seqSteps.length - 1)));
+    var varName = seqSteps[idx];
+    cell.style.background = 'color-mix(in srgb, var(' + varName + ') 35%, transparent)';
+  });
+})();
+</script>
+</body>
+</html>

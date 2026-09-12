@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Riociguat (Adempas) — 근거 요약 Interactive</title>
+<style>
+  :root, .viz-root {
+    color-scheme: light;
+    --surface-1:   #fcfcfb;
+    --plane:       #f9f9f7;
+    --text-primary:   #0b0b0b;
+    --text-secondary: #52514e;
+    --text-muted:     #898781;
+    --grid:        #e1e0d9;
+    --baseline:    #c3c2b7;
+    --border:      rgba(11,11,11,0.10);
+
+    --series-1: #2a78d6; /* blue   */
+    --series-2: #eb6834; /* orange */
+    --series-3: #1baf7a; /* aqua   */
+    --series-4: #eda100; /* yellow */
+
+    --seq-100: #cde2fb; --seq-150:#b7d3f6; --seq-200:#9ec5f4; --seq-250:#86b6ef;
+    --seq-300: #6da7ec; --seq-350:#5598e7; --seq-400:#3987e5; --seq-450:#2a78d6;
+    --seq-500: #256abf; --seq-550:#1c5cab; --seq-600:#184f95; --seq-650:#104281;
+
+    --status-good: #0ca30c;
+    --status-warning: #fab219;
+    --status-serious: #ec835a;
+    --status-critical: #d03b3b;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:where(:not([data-theme="light"])) {
+      color-scheme: dark;
+      --surface-1:#1a1a19; --plane:#0d0d0d;
+      --text-primary:#ffffff; --text-secondary:#c3c2b7; --text-muted:#898781;
+      --grid:#2c2c2a; --baseline:#383835; --border: rgba(255,255,255,0.10);
+      --series-1:#3987e5; --series-2:#d95926; --series-3:#199e70; --series-4:#c98500;
+      --status-good:#0ca30c;
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --surface-1:#1a1a19; --plane:#0d0d0d;
+    --text-primary:#ffffff; --text-secondary:#c3c2b7; --text-muted:#898781;
+    --grid:#2c2c2a; --baseline:#383835; --border: rgba(255,255,255,0.10);
+    --series-1:#3987e5; --series-2:#d95926; --series-3:#199e70; --series-4:#c98500;
+    --status-good:#0ca30c;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin:0; padding:0; }
+  body {
+    font-family: system-ui, -apple-system, "Segoe UI", "Malgun Gothic", sans-serif;
+    background: var(--plane); color: var(--text-primary); line-height:1.55;
+  }
+  a { color: var(--series-1); }
+
+  header.top {
+    position:sticky; top:0; z-index:20;
+    background: var(--surface-1); border-bottom:1px solid var(--border);
+    padding:10px 20px; display:flex; align-items:center; gap:16px; flex-wrap:wrap;
+  }
+  header.top h1 { font-size:15px; margin:0; font-weight:600; white-space:nowrap; }
+  nav.tabs { display:flex; gap:4px; flex-wrap:wrap; margin-left:auto; }
+  nav.tabs a { text-decoration:none; color:var(--text-secondary); font-size:13px; padding:7px 10px; border-radius:6px; }
+  nav.tabs a:hover { background:var(--grid); color:var(--text-primary); }
+  #themeToggle { border:1px solid var(--border); background:var(--surface-1); color:var(--text-primary);
+    border-radius:6px; padding:6px 10px; font-size:12px; cursor:pointer; }
+
+  main { max-width:1080px; margin:0 auto; padding:24px 20px 80px; }
+  section { margin-bottom:40px; scroll-margin-top:60px; }
+  h2 { font-size:20px; margin:0 0 4px; letter-spacing:-0.01em; }
+  h3 { font-size:14px; margin:0 0 10px; font-weight:600; }
+  .sub { color:var(--text-secondary); font-size:13px; margin:0 0 14px; }
+
+  .card { background:var(--surface-1); border:1px solid var(--border); border-radius:10px; padding:16px 18px; margin-bottom:14px; }
+  .card > h3:first-child { margin-top:0; }
+
+  .grid { display:grid; gap:12px; }
+  .g3 { grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); }
+  .g2 { grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); }
+
+  .tile { background:var(--surface-1); border:1px solid var(--border); border-radius:10px; padding:14px 16px; }
+  .tile .k { font-size:11px; text-transform:uppercase; letter-spacing:.06em; color:var(--text-muted); }
+  .tile .v { font-size:26px; font-weight:650; letter-spacing:-0.02em; margin:2px 0 2px; font-variant-numeric:tabular-nums; }
+  .tile .d { font-size:12px; color:var(--text-secondary); }
+
+  table { border-collapse:collapse; width:100%; font-size:13px; }
+  th, td { text-align:left; padding:7px 9px; border-bottom:1px solid var(--grid); vertical-align:top; }
+  th { font-weight:600; color:var(--text-secondary); font-size:12px; white-space:nowrap; }
+  td.num, th.num { text-align:right; font-variant-numeric:tabular-nums; white-space:nowrap; }
+  tbody tr:hover { background:var(--grid); }
+  caption { caption-side:bottom; text-align:left; color:var(--text-muted); font-size:11.5px; padding-top:8px; }
+
+  .note { font-size:12.5px; color:var(--text-secondary); border-left:3px solid var(--baseline); padding:6px 0 6px 12px; margin:10px 0; }
+  .warn { border-left-color: var(--status-warning); }
+  .crit { border-left-color: var(--status-critical); }
+  .note b { color:var(--text-primary); }
+
+  .legend { display:flex; gap:16px; flex-wrap:wrap; font-size:12px; color:var(--text-secondary); margin-bottom:10px; }
+  .legend span.sw { display:inline-block; width:10px; height:10px; border-radius:2px; margin-right:6px; vertical-align:-1px; }
+
+  /* ---- bar chart ---- */
+  .bars { display:flex; flex-direction:column; gap:2px; margin-top:4px; }
+  .barrow { display:grid; grid-template-columns:minmax(120px,150px) 1fr; align-items:center; gap:10px; padding:3px 0; cursor:default; }
+  .barrow .lbl { font-size:12.5px; color:var(--text-secondary); text-align:right; }
+  .barlane { position:relative; height:22px; }
+  .bar { position:absolute; left:0; top:5px; height:12px; border-radius:0 4px 4px 0; }
+  .ci { position:absolute; top:10px; height:2px; background:var(--baseline); }
+  .cicap { position:absolute; top:6px; width:2px; height:10px; background:var(--baseline); }
+  .barval { position:absolute; top:2px; font-size:12px; font-variant-numeric:tabular-nums; color:var(--text-primary); white-space:nowrap; }
+  .axis { position:relative; height:20px; margin-left:160px; border-top:1px solid var(--baseline); margin-top:4px; }
+  .axis span { position:absolute; top:3px; transform:translateX(-50%); font-size:11px; color:var(--text-muted); font-variant-numeric:tabular-nums; }
+
+  /* ---- line chart ---- */
+  .chart-wrap { position:relative; }
+  svg.line { width:100%; height:auto; display:block; overflow:visible; }
+  .tt { position:absolute; pointer-events:none; background:var(--surface-1); border:1px solid var(--border);
+        border-radius:6px; padding:7px 9px; font-size:12px; box-shadow:0 2px 10px rgba(0,0,0,.12);
+        opacity:0; transition:opacity .08s; z-index:10; white-space:nowrap; }
+  .tt b { display:block; margin-bottom:3px; font-size:12px; }
+  .tt .row { display:flex; align-items:center; gap:6px; color:var(--text-secondary); }
+  .tt .row .sw { width:8px; height:8px; border-radius:2px; }
+  .tt .row .vv { color:var(--text-primary); font-variant-numeric:tabular-nums; margin-left:auto; }
+
+  /* ---- heatmap ---- */
+  td.cell { text-align:center; font-variant-numeric:tabular-nums; font-size:12px; border-radius:3px;
+            border:2px solid var(--surface-1); cursor:default; }
+  td.cell.na { color:var(--text-muted); }
+
+  /* ---- timeline ---- */
+  ol.tl { list-style:none; margin:0; padding:0 0 0 22px; border-left:2px solid var(--grid); }
+  ol.tl li { position:relative; padding:0 0 16px 14px; }
+  ol.tl li::before { content:""; position:absolute; left:-21px; top:5px; width:8px; height:8px; border-radius:50%;
+                     background:var(--series-1); box-shadow:0 0 0 2px var(--surface-1); }
+  ol.tl li.alt::before { background:var(--series-2); }
+  ol.tl .yr { font-size:12px; color:var(--text-muted); font-variant-numeric:tabular-nums; }
+  ol.tl .ti { font-size:13.5px; font-weight:600; }
+  ol.tl .de { font-size:12.5px; color:var(--text-secondary); }
+
+  ul.files { list-style:none; margin:0; padding:0; font-size:13px; }
+  ul.files li { padding:6px 0; border-bottom:1px solid var(--grid); display:flex; gap:10px; flex-wrap:wrap; }
+  ul.files code { font-size:12px; color:var(--text-muted); }
+  .tag { font-size:11px; border:1px solid var(--border); border-radius:4px; padding:1px 6px; color:var(--text-secondary); white-space:nowrap; }
+
+  details.tbl { margin-top:10px; }
+  details.tbl summary { font-size:12.5px; color:var(--text-secondary); cursor:pointer; }
+  footer { color:var(--text-muted); font-size:12px; border-top:1px solid var(--border); padding-top:14px; }
+  @media (max-width:620px){ .barrow{grid-template-columns:1fr;} .barrow .lbl{text-align:left;} .axis{margin-left:0;} }
+</style>
+</head>
+<body data-palette="#2a78d6,#eb6834,#1baf7a,#eda100">
+
+<header class="top">
+  <h1>Riociguat (Adempas) — 근거 요약</h1>
+  <nav class="tabs">
+    <a href="#overview">개요</a>
+    <a href="#pivotal">핵심 임상</a>
+    <a href="#longterm">장기 성적</a>
+    <a href="#switch">PDE5i 전환</a>
+    <a href="#safety">안전성</a>
+    <a href="#timeline">타임라인</a>
+    <a href="#docs">원문 문서</a>
+  </nav>
+  <button id="themeToggle" type="button">🌙 다크모드</button>
+</header>
+
+<main>
+
+<!-- ============ 개요 ============ -->
+<section id="overview">
+  <h2>개요</h2>
+  <p class="sub">2026-09-12 <code>raw/papers/riociguat/</code>에 수집된 논문 11편에서 추출. 모든 수치는 해당 원문 추출 문서에 출처가 표시되어 있습니다.</p>
+
+  <div class="grid g3">
+    <div class="tile"><div class="k">수집 문헌</div><div class="v">11</div><div class="d">RCT 3 · 연장연구 3 · 실사용 2 · 메타 1 · 사설 1 · 관찰 1</div></div>
+    <div class="tile"><div class="k">최장 추적</div><div class="v">96<span style="font-size:15px;font-weight:500"> 개월</span></div><div class="d">단일기관 관찰연구 (중앙값), 재시행 우심도관 포함</div></div>
+    <div class="tile"><div class="k">허가 적응증</div><div class="v">2</div><div class="d">PAH + 수술불가/잔존 CTEPH — 양쪽 모두 허가된 유일한 약물</div></div>
+  </div>
+
+  <div class="card" style="margin-top:14px;">
+    <h3>작용기전 — 왜 PDE5 억제제와 다른가</h3>
+    <p style="font-size:13.5px;margin:0 0 8px;">가용성 구아닐산 고리화효소(sGC)는 <b>환원형(Fe²⁺)</b>일 때 NO와 결합해 GTP를 cGMP로 전환한다. cGMP는 혈관확장·항혈전·항염증·항증식 작용을 한다.</p>
+    <table>
+      <thead><tr><th>계열</th><th>기전</th><th>NO 의존성</th><th>임상적 함의</th></tr></thead>
+      <tbody>
+        <tr><td>PDE5 억제제<br><span style="color:var(--text-secondary);font-size:12px">실데나필·타다라필</span></td><td>cGMP 분해 차단</td><td><b>의존</b> — 내인성 NO가 있어야 작동</td><td>PAH 진행에 따라 NO 생체이용률이 감소하면 효과가 약해짐</td></tr>
+        <tr><td><b>sGC 자극제</b><br><span style="color:var(--text-secondary);font-size:12px">리오시구앗</span></td><td>sGC를 NO와 무관하게 직접 자극 + NO 감수성 증가 (이중 기전)</td><td><b>비의존</b> — 단, sGC가 환원형이어야 함</td><td>PDE5i 반응이 불충분한 환자에서 대안이 될 수 있는 근거</td></tr>
+        <tr><td>sGC 활성화제<br><span style="color:var(--text-secondary);font-size:12px">시나시구앗</span></td><td>산화형/heme 결손 sGC도 활성화</td><td>비의존</td><td>자극제 대비 우월성은 미입증</td></tr>
+      </tbody>
+      <caption>출처: NEJM 2013 사설 (Archer), PATENT-1, REPLACE 도입부</caption>
+    </table>
+    <div class="note crit"><b>병용금기.</b> 리오시구앗과 PDE5 억제제의 병용은 금기다 (동일 경로·저혈압 위험). CAPTURE 실사용 연구에서 12일간 중복 투여된 1명이 있었고, EXPERT 레지스트리 326명 중 병용 사례는 0건이었다.</div>
+  </div>
+</section>
+
+<!-- ============ 핵심 임상 ============ -->
+<section id="pivotal">
+  <h2>핵심 임상시험</h2>
+  <p class="sub">1차 평가변수 기준. PATENT-1과 CHEST-1은 동일한 통계 계획으로 설계되어 2013년 NEJM 같은 호에 함께 게재되었다.</p>
+
+  <div class="card">
+    <h3>6분 보행거리(6MWD) 치료효과 — 대조군 보정 평균차 (95% CI)</h3>
+    <div class="legend">
+      <span><span class="sw" style="background:var(--series-1)"></span>위약 대조</span>
+      <span><span class="sw" style="background:var(--series-2)"></span>활성 대조 (PDE5i 유지)</span>
+      <span style="color:var(--text-muted)">가로선 = 95% 신뢰구간</span>
+    </div>
+    <div class="bars" id="barChart"></div>
+    <div class="axis" id="barAxis"></div>
+    <p style="font-size:12px;color:var(--text-muted);margin:10px 0 0;">PHIRST 연구가 제시한 6MWD 최소 임상적 유의차(MCID) = 33 m. PATENT-1의 36 m는 이 기준을 "간신히 넘긴" 수준이라는 것이 당시 사설의 지적이었다.</p>
+    <details class="tbl"><summary>표로 보기</summary>
+      <table>
+        <thead><tr><th>연구</th><th>대조군</th><th class="num">Δ6MWD</th><th class="num">95% CI</th><th class="num">p</th></tr></thead>
+        <tbody id="barTable"></tbody>
+      </table>
+    </details>
+  </div>
+
+  <div class="card">
+    <h3>3개 핵심 RCT 요약</h3>
+    <table>
+      <thead><tr><th>연구 (연도)</th><th>대상</th><th class="num">N</th><th class="num">기간</th><th>1차 평가변수 결과</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><b>PATENT-1</b> (2013)<br><span style="font-size:12px;color:var(--text-secondary)">NEJM 369:330</span></td>
+          <td>증상 있는 PAH — 치료 미경험 50% / ERA·비정맥 프로스타노이드 병용 50%. <b>PDE5i 사용자는 제외</b></td>
+          <td class="num">443</td><td class="num">12주</td>
+          <td>Δ6MWD <b>+36 m</b> (20–52), p&lt;0.001 · PVR −226 · NT-proBNP −432 · WHO FC p=0.003 · 임상악화 p=0.005</td>
+        </tr>
+        <tr>
+          <td><b>CHEST-1</b> (2013)<br><span style="font-size:12px;color:var(--text-secondary)">NEJM 369:319</span></td>
+          <td>수술불가 CTEPH 72% / PEA 후 잔존·재발 PH 28%</td>
+          <td class="num">261</td><td class="num">16주</td>
+          <td>Δ6MWD <b>+46 m</b> (25–67), p&lt;0.001 · PVR −246 · NT-proBNP −444 · WHO FC p=0.003 · <span style="color:var(--text-secondary)">임상악화 p=0.17 (유의하지 않음)</span></td>
+        </tr>
+        <tr>
+          <td><b>REPLACE</b> (2021)<br><span style="font-size:12px;color:var(--text-secondary)">Lancet Respir Med 9:573</span></td>
+          <td>PDE5i(±ERA) 복용 중 <b>중등도 위험</b> PAH (WHO FC 3, 6MWD 165–440 m)</td>
+          <td class="num">226</td><td class="num">24주</td>
+          <td>복합 임상개선 <b>41% vs 20%</b> · OR 2.78 (1.53–5.06), p=0.0007 · 임상악화 1% vs 9%</td>
+        </tr>
+      </tbody>
+      <caption>PATENT-1/CHEST-1은 동일한 계층적 2차 평가변수 순서(PVR → NT-proBNP → WHO FC → 임상악화 → Borg → EQ-5D → LPH)를 사용했다.</caption>
+    </table>
+    <div class="note warn"><b>주의해서 읽을 지점.</b> CHEST-1의 임상악화는 유의하지 않았고(p=0.17, 계층검정이 여기서 중단됨), REPLACE의 6MWD·NT-proBNP 개별 2차 평가변수도 유의성에 도달하지 못했다(p=0.054, p=0.11). 양쪽 모두 "1차 평가변수 양성 + 일부 2차 음성" 구조다.</div>
+  </div>
+</section>
+
+<!-- ============ 장기 성적 ============ -->
+<section id="longterm">
+  <h2>장기 성적</h2>
+  <p class="sub">연장연구는 모두 개방표지·비대조이며, 생존자만 분석에 남는 구조적 낙관 편향이 있다.</p>
+
+  <div class="card">
+    <h3>생존율 — 코호트별 Kaplan-Meier 추정치</h3>
+    <div class="legend" id="lineLegend"></div>
+    <div class="chart-wrap">
+      <svg class="line" id="survChart" viewBox="0 0 760 320" role="img" aria-label="코호트별 생존율 추이"></svg>
+      <div class="tt" id="survTip"></div>
+    </div>
+    <p style="font-size:12px;color:var(--text-muted);margin:10px 0 0;">코호트마다 질환 구성·중증도·시대가 달라 <b>서로 직접 비교할 수 없다</b>. EXPERT는 실사용 레지스트리, ERJ 2021은 단일기관 소규모(n=37) 코호트다.</p>
+    <details class="tbl"><summary>표로 보기</summary>
+      <table>
+        <thead><tr><th>코호트</th><th class="num">N</th><th class="num">1년</th><th class="num">2년</th><th class="num">3년</th><th class="num">5년</th><th class="num">6–8년</th></tr></thead>
+        <tbody>
+          <tr><td>CHEST-2 (CTEPH)</td><td class="num">237</td><td class="num">97%</td><td class="num">93%</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>
+          <tr><td>2상 LTE (PAH+CTEPH)</td><td class="num">68</td><td class="num">97%<span style="color:var(--text-muted)">*</span></td><td class="num">—</td><td class="num">91%</td><td class="num">—</td><td class="num">81% (6년)</td></tr>
+          <tr><td>EXPERT (PAH, 실사용)</td><td class="num">326</td><td class="num">94.2%</td><td class="num">82.2%</td><td class="num">71.0%</td><td class="num">—</td><td class="num">—</td></tr>
+          <tr><td>ERJ 2021 (단일기관)</td><td class="num">37</td><td class="num">97%</td><td class="num">—</td><td class="num">86%</td><td class="num">72%</td><td class="num">61% (8년)</td></tr>
+        </tbody>
+        <caption>* 2상 LTE의 첫 지점은 9개월이다. PATENT-2는 1년 생존율 97%만 보고했고 곡선이 없어 그래프에서 제외했다.</caption>
+      </table>
+    </details>
+  </div>
+
+  <div class="grid g2">
+    <div class="card">
+      <h3>운동능력은 유지되는가</h3>
+      <table>
+        <thead><tr><th>연구</th><th class="num">시점</th><th class="num">Δ6MWD</th></tr></thead>
+        <tbody>
+          <tr><td>PATENT-2</td><td class="num">1년</td><td class="num">+51 ± 74 m</td></tr>
+          <tr><td>CHEST-2</td><td class="num">1년 / 2년</td><td class="num">+52 / +50 m</td></tr>
+          <tr><td>2상 LTE</td><td class="num">4년</td><td class="num">+69 ± 105 m</td></tr>
+          <tr><td>ERJ 2021</td><td class="num">8년</td><td class="num">+43 ± 60 m</td></tr>
+        </tbody>
+        <caption>모두 "해당 시점에 약을 유지 중인 환자"의 관찰값이며 결측 보정이 없다.</caption>
+      </table>
+      <div class="note"><b>PATENT-2의 핵심.</b> 위약군에서 넘어온 환자들도 전환 후 유사한 개선을 보였다(1년 +46 m) — 즉 12주 시점의 격차는 "따라잡을 수 있는" 격차였다.</div>
+    </div>
+
+    <div class="card">
+      <h3>혈역학은 8년 뒤 어떻게 되는가 <span class="tag">ERJ 2021 · n=37</span></h3>
+      <table>
+        <thead><tr><th>지표</th><th class="num">기저</th><th class="num">최종</th><th class="num">p</th></tr></thead>
+        <tbody>
+          <tr><td>PVR (dyn·s·cm⁻⁵)</td><td class="num">1232</td><td class="num"><b>835</b></td><td class="num">&lt;0.001</td></tr>
+          <tr><td>심장지수 (L/min/m²)</td><td class="num">1.7</td><td class="num"><b>2.4</b></td><td class="num">&lt;0.001</td></tr>
+          <tr><td>평균 폐동맥압 (mmHg)</td><td class="num">50.2</td><td class="num">51.3</td><td class="num">0.677</td></tr>
+          <tr><td>주폐동맥 직경 (mm)</td><td class="num">30.4</td><td class="num">37.2</td><td class="num">0.013</td></tr>
+        </tbody>
+      </table>
+      <div class="note warn"><b>저항은 좋아지는데 압력은 그대로.</b> 지속적으로 높은 폐동맥압이 주폐동맥 확장과 우심 확대로 이어졌다. RV/LV 비는 개선됐지만(1.6→1.2) 저자들은 이것이 <b>RV가 작아져서가 아니라 LV가 정상화되어서</b>라고 명시했다. 최종 시점 TAPSE 16.6 mm, FAC 29.7%로 우심 기능부전 소견이 남아 있었다.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 전환 ============ -->
+<section id="switch">
+  <h2>PDE5 억제제 → 리오시구앗 전환</h2>
+  <p class="sub">PATENT-1이 PDE5i 사용자를 제외했기 때문에 생긴 공백을, 이후 10년간 채워온 문헌군이다.</p>
+
+  <div class="grid g3">
+    <div class="tile"><div class="k">REPLACE — 1차 평가변수</div><div class="v">41% <span style="font-size:14px;font-weight:500;color:var(--text-secondary)">vs 20%</span></div><div class="d">OR 2.78 (1.53–5.06), p=0.0007 · 활성 대조 PAH 치료제 간 <b>유일한</b> 직접 비교 RCT</div></div>
+    <div class="tile"><div class="k">REPLACE — 임상악화</div><div class="v">1% <span style="font-size:14px;font-weight:500;color:var(--text-secondary)">vs 9%</span></div><div class="d">OR 0.10 (0.01–0.73) · 사망 0건 vs 4건 (전부 PDE5i군)</div></div>
+    <div class="tile"><div class="k">메타분석 — 혈역학</div><div class="v">−130 <span style="font-size:14px;font-weight:500;color:var(--text-secondary)">dyn·s·cm⁻⁵</span></div><div class="d">PVR (−187 ~ −73), I²=0% · 심장지수 +0.36, mPAP −3.53</div></div>
+  </div>
+
+  <div class="card" style="margin-top:14px;">
+    <h3>전환 실무 — CAPTURE 실사용 데이터 (n=125)</h3>
+    <div class="grid g2">
+      <div>
+        <table>
+          <thead><tr><th>항목</th><th>실제 관행</th></tr></thead>
+          <tbody>
+            <tr><td>전환 사유</td><td><b>효과 부족 84%</b> · 환자 요청 6% · 내약성 4%</td></tr>
+            <tr><td>실데나필 휴약기</td><td>중앙값 <b>0일</b> (허가사항 24시간과 일치)</td></tr>
+            <tr><td>타다라필 휴약기</td><td>중앙값 <b>2일</b> (허가사항 48시간보다 보수적)</td></tr>
+            <tr><td>시작 용량</td><td>3.0 mg/일 65% (권장) · 1.5 mg/일 16% · 7.5 mg/일 13%</td></tr>
+            <tr><td>목표 용량 도달</td><td>8주 내 7.5 mg/일 <b>77%</b> — PATENT-1(75%)·CHEST-1(77%)과 동일 수준</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <table>
+          <thead><tr><th>용량 적정기 안전성 (8주)</th><th class="num">n (%)</th></tr></thead>
+          <tbody>
+            <tr><td>이상반응</td><td class="num">51 (41%)</td></tr>
+            <tr><td>약물 관련 이상반응</td><td class="num">32 (26%)</td></tr>
+            <tr><td>중대 이상반응</td><td class="num">6 (5%)</td></tr>
+            <tr><td>감량 또는 중단 필요</td><td class="num">11 (9%)</td></tr>
+            <tr><td>투약 중단</td><td class="num">1 (1%)</td></tr>
+          </tbody>
+          <caption>휴약기 중 이상반응은 2명(2%)에 불과했다. 모든 용량 증량 단계에서 평균 수축기혈압은 100 mmHg 이상으로 유지되었다.</caption>
+        </table>
+      </div>
+    </div>
+    <div class="note"><b>가이드라인 위치.</b> 2022 ESC/ERS 지침은 ERA+PDE5i 투여 중 중등도-저위험인 IPAH/HPAH/DPAH 환자에서 PDE5i를 리오시구앗으로 전환하는 것을 <b>class IIb</b>("고려할 수 있다")로 기술한다.</div>
+  </div>
+</section>
+
+<!-- ============ 안전성 ============ -->
+<section id="safety">
+  <h2>안전성</h2>
+
+  <div class="card">
+    <h3>주요 이상반응 발생률 (%) — 리오시구앗 투여군</h3>
+    <div class="legend">
+      <span style="color:var(--text-muted)">색이 진할수록 발생률 높음 · 셀에 마우스를 올리면 상세 표시</span>
+    </div>
+    <table id="heatTable">
+      <thead>
+        <tr><th>이상반응</th>
+          <th class="num">PATENT-1<br><span style="font-weight:400;color:var(--text-muted)">12주</span></th>
+          <th class="num">CHEST-1<br><span style="font-weight:400;color:var(--text-muted)">16주</span></th>
+          <th class="num">PATENT-2<br><span style="font-weight:400;color:var(--text-muted)">95주</span></th>
+          <th class="num">CHEST-2<br><span style="font-weight:400;color:var(--text-muted)">116주</span></th>
+          <th class="num">2상 LTE<br><span style="font-weight:400;color:var(--text-muted)">77개월</span></th>
+          <th class="num">EXPERT<br><span style="font-weight:400;color:var(--text-muted)">67주</span></th></tr>
+      </thead>
+      <tbody></tbody>
+      <caption><b>행 방향(연구 간) 비교는 하지 말 것</b> — 노출기간이 12주에서 77개월까지 6배 이상 차이 나므로 조발생률이 그대로 커진다. 빈 칸은 해당 문헌에서 보고되지 않았거나, PDF 표 추출이 신뢰할 수 없어 원문 확인이 필요한 항목이다.</caption>
+    </table>
+  </div>
+
+  <div class="grid g2">
+    <div class="card">
+      <h3>객혈 / 폐출혈 — 노출보정 발생률</h3>
+      <table>
+        <thead><tr><th>연구</th><th class="num">이상반응</th><th class="num">중대 이상반응</th></tr></thead>
+        <tbody>
+          <tr><td>PATENT-1 (리오시구앗군)</td><td class="num">9.9</td><td class="num">4.3</td></tr>
+          <tr><td>PATENT-1 (위약군)</td><td class="num">11.1</td><td class="num">0</td></tr>
+          <tr><td>PATENT-2</td><td class="num">6.3</td><td class="num">1.8</td></tr>
+          <tr><td>CHEST-2</td><td class="num">—</td><td class="num">0.7</td></tr>
+          <tr><td>2상 LTE</td><td class="num">—</td><td class="num">1.0</td></tr>
+          <tr><td><b>EXPERT (실사용)</b></td><td class="num"><b>2.5</b></td><td class="num"><b>1.7</b></td></tr>
+        </tbody>
+        <caption>단위: 100 환자-년당 건수.</caption>
+      </table>
+      <div class="note warn"><b>데이터 불일치 (lint 대상).</b> EXPERT 논문은 PATENT-2의 객혈 발생률을 <b>5.5/100 환자-년</b>으로 인용하지만, PATENT-2 원문은 이상반응 6.3 / 중대 이상반응 1.8로 보고한다. 어느 쪽 정의를 쓴 것인지 원문 확인이 필요하다.</div>
+      <p style="font-size:12.5px;color:var(--text-secondary);margin:10px 0 0;">기전 가설: PH에서 비대·신생혈관화된 <b>기관지동맥 순환</b>을 리오시구앗이 확장시켜 혈류가 늘고 객혈이 조장된다는 설명이다(미검증). PATENT-2에서 항응고제 사용·INR 범위·용량·투여기간과 출혈 사이에 연관성은 확인되지 않았다.</p>
+    </div>
+
+    <div class="card">
+      <h3>맥락에 넣어 읽어야 할 수치</h3>
+      <table>
+        <thead><tr><th>관찰</th><th>해석</th></tr></thead>
+        <tbody>
+          <tr><td>PATENT-1 실신: 리오시구앗 1% vs <b>위약 4%</b></td><td>실신은 PAH 자체의 증상이다. 위약군에서 더 흔했다.</td></tr>
+          <tr><td>CHEST-2 중대 이상반응 54%, 2상 LTE 76%</td><td>대부분 우심부전·실신·PH 악화 — 기저질환 진행을 반영한다.</td></tr>
+          <tr><td>EXPERT 신규 투여군 vs 기존 투여군: 약물 관련 이상반응 25.0% vs 7.1%, 이상반응에 의한 중단 13.9% vs 2.2%</td><td>안전성 사건은 <b>투여 초기</b>에 몰린다. 단, 신규군이 더 중증이었다(FC III/IV 65% vs 49%).</td></tr>
+          <tr><td>EXPERT에서 리오시구앗 관련 사망 1건</td><td>유전성 출혈성 모세혈관확장증과 비정형 폐렴이 동반된 객혈 사례.</td></tr>
+          <tr><td>2상 LTE 임상악화 63%</td><td>대부분 "신규 PH 약제 시작"이며, 100 환자-년당 비율(11.3)은 PATENT-2(11.1)와 사실상 동일하다 — 추적기간 차이의 산물.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 타임라인 ============ -->
+<section id="timeline">
+  <h2>타임라인</h2>
+  <p class="sub">이 볼트에 수집된 문헌의 게재 시점 기준.</p>
+  <div class="card">
+    <ol class="tl">
+      <li><div class="yr">2013년 7월</div><div class="ti">PATENT-1 · CHEST-1 동시 게재 (NEJM)</div><div class="de">PAH와 CTEPH 양쪽에서 3상 성공. 같은 호의 사설은 "반쯤 찬 잔"이라 평하며 <b>우심실 평가 부재</b>와 <b>수술 가능 CTEPH는 PEA가 우선</b>임을 지적했다.</div></li>
+      <li class="alt"><div class="yr">2015년 1월</div><div class="ti">PATENT-2 — PAH 1년 연장</div><div class="de">개선 유지 확인. 동시에 <b>객혈/폐출혈</b>이 허가사항 경고로 반영되는 근거가 되었다.</div></li>
+      <li class="alt"><div class="yr">2016년 4월</div><div class="ti">CHEST-2 — CTEPH 2년 연장 + 예후인자</div><div class="de">12–16주 시점의 <b>6MWD 변화가 장기 생존을 예측</b>(p=0.0047). PAH 연구들과 반대되는 결과로, 저자들은 PAH와 CTEPH를 서로 다른 질환으로 봐야 한다고 주장했다.</div></li>
+      <li class="alt"><div class="yr">2017년 5월</div><div class="ti">2상 장기연장 — 중앙값 77개월</div><div class="de">6년 이상 투여 경험. 새로운 안전성 신호 없음.</div></li>
+      <li class="alt"><div class="yr">2018년 2월</div><div class="ti">CAPTURE — 전환 실무 (n=125)</div><div class="de">전환의 84%가 "효과 부족" 때문. 휴약기·용량 적정이 허가사항과 대체로 일치함을 확인.</div></li>
+      <li><div class="yr">2021년 3월</div><div class="ti">REPLACE — PDE5i 대비 직접 비교 RCT</div><div class="de">PAH 치료제 간 유일한 직접 비교. 중등도 위험 환자에서 전환이 유지보다 우월.</div></li>
+      <li class="alt"><div class="yr">2021년</div><div class="ti">EXPERT 레지스트리 (PAH 326명) · ERJ 10년 관찰 (37명)</div><div class="de">실사용 안전성은 임상시험과 일치, 객혈률은 오히려 낮았다. 10년 관찰은 <b>PVR 개선 / mPAP 불변</b>의 해리를 보여주었다.</div></li>
+      <li><div class="yr">2022년</div><div class="ti">ESC/ERS 지침 — 전환 class IIb</div><div class="de">ERA+PDE5i 중등도-저위험 환자에서 PDE5i→리오시구앗 전환을 "고려할 수 있다".</div></li>
+      <li class="alt"><div class="yr">2023년 1월</div><div class="ti">전환 체계적 문헌고찰·메타분석 (10편, 376명)</div><div class="de">6MWD +26.45 m, PVR −130, 심장지수 +0.36. 단, 포함된 RCT는 REPLACE 1편뿐.</div></li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============ 문서 ============ -->
+<section id="docs">
+  <h2>원문 추출 문서</h2>
+  <p class="sub">이 페이지의 모든 수치는 아래 11편에서 추출했습니다. 제목을 누르면 DOI 원문으로 이동합니다.</p>
+  <div class="card">
+    <ul class="files" id="fileList"></ul>
+  </div>
+  <div class="note warn"><b>추출 시 남긴 표시.</b> PDF 다단 표가 어긋나게 읽히는 구간이 있어, 본문 서술로 교차검증되지 않은 수치는 이 페이지에서 공란(—) 처리했습니다. Frontiers 2023 메타분석은 REPLACE의 <b>환자 수를 퍼센트로 오독</b>한 문장과 결론이 뒤집힌 문장이 있어 해당 문서에 caveat 블록을 두었습니다.</div>
+
+  <footer>
+    <p style="margin:0 0 8px"><b>면책</b> — 이 페이지는 공개된 논문 11편의 내용을 요약·정리한 학습용 자료이며, 진료 지침이나 의학적 조언이 아닙니다. 임상 판단은 원문과 최신 진료지침을 직접 확인하십시오. 수치 인용 시 DOI 원문 대조를 권합니다.</p>
+    <p style="margin:0">작성 2026-09-12 · 출처 논문 11편(위 목록) · 본문 수치는 각 원문에서 추출했으며, 원문 간 불일치는 페이지 내에 표시했습니다.</p>
+  </footer>
+</section>
+
+</main>
+
+<script>
+(function () {
+  "use strict";
+
+  /* ---------------- theme ---------------- */
+  var btn = document.getElementById('themeToggle');
+  var stored = null;
+  try { stored = localStorage.getItem('rio-theme'); } catch (e) {}
+  if (stored) document.documentElement.setAttribute('data-theme', stored);
+  function isDark() {
+    var t = document.documentElement.getAttribute('data-theme');
+    if (t) return t === 'dark';
+    return window.matchMedia('(prefers-color-scheme: dark)').matches;
+  }
+  function paint() { btn.textContent = isDark() ? '☀️ 라이트모드' : '🌙 다크모드'; }
+  btn.addEventListener('click', function () {
+    var next = isDark() ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    try { localStorage.setItem('rio-theme', next); } catch (e) {}
+    paint(); drawSurv();
+  });
+  paint();
+
+  function cssv(n) { return getComputedStyle(document.documentElement).getPropertyValue(n).trim(); }
+
+  /* ---------------- bar chart: Δ6MWD ---------------- */
+  var barData = [
+    { name:'CHEST-1',     sub:'CTEPH, 16주',        v:46,    lo:25,   hi:67,   p:'<0.001', kind:'placebo' },
+    { name:'PATENT-1',    sub:'PAH, 12주',          v:36,    lo:20,   hi:52,   p:'<0.001', kind:'placebo' },
+    { name:'메타분석 2023', sub:'PDE5i 전환, 7편 통합', v:26.45, lo:9.7,  hi:43.2, p:'0.002',  kind:'active' },
+    { name:'REPLACE',     sub:'vs PDE5i 유지, 24주',  v:23,    lo:5,    hi:40,   p:'0.054',  kind:'active' }
+  ];
+  var BMAX = 70;
+  var barWrap = document.getElementById('barChart');
+  var barTable = document.getElementById('barTable');
+
+  barData.forEach(function (d) {
+    var row = document.createElement('div');
+    row.className = 'barrow';
+
+    var lbl = document.createElement('div');
+    lbl.className = 'lbl';
+    lbl.innerHTML = '<b style="color:var(--text-primary)">' + d.name + '</b><br><span style="font-size:11.5px">' + d.sub + '</span>';
+
+    var lane = document.createElement('div');
+    lane.className = 'barlane';
+
+    var bar = document.createElement('div');
+    bar.className = 'bar';
+    bar.style.width = (d.v / BMAX * 100) + '%';
+    bar.style.background = d.kind === 'placebo' ? 'var(--series-1)' : 'var(--series-2)';
+
+    var ci = document.createElement('div');
+    ci.className = 'ci';
+    ci.style.left = (d.lo / BMAX * 100) + '%';
+    ci.style.width = ((d.hi - d.lo) / BMAX * 100) + '%';
+    var capL = document.createElement('div'); capL.className = 'cicap'; capL.style.left = (d.lo / BMAX * 100) + '%';
+    var capR = document.createElement('div'); capR.className = 'cicap'; capR.style.left = 'calc(' + (d.hi / BMAX * 100) + '% - 2px)';
+
+    var val = document.createElement('div');
+    val.className = 'barval';
+    val.style.left = 'calc(' + (d.hi / BMAX * 100) + '% + 8px)';
+    val.textContent = '+' + d.v + ' m' + (d.p === '0.054' ? '  (p=0.054)' : '');
+    if (d.p === '0.054') val.style.color = 'var(--text-secondary)';
+
+    lane.appendChild(ci); lane.appendChild(capL); lane.appendChild(capR);
+    lane.appendChild(bar); lane.appendChild(val);
+    row.appendChild(lbl); row.appendChild(lane);
+    row.title = d.name + ' — ' + d.v + ' m (95% CI ' + d.lo + '–' + d.hi + '), p=' + d.p;
+    barWrap.appendChild(row);
+
+    var tr = document.createElement('tr');
+    tr.innerHTML = '<td><b>' + d.name + '</b> <span style="color:var(--text-secondary)">' + d.sub + '</span></td>' +
+      '<td>' + (d.kind === 'placebo' ? '위약' : 'PDE5i 유지/전환 전') + '</td>' +
+      '<td class="num">+' + d.v + ' m</td>' +
+      '<td class="num">' + d.lo + ' – ' + d.hi + '</td>' +
+      '<td class="num">' + d.p + '</td>';
+    barTable.appendChild(tr);
+  });
+
+  var ax = document.getElementById('barAxis');
+  [0, 10, 20, 30, 40, 50, 60, 70].forEach(function (t) {
+    var s = document.createElement('span');
+    s.style.left = (t / BMAX * 100) + '%';
+    s.textContent = t === 70 ? '70 m' : t;
+    ax.appendChild(s);
+  });
+
+  /* ---------------- line chart: survival ---------------- */
+  var surv = [
+    { name:'CHEST-2 (CTEPH, n=237)',    slot:1, pts:[[0,100],[12,97],[24,93]] },
+    { name:'2상 LTE (n=68)',            slot:2, pts:[[0,100],[9,97],[36,91],[72,81]] },
+    { name:'EXPERT (PAH 실사용, n=326)', slot:3, pts:[[0,100],[12,94.2],[24,82.2],[36,71.0]] },
+    { name:'ERJ 2021 (단일기관, n=37)',  slot:4, pts:[[0,100],[12,97],[36,86],[60,72],[96,61]] }
+  ];
+  var lg = document.getElementById('lineLegend');
+  surv.forEach(function (s) {
+    var e = document.createElement('span');
+    e.innerHTML = '<span class="sw" style="background:var(--series-' + s.slot + ')"></span>' + s.name;
+    lg.appendChild(e);
+  });
+
+  var svg = document.getElementById('survChart');
+  var tip = document.getElementById('survTip');
+  var W = 760, H = 320, ML = 44, MR = 150, MT = 14, MB = 40;
+  var XMAX = 96, YMIN = 55, YMAX = 100;
+  function sx(m) { return ML + (m / XMAX) * (W - ML - MR); }
+  function sy(v) { return MT + (YMAX - v) / (YMAX - YMIN) * (H - MT - MB); }
+  function el(n, a) { var x = document.createElementNS('http://www.w3.org/2000/svg', n); for (var k in a) x.setAttribute(k, a[k]); return x; }
+
+  function drawSurv() {
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+    var grid = cssv('--grid'), base = cssv('--baseline'), muted = cssv('--text-muted'),
+        sec = cssv('--text-secondary'), surf = cssv('--surface-1');
+
+    [60, 70, 80, 90, 100].forEach(function (v) {
+      svg.appendChild(el('line', { x1: ML, x2: W - MR, y1: sy(v), y2: sy(v), stroke: grid, 'stroke-width': 1 }));
+      var t = el('text', { x: ML - 8, y: sy(v) + 4, 'text-anchor': 'end', fill: muted, 'font-size': 11 });
+      t.textContent = v + '%'; svg.appendChild(t);
+    });
+    svg.appendChild(el('line', { x1: ML, x2: W - MR, y1: sy(YMIN), y2: sy(YMIN), stroke: base, 'stroke-width': 1 }));
+    [0, 12, 24, 36, 48, 60, 72, 84, 96].forEach(function (m) {
+      var t = el('text', { x: sx(m), y: H - MB + 18, 'text-anchor': 'middle', fill: muted, 'font-size': 11 });
+      t.textContent = m; svg.appendChild(t);
+    });
+    var xl = el('text', { x: (ML + W - MR) / 2, y: H - 6, 'text-anchor': 'middle', fill: sec, 'font-size': 11.5 });
+    xl.textContent = '추적 기간 (개월)'; svg.appendChild(xl);
+
+    var crossX = el('line', { x1: 0, x2: 0, y1: MT, y2: sy(YMIN), stroke: base, 'stroke-width': 1, opacity: 0 });
+    svg.appendChild(crossX);
+
+    surv.forEach(function (s) {
+      var col = cssv('--series-' + s.slot);
+      var d = s.pts.map(function (p, i) { return (i ? 'L' : 'M') + sx(p[0]) + ' ' + sy(p[1]); }).join(' ');
+      svg.appendChild(el('path', { d: d, fill: 'none', stroke: col, 'stroke-width': 2, 'stroke-linejoin': 'round', 'stroke-linecap': 'round' }));
+      s.pts.forEach(function (p) {
+        svg.appendChild(el('circle', { cx: sx(p[0]), cy: sy(p[1]), r: 4.5, fill: col, stroke: surf, 'stroke-width': 2 }));
+      });
+      var last = s.pts[s.pts.length - 1];
+      var lab = el('text', { x: sx(last[0]) + 10, y: sy(last[1]) + 4, fill: sec, 'font-size': 11.5 });
+      lab.textContent = s.name.split(' (')[0] + '  ' + last[1] + '%';
+      svg.appendChild(lab);
+    });
+
+    var hit = el('rect', { x: ML, y: MT, width: W - ML - MR, height: sy(YMIN) - MT, fill: 'transparent' });
+    svg.appendChild(hit);
+
+    function interp(pts, m) {
+      if (m < pts[0][0] || m > pts[pts.length - 1][0]) return null;
+      for (var i = 1; i < pts.length; i++) {
+        if (m <= pts[i][0]) {
+          var a = pts[i - 1], b = pts[i];
+          var f = (m - a[0]) / (b[0] - a[0] || 1);
+          return a[1] + f * (b[1] - a[1]);
+        }
+      }
+      return null;
+    }
+    hit.addEventListener('mousemove', function (ev) {
+      var r = svg.getBoundingClientRect();
+      var px = (ev.clientX - r.left) / r.width * W;
+      var m = Math.max(0, Math.min(XMAX, (px - ML) / (W - ML - MR) * XMAX));
+      var snap = [0, 9, 12, 24, 36, 48, 60, 72, 96].reduce(function (p, c) { return Math.abs(c - m) < Math.abs(p - m) ? c : p; });
+      crossX.setAttribute('x1', sx(snap)); crossX.setAttribute('x2', sx(snap)); crossX.setAttribute('opacity', 1);
+      var html = '<b>' + snap + '개월</b>';
+      var any = false;
+      surv.forEach(function (s) {
+        var v = interp(s.pts, snap);
+        if (v === null) return;
+        any = true;
+        html += '<div class="row"><span class="sw" style="background:var(--series-' + s.slot + ')"></span>' +
+                s.name.split(' (')[0] + '<span class="vv">' + v.toFixed(1) + '%</span></div>';
+      });
+      if (!any) { tip.style.opacity = 0; return; }
+      tip.innerHTML = html;
+      tip.style.opacity = 1;
+      var wrapRect = svg.parentNode.getBoundingClientRect();
+      tip.style.left = Math.min(ev.clientX - wrapRect.left + 14, wrapRect.width - tip.offsetWidth - 6) + 'px';
+      tip.style.top = (ev.clientY - wrapRect.top - 10) + 'px';
+    });
+    hit.addEventListener('mouseleave', function () { tip.style.opacity = 0; crossX.setAttribute('opacity', 0); });
+  }
+  drawSurv();
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function () { paint(); drawSurv(); });
+
+  /* ---------------- heatmap ---------------- */
+  var studies = ['PATENT-1', 'CHEST-1', 'PATENT-2', 'CHEST-2', '2상 LTE', 'EXPERT'];
+  var exposure = ['12주 · n=254', '16주 · n=173', '중앙값 95주 · n=396', '중앙값 116주 · n=237', '중앙값 77개월 · n=68', '중앙값 67주 · n=326'];
+  var heat = [
+    ['두통',            27,   25,   17,   null, null, null],
+    ['어지러움',        16,   23,   23,   22,   null, 11.7],
+    ['소화불량',        19,   18,   12,   null, null, null],
+    ['말초부종',        17,   16,   22,   23,   37,   10.7],
+    ['비인두염',        10,   15,   24,   28,   57,   5.8 ],
+    ['저혈압',          10,   9,    9,    8,    null, 4.0 ],
+    ['실신',            1,    2,    7,    10,   null, null],
+    ['객혈/폐출혈',     null, null, 6,    5,    null, 2.5 ]
+  ];
+  var SEQ = ['--seq-100', '--seq-150', '--seq-200', '--seq-300', '--seq-400', '--seq-500', '--seq-600'];
+  function seqFor(v) {
+    var idx = Math.min(SEQ.length - 1, Math.floor(v / 60 * SEQ.length));
+    return 'var(' + SEQ[idx] + ')';
+  }
+  var tb = document.querySelector('#heatTable tbody');
+  heat.forEach(function (r) {
+    var tr = document.createElement('tr');
+    var th = document.createElement('td');
+    th.innerHTML = '<b>' + r[0] + '</b>';
+    tr.appendChild(th);
+    for (var i = 1; i <= 6; i++) {
+      var td = document.createElement('td');
+      td.className = 'cell';
+      if (r[i] === null) { td.textContent = '—'; td.classList.add('na'); td.title = studies[i - 1] + ' — 미보고 또는 추출 불가'; }
+      else {
+        td.textContent = r[i] + '%';
+        td.style.background = seqFor(r[i]);
+        td.style.color = r[i] >= 26 ? '#ffffff' : 'var(--text-primary)';
+        td.title = studies[i - 1] + ' (' + exposure[i - 1] + ') — ' + r[0] + ' ' + r[i] + '%';
+      }
+      tr.appendChild(td);
+    }
+    tb.appendChild(tr);
+  });
+
+  /* ---------------- file list ---------------- */
+  var files = [
+    ['NEJM 2013_PATENT-1_riociguat', 'RCT', 'PAH 3상 · 443명 · 6MWD +36 m', 'Ghofrani et al. N Engl J Med 2013;369:330-40', '10.1056/NEJMoa1209655'],
+    ['NEJM 2013_CHEST-1_riociguat CTEPH', 'RCT', 'CTEPH 3상 · 261명 · 6MWD +46 m', 'Ghofrani et al. N Engl J Med 2013;369:319-29', '10.1056/NEJMoa1209657'],
+    ['NEJM 2013_CHEST-1_editorial', '사설', 'Archer — 우심실 평가 부재 · PEA 우선 원칙', 'Archer. N Engl J Med 2013;369:386-8', '10.1056/NEJMe1306684'],
+    ['ERJ 2015_PATENT-2_riociguat', '연장', 'PAH 1년 · 396명 · 객혈 신호', 'Rubin et al. Eur Respir J 2015;45:1303-13', '10.1183/09031936.00090614'],
+    ['Lancet resp 2016_CHEST-2', '연장', 'CTEPH 2년 · 237명 · 예후인자', 'Simonneau et al. Lancet Respir Med 2016;4:372-80', '10.1016/S2213-2600(16)30022-4'],
+    ['Resp med 2017_riociguat LTE', '연장', '2상 연장 · 68명 · 중앙값 77개월', 'Halank et al. Respir Med 2017;128:50-6', '10.1016/j.rmed.2017.05.008'],
+    ['Lung 2018_CAPTURE', '실사용', 'CAPTURE · 125명 · 전환 실무', 'Gall et al. Lung 2018;196:305-12', '10.1007/s00408-018-0100-3'],
+    ['Lancet resp 2021_REPLACE', 'RCT', '전환 RCT · 226명 · OR 2.78', 'Hoeper et al. Lancet Respir Med 2021;9:573-84', '10.1016/S2213-2600(20)30532-4'],
+    ['Resp med 2021_EXPERT registry', '실사용', '레지스트리 · PAH 326명', 'Hoeper et al. Respir Med 2021;177:106241', '10.1016/j.rmed.2020.106241'],
+    ['ERJ 2021_Haemodynamic effects', '관찰', '10년 · 37명 · 재시행 우심도관', 'Yang et al. ERJ Open Res 2021;7:00082-2021', '10.1183/23120541.00082-2021'],
+    ['Frontier pharm 2023_systematic review', '메타', '10편 · 376명 · 전환 효과', 'Liu et al. Front Pharmacol 2023;14:1052546', '10.3389/fphar.2023.1052546']
+  ];
+  var ul = document.getElementById('fileList');
+  files.forEach(function (f) {
+    var li = document.createElement('li');
+    li.innerHTML = '<span class="tag">' + f[1] + '</span>' +
+      '<a href="https://doi.org/' + f[4] + '" target="_blank" rel="noopener">' + f[3] + '</a>' +
+      '<span style="color:var(--text-secondary);margin-left:auto">' + f[2] + '</span>';
+    ul.appendChild(li);
+  });
+})();
+</script>
+</body>
+</html>
