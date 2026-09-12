@@ -212,6 +212,30 @@
 
   footer { color:var(--text-muted); font-size:11.5px; border-top:1px solid var(--grid); padding-top:16px; margin-top:40px; }
   code { background:var(--grid); padding:1px 5px; border-radius:4px; font-size:12px; }
+
+  /* ---------- treatment algorithm flowchart ---------- */
+  .fc-wrap { position:relative; overflow-x:auto; }
+  svg.flowchart { width:100%; min-width:660px; height:auto; display:block; font-family:inherit; }
+  .fc-node   { fill:var(--surface-1); stroke:var(--series-1); stroke-width:1.5; }
+  .fc-node.entry { stroke-dasharray:5 3; }
+  .fc-out    { fill:var(--surface-1); stroke:var(--border); stroke-width:1; }
+  .fc-accent { stroke-width:0; }
+  .fc-accent.good     { fill:var(--status-good); }
+  .fc-accent.warning  { fill:var(--status-warning); }
+  .fc-accent.serious  { fill:var(--status-serious); }
+  .fc-accent.critical { fill:var(--status-critical); }
+  .fc-accent.neutral  { fill:var(--series-1); }
+  .fc-t   { fill:var(--text-primary); font-size:13px; font-weight:600; }
+  .fc-t2  { fill:var(--text-secondary); font-size:11.5px; font-weight:400; }
+  .fc-edge { stroke:var(--baseline); stroke-width:1.5; fill:none; }
+  .fc-edge.loop { stroke-dasharray:4 3; }
+  .fc-el  { fill:var(--text-muted); font-size:11px; }
+  .fc-badge-t { fill:#fff; font-size:10px; font-weight:600; }
+  .fc-g { cursor:default; }
+  .fc-g.link { cursor:pointer; }
+  .fc-g.link:hover .fc-node, .fc-g.link:hover .fc-out { stroke:var(--series-2); stroke-width:2; }
+  .fc-legend { display:flex; gap:18px; flex-wrap:wrap; font-size:11.5px; color:var(--text-muted); margin-top:10px; }
+  .fc-legend b { color:var(--text-secondary); font-weight:600; }
 </style>
 </head>
 <body>
@@ -352,6 +376,123 @@
 <section id="algorithm">
   <h2>치료 알고리즘</h2>
   <p class="subtitle">2022 ESC/ERS Figure 9 기반 — I/H/D-PAH 및 PAH-CTD 환자, 혈관반응성검사 음성 후</p>
+
+  <div class="card">
+    <div class="fc-wrap">
+      <svg class="flowchart" viewBox="0 0 800 575" role="img"
+           aria-label="폐동맥고혈압 치료 알고리즘 흐름도 — 혈관반응성 검사부터 추적 위험도 기반 치료 조정까지">
+        <defs>
+          <marker id="fcArrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M 0 1 L 7 4 L 0 7 z" fill="var(--baseline)"/>
+          </marker>
+        </defs>
+  <g class="fc-g">
+    <rect class="fc-node entry" x="30" y="20" width="250" height="54" rx="8"/>
+    <text class="fc-t" x="155.0" y="44.0" text-anchor="middle">혈관반응성 검사</text>
+    <text class="fc-t2" x="155.0" y="60.0" text-anchor="middle">IPAH · HPAH · 약물유발 PAH</text>
+  </g>
+  <g class="fc-g">
+    <rect class="fc-out" x="340" y="20" width="430" height="54" rx="7"/>
+    <rect class="fc-accent good" x="340" y="21" width="4" height="52" rx="2"/>
+    <text class="fc-t" x="356" y="44.0">칼슘통로차단제 (CCB)</text>
+    <text class="fc-t2" x="356" y="60.0">반응자에 한함 — 비반응자에는 권고되지 않음</text>
+  </g>
+  <path class="fc-edge" d="M 280 47 H 314 V 47 H 334" marker-end="url(#fcArrow)"/>
+  <text class="fc-el" x="320" y="41">양성</text>
+  <g class="fc-g">
+    <rect class="fc-node" x="30" y="130" width="250" height="54" rx="8"/>
+    <text class="fc-t" x="155.0" y="154.0" text-anchor="middle">심폐 동반질환 동반?</text>
+    <text class="fc-t2" x="155.0" y="170.0" text-anchor="middle">비만·고혈압·당뇨·관상동맥질환·저 DLCO</text>
+  </g>
+  <g class="fc-g">
+    <rect class="fc-out" x="340" y="130" width="430" height="54" rx="7"/>
+    <rect class="fc-accent warning" x="340" y="131" width="4" height="52" rx="2"/>
+    <text class="fc-t" x="356" y="154.0">경구 단일요법 — PDE5i 또는 ERA</text>
+    <text class="fc-t2" x="356" y="170.0">위험도와 무관하게 시작 후 개별화</text>
+    <rect class="fc-accent warning" x="694" y="139" width="66" height="17" rx="8"/>
+    <text class="fc-badge-t" x="727.0" y="151" text-anchor="middle">Class IIa</text>
+  </g>
+  <path class="fc-edge" d="M 280 157 H 314 V 157 H 334" marker-end="url(#fcArrow)"/>
+  <text class="fc-el" x="320" y="151">예</text>
+  <path class="fc-edge" d="M 155.0 74 V 130" marker-end="url(#fcArrow)"/>
+  <text class="fc-el" x="163.0" y="106">음성</text>
+  <g class="fc-g link" data-target="#risk">
+    <rect class="fc-node" x="30" y="240" width="250" height="54" rx="8"/>
+    <text class="fc-t" x="155.0" y="264.0" text-anchor="middle">초진 위험도 — 3단계 모델</text>
+    <text class="fc-t2" x="155.0" y="280.0" text-anchor="middle">Low / Intermediate / High</text>
+  </g>
+  <g class="fc-g">
+    <rect class="fc-out" x="340" y="222" width="430" height="44" rx="7"/>
+    <rect class="fc-accent good" x="340" y="223" width="4" height="42" rx="2"/>
+    <text class="fc-t" x="356" y="249.0">ERA + PDE5i (이중요법)</text>
+    <rect class="fc-accent good" x="716" y="231" width="44" height="17" rx="8"/>
+    <text class="fc-badge-t" x="738.0" y="243" text-anchor="middle">Class I</text>
+  </g>
+  <g class="fc-g">
+    <rect class="fc-out" x="340" y="278" width="430" height="54" rx="7"/>
+    <rect class="fc-accent critical" x="340" y="279" width="4" height="52" rx="2"/>
+    <text class="fc-t" x="356" y="302.0">ERA + PDE5i + IV/SC 프로스타사이클린</text>
+    <text class="fc-t2" x="356" y="318.0">삼중요법</text>
+    <rect class="fc-accent critical" x="694" y="287" width="66" height="17" rx="8"/>
+    <text class="fc-badge-t" x="727.0" y="299" text-anchor="middle">Class IIa</text>
+  </g>
+  <path class="fc-edge" d="M 280 267 H 314 V 244 H 334" marker-end="url(#fcArrow)"/>
+  <text class="fc-el" x="320" y="238">Low / Intermediate</text>
+  <path class="fc-edge" d="M 280 267 H 314 V 305 H 334" marker-end="url(#fcArrow)"/>
+  <text class="fc-el" x="320" y="299">High</text>
+  <path class="fc-edge" d="M 155.0 184 V 240" marker-end="url(#fcArrow)"/>
+  <text class="fc-el" x="163.0" y="216">아니오</text>
+  <g class="fc-g link" data-target="#risk">
+    <rect class="fc-node" x="30" y="410" width="250" height="54" rx="8"/>
+    <text class="fc-t" x="155.0" y="434.0" text-anchor="middle">추적 위험도 — 4단계 모델</text>
+    <text class="fc-t2" x="155.0" y="450.0" text-anchor="middle">치료 시작 3–6개월 후 재평가</text>
+  </g>
+  <path class="fc-edge" d="M 155.0 294 V 410" marker-end="url(#fcArrow)"/>
+  <g class="fc-g">
+    <rect class="fc-out" x="340" y="356" width="430" height="40" rx="7"/>
+    <rect class="fc-accent good" x="340" y="357" width="4" height="38" rx="2"/>
+    <text class="fc-t" x="356" y="381.0">현행 요법 유지</text>
+    <rect class="fc-accent good" x="716" y="365" width="44" height="17" rx="8"/>
+    <text class="fc-badge-t" x="738.0" y="377" text-anchor="middle">Class I</text>
+  </g>
+  <g class="fc-g">
+    <rect class="fc-out" x="340" y="408" width="430" height="54" rx="7"/>
+    <rect class="fc-accent warning" x="340" y="409" width="4" height="52" rx="2"/>
+    <text class="fc-t" x="356" y="432.0">PRA 추가 또는 PDE5i → 리오시구앗 전환</text>
+    <text class="fc-t2" x="356" y="448.0">prostacyclin receptor agonist 추가는 IIa</text>
+    <rect class="fc-accent warning" x="694" y="417" width="66" height="17" rx="8"/>
+    <text class="fc-badge-t" x="727.0" y="429" text-anchor="middle">Class IIb</text>
+  </g>
+  <g class="fc-g">
+    <rect class="fc-out" x="340" y="474" width="430" height="54" rx="7"/>
+    <rect class="fc-accent critical" x="340" y="475" width="4" height="52" rx="2"/>
+    <text class="fc-t" x="356" y="498.0">IV/SC 프로스타사이클린 추가 ± 폐이식 평가</text>
+    <text class="fc-t2" x="356" y="514.0">sotatercept add-on 근거 검토</text>
+    <rect class="fc-accent critical" x="694" y="483" width="66" height="17" rx="8"/>
+    <text class="fc-badge-t" x="727.0" y="495" text-anchor="middle">Class IIa</text>
+  </g>
+  <path class="fc-edge" d="M 280 437 H 314 V 376 H 334" marker-end="url(#fcArrow)"/>
+  <text class="fc-el" x="320" y="370">Low</text>
+  <path class="fc-edge" d="M 280 437 H 314 V 435 H 334" marker-end="url(#fcArrow)"/>
+  <text class="fc-el" x="320" y="429">Intermediate-low</text>
+  <path class="fc-edge" d="M 280 437 H 314 V 501 H 334" marker-end="url(#fcArrow)"/>
+  <text class="fc-el" x="320" y="495">Intermediate-high / High</text>
+  <path class="fc-edge loop" d="M 155.0 464 V 552 H 14 V 437 H 24" marker-end="url(#fcArrow)"/>
+  <text class="fc-el" x="163.0" y="546">3–6개월마다 재평가</text>
+      </svg>
+    </div>
+    <div class="fc-legend">
+      <span><b>Class I</b> 권고됨</span>
+      <span><b>Class IIa</b> 고려해야 함</span>
+      <span><b>Class IIb</b> 고려할 수 있음</span>
+      <span style="color:var(--series-2)">위험도 상자를 누르면 계산기로 이동</span>
+    </div>
+    <p style="font-size:11.5px;color:var(--text-muted);margin:10px 0 0;">
+      2022 ESC/ERS 지침의 근거 기반 치료 알고리즘을 이 페이지 형식에 맞춰 <b>직접 작성한 도식</b>입니다
+      (원문 Figure 9의 복제가 아님). 대상: 특발성·유전성·약물유발 PAH 및 결합조직질환 동반 PAH.
+    </p>
+  </div>
+
 
   <div class="card">
     <div class="step">
@@ -626,6 +767,13 @@
     out.appendChild(document.createTextNode(meta.txt));
   });
 
+  /* ---------- flowchart node links ---------- */
+  document.querySelectorAll('.fc-g.link').forEach(function(g){
+    g.addEventListener('click', function(){
+      var t = document.querySelector(g.getAttribute('data-target'));
+      if (t) t.scrollIntoView({behavior:'smooth', block:'start'});
+    });
+  });
 })();
 </script>
 </body>
