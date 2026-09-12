@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>한국 폐동맥고혈압 급여기준 — 고시 제2026-69호</title>
+<style>
+  :root, .viz-root {
+    color-scheme: light;
+    --surface-1:#fcfcfb; --plane:#f9f9f7;
+    --text-primary:#0b0b0b; --text-secondary:#52514e; --text-muted:#898781;
+    --grid:#e1e0d9; --baseline:#c3c2b7; --border:rgba(11,11,11,0.10);
+    --series-1:#2a78d6; --series-2:#eb6834; --series-3:#1baf7a; --series-4:#eda100;
+    --seq-100:#cde2fb; --seq-200:#9ec5f4; --seq-300:#6da7ec; --seq-400:#3987e5; --seq-500:#256abf;
+    --status-good:#0ca30c; --status-warning:#fab219; --status-serious:#ec835a; --status-critical:#d03b3b;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:where(:not([data-theme="light"])) {
+      color-scheme: dark;
+      --surface-1:#1a1a19; --plane:#0d0d0d;
+      --text-primary:#ffffff; --text-secondary:#c3c2b7; --text-muted:#898781;
+      --grid:#2c2c2a; --baseline:#383835; --border:rgba(255,255,255,0.10);
+      --series-1:#3987e5; --series-2:#d95926; --series-3:#199e70; --series-4:#c98500;
+      --status-good:#0ca30c;
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --surface-1:#1a1a19; --plane:#0d0d0d;
+    --text-primary:#ffffff; --text-secondary:#c3c2b7; --text-muted:#898781;
+    --grid:#2c2c2a; --baseline:#383835; --border:rgba(255,255,255,0.10);
+    --series-1:#3987e5; --series-2:#d95926; --series-3:#199e70; --series-4:#c98500;
+    --status-good:#0ca30c;
+  }
+  * { box-sizing:border-box; }
+  html, body { margin:0; padding:0; }
+  body { font-family: system-ui, -apple-system, "Segoe UI", "Malgun Gothic", sans-serif;
+         background:var(--plane); color:var(--text-primary); line-height:1.55; }
+  a { color:var(--series-1); }
+
+  header.top { position:sticky; top:0; z-index:20; background:var(--surface-1);
+    border-bottom:1px solid var(--border); padding:10px 20px;
+    display:flex; align-items:center; gap:16px; flex-wrap:wrap; }
+  header.top h1 { font-size:15px; margin:0; font-weight:600; white-space:nowrap; }
+  header.top .home { font-size:13px; text-decoration:none; color:var(--text-secondary); white-space:nowrap; }
+  header.top .home:hover { color:var(--text-primary); }
+  nav.tabs { display:flex; gap:4px; flex-wrap:wrap; margin-left:auto; }
+  nav.tabs a { text-decoration:none; color:var(--text-secondary); font-size:13px; padding:7px 10px; border-radius:6px; }
+  nav.tabs a:hover { background:var(--grid); color:var(--text-primary); }
+  #themeToggle { border:1px solid var(--border); background:var(--surface-1); color:var(--text-primary);
+    border-radius:6px; padding:6px 10px; font-size:12px; cursor:pointer; }
+
+  main { max-width:1080px; margin:0 auto; padding:24px 20px 80px; }
+  section { margin-bottom:40px; scroll-margin-top:60px; }
+  h2 { font-size:20px; margin:0 0 4px; letter-spacing:-0.01em; }
+  h3 { font-size:14px; margin:0 0 10px; font-weight:600; }
+  .sub { color:var(--text-secondary); font-size:13px; margin:0 0 14px; }
+
+  .card { background:var(--surface-1); border:1px solid var(--border); border-radius:10px; padding:16px 18px; margin-bottom:14px; }
+  .card > h3:first-child { margin-top:0; }
+  .grid { display:grid; gap:12px; }
+  .g3 { grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); }
+  .g2 { grid-template-columns:repeat(auto-fit,minmax(330px,1fr)); }
+
+  .tile { background:var(--surface-1); border:1px solid var(--border); border-radius:10px; padding:14px 16px; }
+  .tile .k { font-size:11px; text-transform:uppercase; letter-spacing:.06em; color:var(--text-muted); }
+  .tile .v { font-size:26px; font-weight:650; letter-spacing:-0.02em; margin:2px 0; font-variant-numeric:tabular-nums; }
+  .tile .d { font-size:12px; color:var(--text-secondary); }
+
+  .tblwrap { overflow-x:auto; }
+  table { border-collapse:collapse; width:100%; font-size:13px; min-width:520px; }
+  th, td { text-align:left; padding:7px 9px; border-bottom:1px solid var(--grid); vertical-align:top; }
+  th { font-weight:600; color:var(--text-secondary); font-size:12px; white-space:nowrap; }
+  td.num, th.num, td.c, th.c { text-align:center; font-variant-numeric:tabular-nums; white-space:nowrap; }
+  tbody tr:hover { background:var(--grid); }
+  caption { caption-side:bottom; text-align:left; color:var(--text-muted); font-size:11.5px; padding-top:8px; }
+  .yes { color:var(--status-good); font-weight:700; }
+  .no  { color:var(--text-muted); }
+  .na  { color:var(--status-critical); font-weight:600; }
+
+  .note { font-size:12.5px; color:var(--text-secondary); border-left:3px solid var(--baseline); padding:6px 0 6px 12px; margin:10px 0; }
+  .warn { border-left-color:var(--status-warning); }
+  .crit { border-left-color:var(--status-critical); }
+  .good { border-left-color:var(--status-good); }
+  .note b { color:var(--text-primary); }
+
+  .fc-wrap { overflow-x:auto; }
+  svg.flow { width:100%; min-width:640px; height:auto; display:block; }
+  .n   { fill:var(--surface-1); stroke:var(--series-1); stroke-width:1.5; }
+  .n.alt { stroke:var(--series-2); }
+  .out { fill:var(--surface-1); stroke:var(--border); stroke-width:1; }
+  .acc { stroke-width:0; }
+  .acc.g { fill:var(--status-good); } .acc.w { fill:var(--status-warning); }
+  .acc.c { fill:var(--status-critical); } .acc.b { fill:var(--series-1); }
+  .t1 { fill:var(--text-primary); font-size:12.5px; font-weight:600; }
+  .t2 { fill:var(--text-secondary); font-size:11px; }
+  .ed { stroke:var(--baseline); stroke-width:1.5; fill:none; }
+  .el { fill:var(--text-muted); font-size:10.5px; }
+
+  ol.tl { list-style:none; margin:0; padding:0 0 0 22px; border-left:2px solid var(--grid); }
+  ol.tl li { position:relative; padding:0 0 14px 14px; }
+  ol.tl li::before { content:""; position:absolute; left:-21px; top:5px; width:8px; height:8px; border-radius:50%;
+                     background:var(--series-1); box-shadow:0 0 0 2px var(--surface-1); }
+  ol.tl li.alt::before { background:var(--status-critical); }
+  ol.tl .yr { font-size:12px; color:var(--text-muted); font-variant-numeric:tabular-nums; }
+  ol.tl .ti { font-size:13.5px; font-weight:600; }
+  ol.tl .de { font-size:12.5px; color:var(--text-secondary); }
+
+  footer { color:var(--text-muted); font-size:12px; border-top:1px solid var(--border); padding-top:14px; }
+</style>
+</head>
+<body data-palette="#2a78d6,#eb6834,#1baf7a,#eda100">
+
+<header class="top">
+  <a class="home" href="index.html">← 목차</a>
+  <h1>한국 폐동맥고혈압 급여기준</h1>
+  <nav class="tabs">
+    <a href="#overview">개요</a>
+    <a href="#structure">급여 구조</a>
+    <a href="#criteria">판단 지표</a>
+    <a href="#early">초기 병용</a>
+    <a href="#drugs">약제별 범위</a>
+    <a href="#gap">국제 표준과의 거리</a>
+    <a href="#pending">등재 대기</a>
+  </nav>
+  <button id="themeToggle" type="button">🌙 다크모드</button>
+</header>
+
+<main>
+
+<section id="overview">
+  <h2>개요</h2>
+  <p class="sub">보건복지부 <b>고시 제2026-69호 [일반원칙] 폐동맥고혈압 약제</b> 기준. 각 약제의 허가사항 범위 내에서 아래 기준으로 투여할 때만 요양급여가 인정되며, <b>인정기준 외에는 약값 전액을 환자가 부담</b>합니다.</p>
+
+  <div class="grid g3">
+    <div class="tile"><div class="k">급여 대상 계열</div><div class="v">5</div><div class="d">ERA · PDE5i · ERA+PDE5i 복합 · sGC · 프로스타사이클린</div></div>
+    <div class="tile"><div class="k">상승 간격</div><div class="v">3<span style="font-size:15px;font-weight:500">개월</span></div><div class="d">각 단계마다 3개월 이상 투여 후 반응 평가</div></div>
+    <div class="tile"><div class="k">2026 신설</div><div class="v">교체투여</div><div class="d">PDE5i → sGC 전환 급여 인정 (병용은 불인정)</div></div>
+  </div>
+
+  <div class="note crit" style="margin-top:14px;">
+    <b>이 고시에 없는 것</b> — <b>CTEPH</b>(리오시구앗 항목도 "WHO Group Ⅰ"로 한정), <b>소타터셉트(윈레브에어)</b>, <b>에포프로스테놀</b>, 타달라필 단일제, 경구·흡입 트레프로스티닐, 정맥 일로프로스트.
+  </div>
+</section>
+
+<section id="structure">
+  <h2>급여 구조 — 순차적 병용투여</h2>
+  <p class="sub">단독요법에서 시작해 3개월 단위로 반응을 평가하며 <b>작용기전이 다른 약제를 한 계열씩</b> 추가합니다.</p>
+
+  <div class="card">
+    <div class="fc-wrap">
+      <svg class="flow" viewBox="0 0 800 430" role="img" aria-label="한국 폐동맥고혈압 급여 상승 구조 흐름도">
+        <defs>
+          <marker id="ar" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M 0 1 L 7 4 L 0 7 z" fill="var(--baseline)"/>
+          </marker>
+        </defs>
+
+        <g><rect class="n" x="40" y="20" width="230" height="46" rx="8"/>
+           <text class="t1" x="155" y="41" text-anchor="middle">단독요법</text>
+           <text class="t2" x="155" y="56" text-anchor="middle">각 약제의 급여기준 범위 내</text></g>
+
+        <g><rect class="out" x="350" y="20" width="410" height="46" rx="7"/>
+           <rect class="acc b" x="350" y="21" width="4" height="44" rx="2"/>
+           <text class="t1" x="366" y="41">3개월 이상 투여 후 임상적 반응 평가</text>
+           <text class="t2" x="366" y="56">①∼④ 중 1개 이상 + ⑤∼⑨ 중 1개 이상 모두 만족</text></g>
+        <path class="ed" d="M 270 43 H 344" marker-end="url(#ar)"/>
+
+        <g><rect class="n" x="40" y="120" width="230" height="46" rx="8"/>
+           <text class="t1" x="155" y="141" text-anchor="middle">2제 요법</text>
+           <text class="t2" x="155" y="156" text-anchor="middle">작용기전이 다른 약제 1종 추가</text></g>
+        <path class="ed" d="M 155 66 V 120" marker-end="url(#ar)"/>
+        <text class="el" x="163" y="98">반응 불충분</text>
+
+        <g><rect class="n" x="40" y="220" width="230" height="46" rx="8"/>
+           <text class="t1" x="155" y="241" text-anchor="middle">3제 요법</text>
+           <text class="t2" x="155" y="256" text-anchor="middle">남은 기전 1종 추가 (순차적 병용)</text></g>
+        <path class="ed" d="M 155 166 V 220" marker-end="url(#ar)"/>
+        <text class="el" x="163" y="198">3개월 후 반응 불충분</text>
+
+        <g><rect class="n alt" x="350" y="150" width="410" height="60" rx="8"/>
+           <text class="t1" x="366" y="176">PDE5i → sGC 교체투여</text>
+           <text class="t2" x="366" y="194">PDE5i 포함 병용 3개월 후 반응 불충분 시 · 2026년 신설</text></g>
+        <path class="ed" d="M 270 143 H 344" marker-end="url(#ar)"/>
+
+        <g><rect class="out" x="350" y="228" width="410" height="40" rx="7"/>
+           <rect class="acc c" x="350" y="229" width="4" height="38" rx="2"/>
+           <text class="t1" x="366" y="253">PDE5i계와 sGC계의 병용투여는 인정하지 아니함</text></g>
+
+        <g><rect class="n alt" x="40" y="320" width="230" height="60" rx="8"/>
+           <text class="t1" x="155" y="345" text-anchor="middle">신속한(초기) 2제 병용</text>
+           <text class="t2" x="155" y="363" text-anchor="middle">3개월 요건 면제 · 투여소견서 첨부</text></g>
+
+        <g><rect class="out" x="350" y="310" width="410" height="80" rx="7"/>
+           <rect class="acc w" x="350" y="311" width="4" height="78" rx="2"/>
+           <text class="t1" x="366" y="334">우심도자 확진 + WHO 기능분류 Ⅳ</text>
+           <text class="t2" x="366" y="352">+ 중증 지표 1개 이상 (6MWD &lt;165 m, CI &lt;2.0, SvO₂ &lt;60% 등)</text>
+           <text class="t2" x="366" y="370">조합 3가지: PDE5i+ERA(복합제 포함) / Treprostinil 주사+ERA / +PDE5i</text></g>
+        <path class="ed" d="M 270 350 H 344" marker-end="url(#ar)"/>
+        <path class="ed" d="M 155 266 V 320" marker-end="url(#ar)" stroke-dasharray="4 3"/>
+      </svg>
+    </div>
+    <div class="note good"><b>복합제 규정</b> — 복합제는 <b>복합된 성분수의 약제를 투여한 것으로 인정</b>합니다. 즉 마시텐탄+타달라필 복합제 하나로 2제 요법이 성립합니다.</div>
+  </div>
+</section>
+
+<section id="criteria">
+  <h2>임상 반응 판단 지표</h2>
+  <p class="sub">2제·3제 진입과 교체투여 모두 동일 기준 — <b>①∼④ 중 최소 1개</b>와 <b>⑤∼⑨ 중 최소 1개</b>를 <b>모두</b> 만족해야 합니다.</p>
+
+  <div class="grid g2">
+    <div class="card">
+      <h3>① ~ ④ 임상 증거군</h3>
+      <div class="tblwrap"><table style="min-width:auto">
+        <thead><tr><th>지표</th><th>기준</th></tr></thead>
+        <tbody>
+          <tr><td>① 우심실부전의 임상적 증거</td><td><b>있음</b></td></tr>
+          <tr><td>② 증상진행의 속도</td><td><b>빠름</b></td></tr>
+          <tr><td>③ 실신</td><td><b>있음</b></td></tr>
+          <tr><td>④ WHO 기능분류</td><td><b>Ⅲ단계 이상</b></td></tr>
+        </tbody>
+      </table></div>
+    </div>
+    <div class="card">
+      <h3>⑤ ~ ⑨ 기능·생화학적 지표군</h3>
+      <div class="tblwrap"><table style="min-width:auto">
+        <thead><tr><th>지표</th><th>기준</th></tr></thead>
+        <tbody>
+          <tr><td>⑤ 6분 보행거리</td><td><b>440 m 이하</b></td></tr>
+          <tr><td>⑥ 운동부하심폐검사</td><td>Peak O₂ consumption <b>≤15 mL/min/kg</b></td></tr>
+          <tr><td>⑦ BNP / NT-proBNP</td><td><b>50 / 300 이상</b></td></tr>
+          <tr><td>⑧ 심초음파 소견</td><td>Pericardial effusion 또는 <b>TAPSE &lt;1.5 cm</b></td></tr>
+          <tr><td>⑨ 혈류역학 지표</td><td><b>RAP ≥8 mmHg</b> 또는 <b>CI &lt;2.5 L/min/m²</b></td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </div>
+
+  <div class="note warn"><b>6MWD 440 m의 의미.</b> 국제 위험도 층화에서 <b>&gt;440 m는 저위험</b> 기준입니다. 즉 이 고시는 <i>"저위험이 아니면 병용을 허용한다"</i>는 구조로 읽힙니다. 다만 같은 컷오프가 HYPERION 시험에서 <b>고령·동반질환이 많은 환자군에 불리하게</b> 작용한 전례가 있어, 고령 환자에서는 실제 중증도보다 관대하게 읽힐 수 있습니다.</div>
+</section>
+
+<section id="early">
+  <h2>초기 2제 병용요법 — 좁지만 열려 있는 문</h2>
+
+  <div class="card">
+    <div class="note crit" style="margin-top:0">
+      <b>흔한 오해.</b> "국내 급여기준은 초기 병용요법을 막는다"는 서술이 반복되지만, <b>고시상 초기 2제 병용은 이미 인정</b>됩니다 — 다만 <b>WHO 기능분류 Ⅳ + 우심도자 확진 + 중증 지표</b>라는 좁은 조건입니다. 학회가 요구하는 것은 국제 지침이 권고하는 <b>저·중등도 위험군에서의 초기 병용</b>이며, 그 구간이 아직 막혀 있는 것입니다.
+    </div>
+    <div class="grid g2">
+      <div>
+        <h3>인정 가능 조합 (3가지)</h3>
+        <div class="tblwrap"><table style="min-width:auto"><tbody>
+          <tr><td>PDE5i계 + ERA계 <span style="color:var(--text-secondary)">(Tadalafil+Macitentan 복합제 포함)</span></td></tr>
+          <tr><td>Treprostinil 주사제 + ERA계</td></tr>
+          <tr><td>Treprostinil 주사제 + PDE5i계</td></tr>
+        </tbody></table></div>
+      </div>
+      <div>
+        <h3>중증 지표 (1개 이상)</h3>
+        <div class="tblwrap"><table style="min-width:auto">
+          <tbody>
+            <tr><td>6분 보행거리</td><td><b>165 m 미만</b></td></tr>
+            <tr><td>운동부하심폐검사</td><td>Peak VO₂ &lt;11 mL/min/kg · VE/VCO₂ ≥45</td></tr>
+            <tr><td>생체표지자</td><td>BNP &gt;300 · NT-proBNP &gt;1400 ng/L</td></tr>
+            <tr><td>영상</td><td>RA area &gt;26 ㎠ · 심낭삼출</td></tr>
+            <tr><td>혈류역학</td><td>RAP &gt;14 · CI &lt;2.0 · SvO₂ &lt;60%</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+    </div>
+    <p style="font-size:12px;color:var(--text-muted);margin:10px 0 0;">우심도자가 불가능한 경우, 심초음파상 <b>peak TR velocity &gt;3.4 m/s</b> 등 확실히 의심할 수 있는 경우를 포함합니다.</p>
+  </div>
+</section>
+
+<section id="drugs">
+  <h2>약제별 급여 인정 범위</h2>
+  <p class="sub">고시의 대상약제 목록과 개별 기준을 기능분류별로 정리. 표 행에 마우스를 올리면 강조됩니다.</p>
+
+  <div class="card">
+    <div class="tblwrap">
+      <table>
+        <thead>
+          <tr><th>계열</th><th>성분 (제품)</th><th>경로</th><th class="c">허가</th><th class="c">급여</th><th class="c">FC Ⅱ</th><th class="c">FC Ⅲ</th><th class="c">FC Ⅳ</th></tr>
+        </thead>
+        <tbody id="drugBody"></tbody>
+        <caption>
+          ○ = 인정 · ✗ = 미인정 또는 미도입. FC = WHO 기능분류(트레프로스티닐·일로프로스트는 고시상 NYHA 분류).
+          리오시구앗·마시텐탄+타달라필 복합제는 고시 대상약제이나 학회 인포그래픽 작성 시점 이후 추가된 항목입니다.
+        </caption>
+      </table>
+    </div>
+
+    <div class="grid g2" style="margin-top:12px;">
+      <div class="note"><b>FC Ⅱ에서 급여되는 약제는 둘뿐</b> — 실데나필과 리오시구앗. 나머지는 모두 FC Ⅲ 이상에서만 인정됩니다.</div>
+      <div class="note"><b>FC Ⅳ에서 급여되는 약제</b> — 보센탄, 일로프로스트 흡입, 트레프로스티닐 주사(피하·정맥). ERA 중에서는 보센탄만 해당합니다.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>개별 약제의 추가 조건</h3>
+    <div class="tblwrap"><table>
+      <thead><tr><th>약제</th><th>조건</th></tr></thead>
+      <tbody>
+        <tr><td><b>Riociguat</b> (아뎀파스)</td><td>ERA 및/또는 PDE5i에 <b>반응 불충분</b>하거나 <b>둘 다 금기</b>. <b>단독요법은 둘 다 금기인 경우에만</b> 인정되며 <b>투여소견서 첨부 필수</b>. 다른 약제와 달리 <b>대상 질환을 열거하지 않음</b></td></tr>
+        <tr><td><b>Selexipag</b> (업트라비)</td><td>ERA 및/또는 PDE5i 반응 불충분 또는 둘 다 금기. 단독요법은 둘 다 금기일 때만, 투여소견서 첨부</td></tr>
+        <tr><td><b>Treprostinil</b> 주사 (레모둘린)</td><td>단독요법 2경로 — (가) 우심도자 확진 + FC Ⅳ + 중증 지표 1개 이상, (나) 기존 약제 무반응 또는 금기. <b>전환 시 용량조절 기간(최대 3개월) 동안 기존 약제와 동시 급여</b></td></tr>
+        <tr><td><b>Bosentan</b> (트라클리어)</td><td><b>투여 전·후 최소 월 1회 AST/ALT 측정.</b> 전신경화증 활동성 수지궤양에 6개월 별도 인정</td></tr>
+        <tr><td><b>Ambrisentan</b> (볼리브리스)</td><td>투여 전 AST/ALT 측정, 가임 여성 임신검사 음성 확인. 대상 질환 <b>7개</b>로 가장 넓음(HIV·문맥고혈압 포함)</td></tr>
+        <tr><td><b>Sildenafil</b> (파텐션)</td><td><b>신생아지속성 폐고혈압(PPHN) 단독요법 인정.</b> 급속 악화 시 일로프로스트 흡입 병용을 사례별 인정</td></tr>
+        <tr><td><b>Iloprost</b> 흡입 (벤타비스)</td><td><b>1일 최대 3앰플.</b> PPHN 인정(동일 용량). 급속 악화 시 실데나필 병용 사례별 인정</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+</section>
+
+<section id="gap">
+  <h2>국제 표준과의 거리</h2>
+  <div class="card">
+    <div class="tblwrap"><table>
+      <thead><tr><th>항목</th><th>2022 ESC/ERS 지침</th><th>한국 급여기준</th></tr></thead>
+      <tbody>
+        <tr><td>초기 치료</td><td><b>저·중등도 위험군부터 ERA + PDE5i 병용</b></td><td><b>단독요법 시작.</b> 초기 병용은 FC Ⅳ + 중증 지표에 한정</td></tr>
+        <tr><td>고위험 초기</td><td>ERA + PDE5i + 정맥/피하 프로스타사이클린 (3제)</td><td>초기 3제 조항 없음 (FC Ⅳ 2제까지)</td></tr>
+        <tr><td>상승 경로</td><td>위험도 재평가 기반</td><td><b>3개월 고정 간격 + 지표 충족</b></td></tr>
+        <tr><td>PDE5i → sGC 전환</td><td>Class IIb (고려할 수 있음)</td><td><b>인정</b> (2026년 신설)</td></tr>
+        <tr><td>동반질환 표현형</td><td>경구 단독요법 (Class IIa)</td><td>별도 조항 없음</td></tr>
+      </tbody>
+    </table></div>
+    <div class="note"><b>정량적 근거.</b> 국가 등록사업 <b>PHOENIKS</b> 코호트에서 유럽 지침 기반 약물치료(GDMT) 시행률은 <b>진단 시 16% → 3년 후 26%</b>에 그쳤습니다. 학회는 이 격차를 급여기준 개정 요구의 근거로 삼고 있습니다.</div>
+  </div>
+</section>
+
+<section id="pending">
+  <h2>등재 대기 — 소타터셉트(윈레브에어)</h2>
+  <p class="sub">고시 대상약제에 아직 없습니다. 20년 만의 새 기전 치료제로, 허가 후 비급여 상태가 이어지고 있습니다.</p>
+  <div class="card">
+    <ol class="tl">
+      <li><div class="yr">2024-12</div><div class="ti">허가-평가-협상 병행 2차 시범사업 대상 선정</div><div class="de">허가·급여평가·약가협상을 동시 진행해 등재 기간을 150일로 단축하는 제도</div></li>
+      <li><div class="yr">2025-01 / 04</div><div class="ti">식약처 희귀의약품 지정 · GIFT 지정</div></li>
+      <li><div class="yr">2025-07</div><div class="ti">국내 품목허가</div><div class="de">다른 PAH 치료와 병용, WHO FC Ⅱ·Ⅲ, 18세 이상, 운동 능력 개선</div></li>
+      <li class="alt"><div class="yr">2026-03</div><div class="ti">환자단체 공동성명 — 약평위 상정조차 안 됨</div><div class="de">환자 1인 기준 월 약 1000만~1300만원. 희귀질환 치료제는 허가 후 급여까지 평균 2년 11개월</div></li>
+      <li class="alt"><div class="yr">2026-08</div><div class="ti">급여 신청 후 550일 경과 · 100일 신속등재 전환 검토</div><div class="de">학회·환자단체가 100일 신속등재 1순위 지정을 촉구했고, 한국MSD도 제도 활용을 타진</div></li>
+    </ol>
+    <div class="note warn">함께 요구되는 항목 — <b>에포프로스테놀</b>(OECD 국가 중 국내에만 미도입), <b>타이바소</b>(ILD 동반 폐고혈압), <b>리오시구앗의 CTEPH 급여 확대</b>.</div>
+  </div>
+</section>
+
+<footer>
+  <p style="margin:0 0 8px"><b>면책</b> — 보건복지부 고시 제2026-69호와 공개 보도를 정리한 학습용 자료이며, 진료 지침이나 의학적 조언이 아닙니다. <b>실제 급여 청구·적용 시에는 반드시 고시 원문과 최신 개정 사항을 확인하십시오.</b> 이 페이지 작성 후 고시가 개정되었을 수 있습니다.</p>
+  <p style="margin:0">작성 2026-09-12 · 1차 출처: 보건복지부 고시 제2026-69호 [일반원칙] 폐동맥고혈압 약제 · 보조: 대한폐고혈압학회 '폐, 미리' 캠페인 자료 및 2024–2026 언론 보도 · 관련 페이지: <a href="pah-policy.html">PAH 치료 방침</a> · <a href="sotatercept.html">Sotatercept</a> · <a href="riociguat.html">Riociguat</a></p>
+</footer>
+
+</main>
+
+<script>
+(function () {
+  "use strict";
+  var btn = document.getElementById('themeToggle');
+  var stored = null;
+  try { stored = localStorage.getItem('ph-theme'); } catch (e) {}
+  if (stored) document.documentElement.setAttribute('data-theme', stored);
+  function isDark() {
+    var t = document.documentElement.getAttribute('data-theme');
+    if (t) return t === 'dark';
+    return window.matchMedia('(prefers-color-scheme: dark)').matches;
+  }
+  function paint() { btn.textContent = isDark() ? '☀️ 라이트모드' : '🌙 다크모드'; }
+  btn.addEventListener('click', function () {
+    var next = isDark() ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    try { localStorage.setItem('ph-theme', next); } catch (e) {}
+    paint();
+  });
+  paint();
+
+  // 약제 표
+  var Y = '<span class="yes">○</span>', N = '<span class="no">✗</span>', X = '<span class="na">미도입</span>';
+  var rows = [
+    ['ERA','Ambrisentan <span style="color:var(--text-secondary)">(볼리브리스)</span>','경구',Y,Y,N,Y,N],
+    ['ERA','Bosentan <span style="color:var(--text-secondary)">(트라클리어)</span>','경구',Y,Y,N,Y,Y],
+    ['ERA','Macitentan <span style="color:var(--text-secondary)">(옵서미트)</span>','경구',Y,Y,N,Y,N],
+    ['ERA + PDE5i','Macitentan + Tadalafil 복합제','경구',Y,Y,'<span style="color:var(--text-muted)">복합제 규정 적용 (2성분)</span>','',''],
+    ['PDE5i','Sildenafil <span style="color:var(--text-secondary)">(파텐션)</span>','경구',Y,Y,Y,Y,N],
+    ['PDE5i','Tadalafil 단일제','경구',Y,N,N,N,N],
+    ['PDE5i','Vardenafil','경구',X,N,N,N,N],
+    ['sGC','Riociguat <span style="color:var(--text-secondary)">(아뎀파스)</span>','경구',Y,'<span class="yes">○</span> <span style="color:var(--text-muted);font-size:11px">2025-06</span>',Y,Y,N],
+    ['Prostacyclin','Iloprost <span style="color:var(--text-secondary)">(벤타비스)</span>','흡입',Y,Y,N,Y,Y],
+    ['Prostacyclin','Iloprost','정맥',X,N,N,N,N],
+    ['Prostacyclin','Treprostinil <span style="color:var(--text-secondary)">(레모둘린)</span>','피하',Y,Y,N,Y,Y],
+    ['Prostacyclin','Treprostinil','정맥',Y,Y,N,Y,Y],
+    ['Prostacyclin','Treprostinil','흡입 · 경구',X,N,N,N,N],
+    ['Prostacyclin','Beraprost','경구',Y,'<span style="color:var(--status-warning)">인정범위 불분명</span>','','',''],
+    ['Prostacyclin','<b>Epoprostenol</b> <span style="color:var(--text-secondary)">(플로란/벨레트리)</span>','정맥',X,N,N,N,N],
+    ['IP agonist','Selexipag <span style="color:var(--text-secondary)">(업트라비)</span>','경구',Y,Y,N,Y,N],
+    ['ASI','<b>Sotatercept</b> <span style="color:var(--text-secondary)">(윈레브에어)</span>','피하',Y+' <span style="color:var(--text-muted);font-size:11px">2025-07</span>','<span class="na">비급여</span>','','','']
+  ];
+  var tb = document.getElementById('drugBody');
+  rows.forEach(function (r) {
+    var tr = document.createElement('tr');
+    var span4 = (r[5] !== '' && r[6] === '' && r[7] === '');
+    var html = '<td>' + r[0] + '</td><td>' + r[1] + '</td><td>' + r[2] + '</td>' +
+               '<td class="c">' + r[3] + '</td><td class="c">' + r[4] + '</td>';
+    if (span4) html += '<td class="c" colspan="3">' + r[5] + '</td>';
+    else html += '<td class="c">' + r[5] + '</td><td class="c">' + r[6] + '</td><td class="c">' + r[7] + '</td>';
+    tr.innerHTML = html;
+    tb.appendChild(tr);
+  });
+})();
+</script>
+</body>
+</html>
