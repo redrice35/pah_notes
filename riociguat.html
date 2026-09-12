@@ -63,6 +63,8 @@
     background: var(--surface-1); border-bottom:1px solid var(--border);
     padding:10px 20px; display:flex; align-items:center; gap:16px; flex-wrap:wrap;
   }
+  header.top .home { font-size:13px; text-decoration:none; color:var(--text-secondary); white-space:nowrap; }
+  header.top .home:hover { color:var(--text-primary); }
   header.top h1 { font-size:15px; margin:0; font-weight:600; white-space:nowrap; }
   nav.tabs { display:flex; gap:4px; flex-wrap:wrap; margin-left:auto; }
   nav.tabs a { text-decoration:none; color:var(--text-secondary); font-size:13px; padding:7px 10px; border-radius:6px; }
@@ -155,6 +157,7 @@
 <body data-palette="#2a78d6,#eb6834,#1baf7a,#eda100">
 
 <header class="top">
+  <a class="home" href="index.html">← 목차</a>
   <h1>Riociguat (Adempas) — 근거 요약</h1>
   <nav class="tabs">
     <a href="#overview">개요</a>
