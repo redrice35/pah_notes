@@ -223,8 +223,7 @@
     <a href="#risk">위험도 평가</a>
     <a href="#algorithm">치료 알고리즘</a>
     <a href="#drugs">약물 계열</a>
-    <a href="#evidence">Sotatercept 근거</a>
-    <a href="#safety">안전성</a>
+    <a href="#related">약물별 근거</a>
   </nav>
   <button id="themeToggle" type="button">🌙 다크모드</button>
 </header>
@@ -232,11 +231,11 @@
 <main class="viz-root">
 
 <div class="disclaimer">
-  이 페이지는 이 vault의 <code>wiki/Pulmonary Arterial Hypertension/</code> 문서들
-  (<code>Pulmonary Arterial Hypertension.md</code>, <code>PAH Risk Stratification.md</code>,
-  <code>Background Therapy for Pulmonary Arterial Hypertension.md</code>, <code>Sotatercept.md</code>
-  및 각 트라이얼 문서)만을 근거로 작성되었습니다 — 인터넷 조회 없음. 교육/개인 참고용이며 실제 임상 결정은
-  최신 원문 가이드라인과 전문의 판단을 따라야 합니다.
+  이 페이지는 <b>2022 ESC/ERS 폐고혈압 지침</b>을 정리한 vault 문서
+  (<code>Hypertension, Pulmonary</code>, <code>Pulmonary Arterial Hypertension</code>,
+  <code>PAH Risk Stratification</code>, <code>Background Therapy for Pulmonary Arterial Hypertension</code>)를
+  근거로 작성되었습니다. 개별 약물의 임상시험 근거는 <a href="sotatercept.html">Sotatercept</a>·<a href="riociguat.html">Riociguat</a>
+  페이지에서 다룹니다. 교육/개인 참고용이며 실제 임상 결정은 최신 원문 가이드라인과 전문의 판단을 따라야 합니다.
 </div>
 
 <!-- ===================== OVERVIEW ===================== -->
@@ -481,94 +480,34 @@
   </div>
 </section>
 
-<!-- ===================== EVIDENCE ===================== -->
-<section id="evidence">
-  <h2>Sotatercept 임상 근거</h2>
-  <p class="subtitle">사망/임상악화 복합 종료점 — 상대위험감소(RRR) 비교. 각 트라이얼의 복합 종료점 정의는 서로 다름 (아래 표 참고).</p>
-  <p class="subtitle" style="margin-top:-6px"><b><a href="sotatercept.html">→ Sotatercept 전용 페이지</a></b> — 기전, 환자군 비교, 안전성 히트맵, SOTERIA 장기 데이터를 포함한 전체 근거 요약.</p>
+<!-- ===================== RELATED ===================== -->
+<section id="related">
+  <h2>약물별 근거 요약</h2>
+  <p class="subtitle">개별 약물의 임상시험 결과·안전성 프로필은 전용 페이지에서 다룹니다. 이 페이지는 지침 기반 <b>치료 방침</b>에 집중합니다.</p>
 
   <div class="card">
-    <div class="chart-wrap">
-      <div class="bars" id="rrrChart" style="position:relative;">
-        <div class="gridline" style="bottom:0;"><span>0%</span></div>
-        <div class="gridline" style="bottom:25%;"><span>25%</span></div>
-        <div class="gridline" style="bottom:50%;"><span>50%</span></div>
-        <div class="gridline" style="bottom:75%;"><span>75%</span></div>
-        <div class="gridline" style="bottom:100%;"><span>100%</span></div>
-      </div>
-      <div class="xaxis" id="rrrLabels"></div>
-    </div>
-    <div id="tooltip" class="tooltip"></div>
-  </div>
-
-  <div class="card">
-    <table>
-      <caption>사망/임상악화 복합 종료점 상세</caption>
-      <thead>
-        <tr><th>트라이얼</th><th>모집단</th><th class="num">HR (95% CI)</th><th class="num">RRR</th><th>복합 종료점 정의(요약)</th></tr>
-      </thead>
-      <tbody>
-        <tr><td>STELLAR</td><td>WHO FC II/III, 장기 PAH</td><td class="num">0.16 (0.08–0.35)</td><td class="num">84%</td><td>사망, 이식대기등재, rescue therapy/prostacyclin↑≥10%, 심방중격절개, PAH 입원≥24h, FC악화+6MWD↓≥15%</td></tr>
-        <tr><td>PULSAR+STELLAR pooled</td><td>WHO FC II/III, 장기 PAH</td><td class="num">0.16 (0.08–0.33)</td><td class="num">84%</td><td>위와 동일 (두 트라이얼 pooled)</td></tr>
-        <tr><td>ZENITH</td><td>WHO FC III/IV, 고위험 (REVEAL≥9)</td><td class="num">0.24 (0.13–0.43)</td><td class="num">76%</td><td><b>사망, 폐이식, PAH 입원≥24h 만</b> (기능악화 제외한 hard outcome)</td></tr>
-        <tr><td>HYPERION</td><td>WHO FC II/III, 진단 1년 이내</td><td class="num">0.24 (0.14–0.41)</td><td class="num">76%</td><td>사망, PAH 입원≥24h, 심방중격절개, 폐이식, 운동능력 악화(6MWD↓+FC악화/RV부전징후/신규요법/경정맥전환)</td></tr>
-      </tbody>
-    </table>
-  </div>
-</section>
-
-<!-- ===================== SAFETY ===================== -->
-<section id="safety">
-  <h2>안전성 프로필 비교</h2>
-  <p class="subtitle">Sotatercept군 발생률 (%) — 색 농도는 발생률 크기를 나타냄; 셀 하단은 위약군 비교치</p>
-
-  <div class="card">
-    <table id="heatTable">
-      <thead>
-        <tr><th>트라이얼</th><th class="num">Epistaxis</th><th class="num">Telangiectasia</th><th class="num">↑Hemoglobin</th><th class="num">Thrombocytopenia</th></tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>STELLAR</td>
-          <td class="num heat-cell" data-v="12.3" data-sub="위약 1.9%">12.3%<span class="heat-sub">vs 1.9%</span></td>
-          <td class="num heat-cell" data-v="10.4" data-sub="위약 3.1%">10.4%<span class="heat-sub">vs 3.1%</span></td>
-          <td class="num heat-cell" data-v="5.5" data-sub="위약 0%">5.5%<span class="heat-sub">vs 0%</span></td>
-          <td class="num heat-cell" data-v="6.1" data-sub="위약 2.5%">6.1%<span class="heat-sub">vs 2.5%</span></td>
-        </tr>
-        <tr>
-          <td>ZENITH</td>
-          <td class="num heat-cell" data-v="44.2" data-sub="위약 9.3%">44.2%<span class="heat-sub">vs 9.3%</span></td>
-          <td class="num heat-cell" data-v="25.6" data-sub="위약 3.5%">25.6%<span class="heat-sub">vs 3.5%</span></td>
-          <td class="num heat-cell" data-v="12.8" data-sub="위약 1.2%">12.8%<span class="heat-sub">vs 1.2%</span></td>
-          <td class="num heat-cell" data-v="12.8" data-sub="AE 기준">12.8%<span class="heat-sub">AE 기준</span></td>
-        </tr>
-        <tr>
-          <td>HYPERION</td>
-          <td class="num heat-cell" data-v="31.9" data-sub="위약 6.9%">31.9%<span class="heat-sub">vs 6.9%</span></td>
-          <td class="num heat-cell" data-v="26.2" data-sub="위약 11.2%">26.2%<span class="heat-sub">vs 11.2%</span></td>
-          <td class="num heat-cell" data-v="11.2" data-sub="위약 1.2%">11.2%<span class="heat-sub">vs 1.2%</span></td>
-          <td class="num heat-cell" data-v="14.0" data-sub="AE 기준">14.0%<span class="heat-sub">AE 기준</span></td>
-        </tr>
-        <tr>
-          <td>SOTERIA (장기, 단일군)</td>
-          <td class="num heat-cell" data-v="22.1" data-sub="비교대상 없음(open-label)">22.1%<span class="heat-sub">전체기간 TEAE</span></td>
-          <td class="num heat-cell" data-v="16.9" data-sub="rollover 후 신규 발생">16.9%<span class="heat-sub">신규 발생</span></td>
-          <td class="num heat-cell" data-v="13.8" data-sub="중등도-중증">13.8%<span class="heat-sub">중등도-중증</span></td>
-          <td class="num heat-cell" data-v="3.3" data-sub="중증 혈소판감소">3.3%<span class="heat-sub">중증</span></td>
-        </tr>
-      </tbody>
-    </table>
-    <p style="font-size:11.5px; color:var(--text-muted); margin-top:10px;">
-      Serious bleeding은 대부분 트라이얼에서 balanced 또는 소폭 증가에 그침 (concomitant prostacyclin/항응고제/저혈소판 등
-      다중 위험요인 보유자에 집중) — 자세한 내용은 <code>SOTERIA Study.md</code> 참고.
+    <p style="margin:0 0 10px; font-size:13.5px;">
+      <b><a href="sotatercept.html">→ Sotatercept (Winrevair) 근거 요약</a></b><br>
+      <span style="color:var(--text-secondary); font-size:13px;">
+        임상시험 6건, 사망·임상악화 위험비 forest plot, 중증도별 환자군 비교, 표적 관련 이상반응, SOTERIA 장기 데이터.
+        위 알고리즘에서 intermediate-high/high 위험군의 add-on 근거에 해당합니다.
+      </span>
+    </p>
+    <p style="margin:0; font-size:13.5px;">
+      <b><a href="riociguat.html">→ Riociguat (Adempas) 근거 요약</a></b><br>
+      <span style="color:var(--text-secondary); font-size:13px;">
+        논문 11편, PAH와 CTEPH 양쪽 근거, PDE5 억제제에서의 전환(class IIb), 객혈 안전성 신호.
+        위 <b>약물 계열</b>의 NO–cGMP 경로에 해당하며, PDE5 억제제와 <b>병용이 아니라 교체</b>하는 약물입니다.
+      </span>
     </p>
   </div>
 </section>
 
 <footer>
-  출처: <code>wiki/Pulmonary Arterial Hypertension/</code> 내 Pulmonary Arterial Hypertension, Hypertension Pulmonary,
-  PAH Risk Stratification, Background Therapy for Pulmonary Arterial Hypertension, Sotatercept, PULSAR/STELLAR/ZENITH/HYPERION/SOTERIA
-  Trial 문서 (2026-07 컴파일 기준). 생성일 기준 최신 raw 자료 반영, 인터넷 조회 없음.
+  출처: <code>wiki/Pulmonary Hypertension/Guideline &amp; Concepts/</code> 내 Hypertension Pulmonary,
+  Pulmonary Arterial Hypertension, PAH Risk Stratification, Background Therapy for Pulmonary Arterial Hypertension 문서.
+  개별 약물 근거는 <a href="sotatercept.html">Sotatercept</a>·<a href="riociguat.html">Riociguat</a> 페이지 참조.
+  <br><b>면책</b> — 공개 지침과 논문을 요약한 학습용 자료이며 진료 지침이나 의학적 조언이 아닙니다.
 </footer>
 
 </main>
@@ -687,60 +626,6 @@
     out.appendChild(document.createTextNode(meta.txt));
   });
 
-  /* ---------- RRR bar chart ---------- */
-  var rrrData = [
-    {label:'STELLAR', sub:'HR 0.16 (0.08–0.35)', rrr:84},
-    {label:'PULSAR+STELLAR pooled', sub:'HR 0.16 (0.08–0.33)', rrr:84},
-    {label:'ZENITH', sub:'HR 0.24 (0.13–0.43)', rrr:76},
-    {label:'HYPERION', sub:'HR 0.24 (0.14–0.41)', rrr:76}
-  ];
-  var chart = document.getElementById('rrrChart');
-  var labelsRow = document.getElementById('rrrLabels');
-  var tooltip = document.getElementById('tooltip');
-  rrrData.forEach(function(d){
-    var col = document.createElement('div');
-    col.className = 'bar-col';
-
-    var tipLabel = document.createElement('div');
-    tipLabel.className = 'tip-label';
-    tipLabel.textContent = d.rrr + '%';
-    col.appendChild(tipLabel);
-
-    var bar = document.createElement('div');
-    bar.className = 'bar';
-    bar.style.height = d.rrr + '%';
-    col.appendChild(bar);
-
-    var xlabel = document.createElement('div');
-    xlabel.className = 'x-label';
-    xlabel.textContent = d.label;
-    labelsRow.appendChild(xlabel);
-
-    col.addEventListener('pointermove', function(e){
-      tooltip.innerHTML = '';
-      var strong = document.createElement('b');
-      strong.textContent = 'RRR ' + d.rrr + '%';
-      tooltip.appendChild(strong);
-      tooltip.appendChild(document.createElement('br'));
-      tooltip.appendChild(document.createTextNode(d.sub));
-      var rect = chart.getBoundingClientRect();
-      tooltip.style.left = (e.clientX - rect.left) + 'px';
-      tooltip.style.top = (e.clientY - rect.top) + 'px';
-      tooltip.classList.add('show');
-    });
-    col.addEventListener('pointerleave', function(){ tooltip.classList.remove('show'); });
-
-    chart.appendChild(col);
-  });
-
-  /* ---------- safety heatmap tint ---------- */
-  var seqSteps = ['--seq-100','--seq-150','--seq-200','--seq-250','--seq-300','--seq-350','--seq-400','--seq-450','--seq-500','--seq-550','--seq-600'];
-  document.querySelectorAll('.heat-cell').forEach(function(cell){
-    var v = parseFloat(cell.getAttribute('data-v')) || 0;
-    var idx = Math.min(seqSteps.length - 1, Math.round((v / 45) * (seqSteps.length - 1)));
-    var varName = seqSteps[idx];
-    cell.style.background = 'color-mix(in srgb, var(' + varName + ') 35%, transparent)';
-  });
 })();
 </script>
 </body>
