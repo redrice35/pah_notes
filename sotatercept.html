@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sotatercept (Winrevair) — 근거 요약</title>
+<style>
+  :root, .viz-root {
+    color-scheme: light;
+    --surface-1:#fcfcfb; --plane:#f9f9f7;
+    --text-primary:#0b0b0b; --text-secondary:#52514e; --text-muted:#898781;
+    --grid:#e1e0d9; --baseline:#c3c2b7; --border:rgba(11,11,11,0.10);
+    --series-1:#2a78d6; --series-2:#eb6834; --series-3:#1baf7a; --series-4:#eda100;
+    --seq-100:#cde2fb; --seq-150:#b7d3f6; --seq-200:#9ec5f4; --seq-250:#86b6ef;
+    --seq-300:#6da7ec; --seq-350:#5598e7; --seq-400:#3987e5; --seq-450:#2a78d6;
+    --seq-500:#256abf; --seq-550:#1c5cab; --seq-600:#184f95; --seq-650:#104281;
+    --status-good:#0ca30c; --status-warning:#fab219; --status-serious:#ec835a; --status-critical:#d03b3b;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:where(:not([data-theme="light"])) {
+      color-scheme: dark;
+      --surface-1:#1a1a19; --plane:#0d0d0d;
+      --text-primary:#ffffff; --text-secondary:#c3c2b7; --text-muted:#898781;
+      --grid:#2c2c2a; --baseline:#383835; --border:rgba(255,255,255,0.10);
+      --series-1:#3987e5; --series-2:#d95926; --series-3:#199e70; --series-4:#c98500;
+      --status-good:#0ca30c;
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --surface-1:#1a1a19; --plane:#0d0d0d;
+    --text-primary:#ffffff; --text-secondary:#c3c2b7; --text-muted:#898781;
+    --grid:#2c2c2a; --baseline:#383835; --border:rgba(255,255,255,0.10);
+    --series-1:#3987e5; --series-2:#d95926; --series-3:#199e70; --series-4:#c98500;
+    --status-good:#0ca30c;
+  }
+  * { box-sizing:border-box; }
+  html, body { margin:0; padding:0; }
+  body { font-family: system-ui, -apple-system, "Segoe UI", "Malgun Gothic", sans-serif;
+         background:var(--plane); color:var(--text-primary); line-height:1.55; }
+  a { color:var(--series-1); }
+
+  header.top { position:sticky; top:0; z-index:20; background:var(--surface-1);
+    border-bottom:1px solid var(--border); padding:10px 20px;
+    display:flex; align-items:center; gap:16px; flex-wrap:wrap; }
+  header.top h1 { font-size:15px; margin:0; font-weight:600; white-space:nowrap; }
+  header.top .home { font-size:13px; text-decoration:none; color:var(--text-secondary); }
+  header.top .home:hover { color:var(--text-primary); }
+  nav.tabs { display:flex; gap:4px; flex-wrap:wrap; margin-left:auto; }
+  nav.tabs a { text-decoration:none; color:var(--text-secondary); font-size:13px; padding:7px 10px; border-radius:6px; }
+  nav.tabs a:hover { background:var(--grid); color:var(--text-primary); }
+  #themeToggle { border:1px solid var(--border); background:var(--surface-1); color:var(--text-primary);
+    border-radius:6px; padding:6px 10px; font-size:12px; cursor:pointer; }
+
+  main { max-width:1080px; margin:0 auto; padding:24px 20px 80px; }
+  section { margin-bottom:40px; scroll-margin-top:60px; }
+  h2 { font-size:20px; margin:0 0 4px; letter-spacing:-0.01em; }
+  h3 { font-size:14px; margin:0 0 10px; font-weight:600; }
+  .sub { color:var(--text-secondary); font-size:13px; margin:0 0 14px; }
+
+  .card { background:var(--surface-1); border:1px solid var(--border); border-radius:10px; padding:16px 18px; margin-bottom:14px; }
+  .card > h3:first-child { margin-top:0; }
+  .grid { display:grid; gap:12px; }
+  .g3 { grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); }
+  .g2 { grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); }
+
+  .tile { background:var(--surface-1); border:1px solid var(--border); border-radius:10px; padding:14px 16px; }
+  .tile .k { font-size:11px; text-transform:uppercase; letter-spacing:.06em; color:var(--text-muted); }
+  .tile .v { font-size:26px; font-weight:650; letter-spacing:-0.02em; margin:2px 0; font-variant-numeric:tabular-nums; }
+  .tile .d { font-size:12px; color:var(--text-secondary); }
+
+  table { border-collapse:collapse; width:100%; font-size:13px; }
+  th, td { text-align:left; padding:7px 9px; border-bottom:1px solid var(--grid); vertical-align:top; }
+  th { font-weight:600; color:var(--text-secondary); font-size:12px; white-space:nowrap; }
+  td.num, th.num { text-align:right; font-variant-numeric:tabular-nums; white-space:nowrap; }
+  tbody tr:hover { background:var(--grid); }
+  caption { caption-side:bottom; text-align:left; color:var(--text-muted); font-size:11.5px; padding-top:8px; }
+
+  .note { font-size:12.5px; color:var(--text-secondary); border-left:3px solid var(--baseline); padding:6px 0 6px 12px; margin:10px 0; }
+  .warn { border-left-color:var(--status-warning); }
+  .crit { border-left-color:var(--status-critical); }
+  .note b { color:var(--text-primary); }
+
+  .chart-wrap { position:relative; }
+  svg.viz { width:100%; height:auto; display:block; overflow:visible; }
+  .tt { position:absolute; pointer-events:none; background:var(--surface-1); border:1px solid var(--border);
+        border-radius:6px; padding:7px 9px; font-size:12px; box-shadow:0 2px 10px rgba(0,0,0,.12);
+        opacity:0; transition:opacity .08s; z-index:10; white-space:nowrap; }
+  .tt b { display:block; margin-bottom:3px; }
+  .tt .r { color:var(--text-secondary); }
+  .tt .r span { color:var(--text-primary); font-variant-numeric:tabular-nums; }
+
+  td.cell { text-align:center; font-variant-numeric:tabular-nums; font-size:12px; border-radius:3px;
+            border:2px solid var(--surface-1); cursor:default; }
+  td.cell.na { color:var(--text-muted); }
+
+  ol.tl { list-style:none; margin:0; padding:0 0 0 22px; border-left:2px solid var(--grid); }
+  ol.tl li { position:relative; padding:0 0 16px 14px; }
+  ol.tl li::before { content:""; position:absolute; left:-21px; top:5px; width:8px; height:8px; border-radius:50%;
+                     background:var(--series-1); box-shadow:0 0 0 2px var(--surface-1); }
+  ol.tl li.alt::before { background:var(--series-2); }
+  ol.tl .yr { font-size:12px; color:var(--text-muted); font-variant-numeric:tabular-nums; }
+  ol.tl .ti { font-size:13.5px; font-weight:600; }
+  ol.tl .de { font-size:12.5px; color:var(--text-secondary); }
+
+  ul.files { list-style:none; margin:0; padding:0; font-size:13px; }
+  ul.files li { padding:6px 0; border-bottom:1px solid var(--grid); display:flex; gap:10px; flex-wrap:wrap; align-items:baseline; }
+  .tag { font-size:11px; border:1px solid var(--border); border-radius:4px; padding:1px 6px; color:var(--text-secondary); white-space:nowrap; }
+
+  details.tbl { margin-top:10px; }
+  details.tbl summary { font-size:12.5px; color:var(--text-secondary); cursor:pointer; }
+  footer { color:var(--text-muted); font-size:12px; border-top:1px solid var(--border); padding-top:14px; }
+</style>
+</head>
+<body data-palette="#2a78d6,#eb6834,#1baf7a,#eda100">
+
+<header class="top">
+  <a class="home" href="index.html">← 목차</a>
+  <h1>Sotatercept (Winrevair) — 근거 요약</h1>
+  <nav class="tabs">
+    <a href="#overview">개요</a>
+    <a href="#program">임상 프로그램</a>
+    <a href="#outcome">핵심 결과</a>
+    <a href="#safety">안전성</a>
+    <a href="#longterm">장기 데이터</a>
+    <a href="#timeline">타임라인</a>
+    <a href="#docs">원문</a>
+  </nav>
+  <button id="themeToggle" type="button">🌙 다크모드</button>
+</header>
+
+<main>
+
+<section id="overview">
+  <h2>개요</h2>
+  <p class="sub">PAH 치료제 중 처음으로 <b>혈관 리모델링 자체</b>를 표적으로 하는 약물. 임상시험 6건(논문 6편)에서 추출.</p>
+
+  <div class="grid g3">
+    <div class="tile"><div class="k">임상시험</div><div class="v">6</div><div class="d">2상 1 · 3상 3 · 통합분석 1 · 장기추적 1</div></div>
+    <div class="tile"><div class="k">사망/임상악화 위험</div><div class="v">HR 0.16–0.24</div><div class="d">중증도와 무관하게 일관 — 신규진단부터 고위험까지</div></div>
+    <div class="tile"><div class="k">조기 종료</div><div class="v">2건</div><div class="d">ZENITH(유효성) · HYPERION(임상적 균형 상실)</div></div>
+  </div>
+
+  <div class="card" style="margin-top:14px;">
+    <h3>작용기전 — 기존 약물과 다른 축</h3>
+    <p style="font-size:13.5px;margin:0 0 10px;">인간 <b>액티빈 수용체 IIA형(ActRIIA)</b>의 세포외 영역을 IgG1 Fc에 융합한 단백질. TGF-β 상위계열 리간드(액티빈 A, GDF8, GDF11)를 붙잡는 <b>리간드 트랩</b>으로 작용합니다.</p>
+    <table>
+      <thead><tr><th>신호 경로</th><th>방향</th><th>PAH에서의 상태</th></tr></thead>
+      <tbody>
+        <tr><td>액티빈/GDF – ActRIIA – Smad2/3</td><td>증식 촉진</td><td><b>항진</b></td></tr>
+        <tr><td>BMP – BMPR2 – Smad1/5/8</td><td>증식 억제</td><td><b>저하</b> (BMPR2 변이는 유전성 PAH의 주요 원인)</td></tr>
+      </tbody>
+      <caption>Sotatercept은 과잉 리간드를 격리해 이 불균형을 되돌립니다.</caption>
+    </table>
+    <div class="note"><b>기존 약물과의 위치 차이.</b> ERA·PDE5i/sGC 자극제·프로스타사이클린 세 계열은 혈관 <i>긴장도</i>에 작용하며, sotatercept은 그 위에 <b>추가</b>됩니다(대체가 아님). 같은 볼트의 <a href="riociguat.html">riociguat</a>은 NO 경로 <i>안에서</i> PDE5 억제제와 교체되는 약물로, 논리적 위치가 다릅니다.</div>
+  </div>
+</section>
+
+<section id="program">
+  <h2>임상 프로그램</h2>
+  <p class="sub">중증도 스펙트럼 전체를 덮도록 설계됨 — 신규진단(HYPERION), 장기 중등도(PULSAR·STELLAR), 진행성 고위험(ZENITH).</p>
+
+  <div class="card">
+    <table>
+      <thead><tr><th>시험 (연도)</th><th>상</th><th>대상</th><th class="num">N</th><th>1차 평가변수</th><th>핵심 결과</th></tr></thead>
+      <tbody>
+        <tr><td><b>PULSAR</b> (2021)</td><td>2</td><td>WHO FC II/III, 장기 PAH</td><td class="num">106</td><td>24주 PVR 변화</td><td>PVR <b>−239.5</b> dyn·s·cm⁻⁵ (0.7 mg군), P&lt;0.001</td></tr>
+        <tr><td><b>STELLAR</b> (2023)</td><td>3</td><td>WHO FC II/III, 장기 PAH</td><td class="num">323</td><td>24주 6MWD 변화</td><td>6MWD <b>+40.8 m</b>; 사망/악화 <b>HR 0.16</b> — <b>FDA 허가 근거</b></td></tr>
+        <tr><td><b>PULSAR+STELLAR 통합</b> (2025)</td><td>—</td><td>위 두 시험 통합</td><td class="num">429</td><td>(통합 유효성·안전성)</td><td>HR 0.16; <b>우심실 역리모델링</b> 입증</td></tr>
+        <tr><td><b>ZENITH</b> (2025)</td><td>3</td><td>WHO FC III/IV, <b>고위험</b> (REVEAL Lite 2 ≥9)</td><td class="num">172</td><td>사망/폐이식/입원 복합</td><td>17.4% vs 54.7%, <b>HR 0.24</b> — <b>유효성으로 조기 종료</b></td></tr>
+        <tr><td><b>HYPERION</b> (2025)</td><td>3</td><td>WHO FC II/III, <b>진단 1년 이내</b></td><td class="num">320</td><td>임상악화 복합</td><td>10.6% vs 36.9%, <b>HR 0.24</b>; 12개월 NNT <b>5</b></td></tr>
+        <tr><td><b>SOTERIA</b> (2025)</td><td>3 (개방)</td><td>위 시험 완료자 롤오버</td><td class="num">426</td><td>장기 안전성</td><td>523 환자-년; 1년까지 효과 유지</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3>같은 약, 다른 환자군 — 기저 중증도 비교</h3>
+    <table>
+      <thead><tr><th>항목</th><th class="num">STELLAR</th><th class="num">ZENITH</th><th class="num">HYPERION</th></tr></thead>
+      <tbody>
+        <tr><td>WHO 기능등급</td><td class="num">II/III</td><td class="num">III/IV (IV 25.6%)</td><td class="num">II/III (III 78.8%)</td></tr>
+        <tr><td>진단 후 경과</td><td class="num">장기 (~8년)</td><td class="num">장기</td><td class="num"><b>중앙값 7.1개월</b></td></tr>
+        <tr><td>기저 6MWD</td><td class="num">~400 m</td><td class="num"><b>270 m</b></td><td class="num">354.9 m</td></tr>
+        <tr><td>기저 NT-proBNP</td><td class="num">—</td><td class="num">~3145 pg/ml</td><td class="num">—</td></tr>
+        <tr><td>프로스타사이클린 정주</td><td class="num">높음</td><td class="num">60%</td><td class="num"><b>16.6%</b></td></tr>
+        <tr><td>평균 연령</td><td class="num">—</td><td class="num">—</td><td class="num"><b>56.2세</b> (동반질환 많음)</td></tr>
+      </tbody>
+      <caption>HYPERION 환자군은 더 고령이고 동반질환(당뇨 22.5%, 고혈압 43.1%, 비만 31.6%)이 많아, 저자들은 실제 진료 레지스트리에 더 가깝다고 기술했습니다.</caption>
+    </table>
+  </div>
+</section>
+
+<section id="outcome">
+  <h2>핵심 결과 — 사망/임상악화</h2>
+
+  <div class="card">
+    <h3>복합 종료점 위험비 (HR, 95% CI · 로그 축)</h3>
+    <div class="chart-wrap">
+      <svg class="viz" id="forest" viewBox="0 0 760 260" role="img" aria-label="시험별 사망·임상악화 복합 종료점 위험비"></svg>
+      <div class="tt" id="forestTip"></div>
+    </div>
+    <div class="note crit"><b>가로로 비교하면 안 되는 이유.</b> 네 시험의 복합 종료점 <b>정의가 서로 다릅니다.</b> ZENITH는 사망·폐이식·입원만 포함한 <b>hard outcome</b>인 반면, STELLAR와 HYPERION은 기능 악화(6MWD 감소 등)를 포함합니다. HR 수치가 비슷하다고 같은 것을 측정한 것이 아닙니다.</div>
+    <details class="tbl"><summary>복합 종료점 정의 표로 보기</summary>
+      <table>
+        <thead><tr><th>시험</th><th>모집단</th><th class="num">HR (95% CI)</th><th class="num">RRR</th><th>복합 종료점 정의</th></tr></thead>
+        <tbody>
+          <tr><td>STELLAR</td><td>WHO FC II/III, 장기 PAH</td><td class="num">0.16 (0.08–0.35)</td><td class="num">84%</td><td>사망, 이식대기등재, rescue therapy·프로스타사이클린 증량 ≥10%, 심방중격절개, PAH 입원 ≥24h, FC악화+6MWD↓≥15%</td></tr>
+          <tr><td>PULSAR+STELLAR 통합</td><td>동일</td><td class="num">0.16 (0.08–0.33)</td><td class="num">84%</td><td>위와 동일</td></tr>
+          <tr><td>ZENITH</td><td>WHO FC III/IV, 고위험</td><td class="num">0.24 (0.13–0.43)</td><td class="num">76%</td><td><b>사망, 폐이식, PAH 입원 ≥24h 만</b></td></tr>
+          <tr><td>HYPERION</td><td>WHO FC II/III, 진단 1년 이내</td><td class="num">0.24 (0.14–0.41)</td><td class="num">76%</td><td>사망, PAH 입원 ≥24h, 심방중격절개, 폐이식, 운동능력 악화</td></tr>
+        </tbody>
+      </table>
+    </details>
+  </div>
+
+  <div class="grid g2">
+    <div class="card">
+      <h3>무엇이 위험 감소를 이끌었나</h3>
+      <table>
+        <thead><tr><th>구성요소</th><th class="num">Sotatercept</th><th class="num">위약</th></tr></thead>
+        <tbody>
+          <tr><td colspan="3" style="color:var(--text-muted);font-size:12px;padding-top:10px"><b>ZENITH</b> (고위험)</td></tr>
+          <tr><td>사망</td><td class="num">8.1%</td><td class="num">15.1%</td></tr>
+          <tr><td>폐이식</td><td class="num">1.2%</td><td class="num">7.0%</td></tr>
+          <tr><td><b>PAH 입원</b></td><td class="num"><b>9.3%</b></td><td class="num"><b>50.0%</b></td></tr>
+          <tr><td colspan="3" style="color:var(--text-muted);font-size:12px;padding-top:10px"><b>HYPERION</b> (신규진단)</td></tr>
+          <tr><td>사망</td><td class="num">4.4%</td><td class="num">3.8%</td></tr>
+          <tr><td>PAH 입원</td><td class="num">1.9%</td><td class="num">8.8%</td></tr>
+          <tr><td><b>운동능력 악화</b></td><td class="num"><b>5.0%</b></td><td class="num"><b>28.8%</b></td></tr>
+        </tbody>
+      </table>
+      <div class="note"><b>중증도에 따라 이득의 성격이 다릅니다.</b> 고위험군(ZENITH)에서는 입원과 이식 회피가, 신규진단군(HYPERION)에서는 운동능력 유지가 주된 동력입니다. HYPERION에서 사망률이 양군 동일한 것은 이 단계 환자의 단기 사망 위험 자체가 낮기 때문입니다.</div>
+    </div>
+
+    <div class="card">
+      <h3>운동능력·혈역학</h3>
+      <table>
+        <thead><tr><th>시험</th><th class="num">Δ6MWD</th><th class="num">ΔPVR</th></tr></thead>
+        <tbody>
+          <tr><td>PULSAR (0.7 mg)</td><td class="num">+21.4 m<span style="color:var(--text-muted)"> (ns)</span></td><td class="num"><b>−239.5</b></td></tr>
+          <tr><td>STELLAR</td><td class="num"><b>+40.8 m</b></td><td class="num">−234.6</td></tr>
+          <tr><td>ZENITH</td><td class="num">+63.0 m</td><td class="num">−339.6</td></tr>
+          <tr><td>HYPERION</td><td class="num">+21.4 m<span style="color:var(--text-muted)"> (기술적)</span></td><td class="num">—</td></tr>
+        </tbody>
+        <caption>위약 대비 차이. ZENITH의 큰 수치는 약효가 더 커서가 아니라 <b>위약군의 악화가 가팔랐기 때문</b>일 수 있다고 저자들이 명시했습니다.</caption>
+      </table>
+      <div class="note warn"><b>계층검정이 멈춘 지점.</b> ZENITH에서는 <b>전체 생존(HR 0.42, 0.17–1.07)이 유의성 경계를 넘지 못해</b> 이후 종료점이 모두 기술적입니다. HYPERION에서는 <b>French 위험점수</b>가 유의하지 않아 거기서 멈췄습니다(6MWD 440 m 기준이 고령·동반질환 환자군에 불리했을 가능성). STELLAR에서는 PAH-SYMPACT 인지/정서 영역만 실패(P=0.16).</div>
+    </div>
+  </div>
+</section>
+
+<section id="safety">
+  <h2>안전성</h2>
+
+  <div class="card">
+    <h3>표적 관련 이상반응 (%) — sotatercept 투여군</h3>
+    <div class="legend" style="font-size:12px;color:var(--text-muted);margin-bottom:10px">색이 진할수록 발생률 높음 · 셀에 마우스를 올리면 상세 표시</div>
+    <table id="heatTable">
+      <thead>
+        <tr><th>이상반응</th>
+          <th class="num">PULSAR<br><span style="font-weight:400;color:var(--text-muted)">0.7 mg · 24주</span></th>
+          <th class="num">STELLAR<br><span style="font-weight:400;color:var(--text-muted)">24주</span></th>
+          <th class="num">ZENITH<br><span style="font-weight:400;color:var(--text-muted)">고위험군</span></th>
+          <th class="num">HYPERION<br><span style="font-weight:400;color:var(--text-muted)">신규진단</span></th>
+          <th class="num">SOTERIA<br><span style="font-weight:400;color:var(--text-muted)">523 환자-년</span></th></tr>
+      </thead>
+      <tbody></tbody>
+      <caption>노출기간이 24주에서 1년 이상까지 다르므로 행 방향 비교는 주의. 빈 칸은 해당 문헌에서 별도로 보고되지 않은 항목입니다.</caption>
+    </table>
+    <div class="note"><b>모두 표적 관련(on-target) 반응입니다.</b> 혈색소 상승은 sotatercept의 알려진 조혈 작용이고, 모세혈관확장증·비출혈은 혈관 관련 반응입니다. PULSAR에서 혈색소 &gt;18 g/dl로 3명이 프로토콜에 따라 중단되었고, 혈소판감소는 가역적이며 출혈과 연관되지 않았습니다.</div>
+  </div>
+
+  <div class="grid g2">
+    <div class="card">
+      <h3>출혈 — 맥락이 필요한 항목</h3>
+      <table>
+        <thead><tr><th>시험</th><th class="num">중대 출혈 (약/위약)</th></tr></thead>
+        <tbody>
+          <tr><td>ZENITH</td><td class="num">5.8% / 4.7% <span style="color:var(--status-good)">균형</span></td></tr>
+          <tr><td>HYPERION</td><td class="num">3.8% / 1.9%</td></tr>
+          <tr><td>SOTERIA</td><td class="num">5.2% (단일군)</td></tr>
+        </tbody>
+      </table>
+      <p style="font-size:12.5px;color:var(--text-secondary);margin:10px 0 0;">전체 출혈 건수의 불균형은 대부분 <b>비중대 비출혈·치은출혈</b>에서 나옵니다. SOTERIA의 중대 출혈 22건은 <b>동시 위험인자가 겹친 환자</b>에 집중되었습니다 — 프로스타사이클린 정주 63.6%, 항응고제 50.0%, NSAID 13.6%. 이 양상이 Winrevair 허가사항의 출혈 경고에 반영되어 있습니다.</p>
+    </div>
+
+    <div class="card">
+      <h3>모세혈관확장증 — 언제 생기나</h3>
+      <p style="font-size:13px;margin:0 0 10px;">SOTERIA에서 롤오버 시점에 이미 12.7%가 보유, 추적 중 16.9%가 신규 발생했습니다. Kaplan-Meier 분석 결과 <b>기존 투여군이 위약 교차군보다 무발생 생존이 길었습니다</b> — 즉 위험이 누적 노출에 비례해 쌓이는 것이 아니라 <b>투여 초기에 몰려 있습니다.</b></p>
+      <div class="note"><b>발견 경위.</b> PULSAR 개방표지 연장에서 처음 관찰되었고, STELLAR에서 처음으로 1차 논문에 특별관심 이상반응으로 명시되었습니다.</div>
+    </div>
+  </div>
+</section>
+
+<section id="longterm">
+  <h2>장기 데이터 — SOTERIA</h2>
+  <p class="sub">모든 시험이 장기 답변을 미뤄둔 개방표지 롤오버 연구. 자료 마감 2023-11-08, 평균 노출 448.6일.</p>
+
+  <div class="card">
+    <div class="grid g3">
+      <div class="tile"><div class="k">누적 노출</div><div class="v">523<span style="font-size:15px;font-weight:500"> 환자-년</span></div><div class="d">발표 시점 최대 규모의 sotatercept 안전성 데이터</div></div>
+      <div class="tile"><div class="k">사망</div><div class="v">2.8%</div><div class="d">12명 · <b>치료 관련 판정 0건</b></div></div>
+      <div class="tile"><div class="k">임상악화</div><div class="v">4.7%</div><div class="d">평균 64주 추적 — 원 시험의 24주 구간과 유사, 가속 신호 없음</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>효과는 유지되는가</h3>
+    <table>
+      <thead><tr><th>코호트</th><th class="num">n</th><th>결과</th></tr></thead>
+      <tbody>
+        <tr><td><b>위약 교차군</b><br><span style="font-size:12px;color:var(--text-secondary)">여기서 처음 sotatercept 투여</span></td><td class="num">143</td><td>24주에 6MWD·NT-proBNP 유의 개선, <b>1년까지 유지</b> (P&lt;0.0001) — 기존 투여군 수준으로 <b>따라잡음</b></td></tr>
+        <tr><td><b>계속 투여군</b></td><td class="num">259</td><td>SOTERIA 기저 대비 유의한 변화 없음 — 원 시험에서 얻은 이득이 <b>소실되지 않고 유지</b></td></tr>
+        <tr><td>맹검 유지군</td><td class="num">24</td><td>모시험(ZENITH·HYPERION)이 맹검 상태여서 배정 미상</td></tr>
+      </tbody>
+    </table>
+    <div class="note"><b>부수적 관찰.</b> 기저에 프로스타사이클린을 쓰던 환자의 약 17.5%가 sotatercept 투여 중 이를 감량·중단하거나 경구/흡입으로 전환할 수 있었습니다. 다만 SOTERIA는 프로스타사이클린 중단을 검증하도록 설계된 연구가 아니며 기술적 관찰입니다.</div>
+  </div>
+</section>
+
+<section id="timeline">
+  <h2>타임라인</h2>
+  <div class="card">
+    <ol class="tl">
+      <li><div class="yr">2021</div><div class="ti">PULSAR — 2상 성공 (NEJM)</div><div class="de">PVR 34% 감소. 배경치료 위에 얹는 새 기전의 첫 양성 결과. 개방표지 연장에서 <b>모세혈관확장증</b>이 처음 관찰됨.</div></li>
+      <li><div class="yr">2022</div><div class="ti">ESC/ERS 지침 — "3상 개발 중 약물"</div><div class="de">당시 PULSAR만 인용 가능했던 시점. <b>치료 알고리즘에는 미포함</b> — 현재 지침은 이 약을 반영하지 못한 상태입니다.</div></li>
+      <li class="alt"><div class="yr">2023</div><div class="ti">STELLAR — 3상 성공, 허가 근거 (NEJM)</div><div class="de">6MWD +40.8 m, 사망/악화 HR 0.16. 9개 계층 종료점 중 8개 성공.</div></li>
+      <li class="alt"><div class="yr">2024</div><div class="ti">FDA 허가 — Winrevair</div><div class="de">이후 EU·일본·호주 허가(2025년까지).</div></li>
+      <li><div class="yr">2025</div><div class="ti">ZENITH — 고위험군, 유효성으로 조기 종료</div><div class="de">PAH RCT에서는 이례적. 입원 50% → 9.3%. 단, 전체 생존은 유의성 경계 미달.</div></li>
+      <li><div class="yr">2025</div><div class="ti">HYPERION — 자체 중간분석 전에 조기 종료</div><div class="de">ZENITH 결과로 위약 투여의 <b>임상적 균형이 상실</b>되었다고 판단. 신규진단군에서도 동일한 HR 0.24.</div></li>
+      <li class="alt"><div class="yr">2025</div><div class="ti">PULSAR+STELLAR 통합분석 · SOTERIA 중간결과 (ERJ)</div><div class="de">전자는 <b>우심실 역리모델링</b>을 입증해 기전을 확인했고, 후자는 1년 지속성과 최대 규모 안전성 데이터를 제공.</div></li>
+    </ol>
+  </div>
+</section>
+
+<section id="docs">
+  <h2>원문</h2>
+  <p class="sub">이 페이지의 모든 수치는 아래 6편에서 추출했습니다. 제목을 누르면 DOI 원문으로 이동합니다.</p>
+  <div class="card">
+    <ul class="files" id="fileList"></ul>
+  </div>
+
+  <footer>
+    <p style="margin:0 0 8px"><b>면책</b> — 이 페이지는 공개된 논문 6편의 내용을 요약·정리한 학습용 자료이며, 진료 지침이나 의학적 조언이 아닙니다. 임상 판단은 원문과 최신 진료지침을 직접 확인하십시오. 수치 인용 시 DOI 원문 대조를 권합니다.</p>
+    <p style="margin:0">작성 2026-09-12 · 관련 페이지: <a href="pah-policy.html">PAH 치료 방침</a> · <a href="riociguat.html">Riociguat</a></p>
+  </footer>
+</section>
+
+</main>
+
+<script>
+(function () {
+  "use strict";
+
+  var btn = document.getElementById('themeToggle');
+  var stored = null;
+  try { stored = localStorage.getItem('ph-theme'); } catch (e) {}
+  if (stored) document.documentElement.setAttribute('data-theme', stored);
+  function isDark() {
+    var t = document.documentElement.getAttribute('data-theme');
+    if (t) return t === 'dark';
+    return window.matchMedia('(prefers-color-scheme: dark)').matches;
+  }
+  function paint() { btn.textContent = isDark() ? '☀️ 라이트모드' : '🌙 다크모드'; }
+  btn.addEventListener('click', function () {
+    var next = isDark() ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    try { localStorage.setItem('ph-theme', next); } catch (e) {}
+    paint(); drawForest();
+  });
+  paint();
+  function cssv(n) { return getComputedStyle(document.documentElement).getPropertyValue(n).trim(); }
+
+  /* ---------- forest plot ---------- */
+  var fd = [
+    { name:'STELLAR',            sub:'FC II/III · 장기 PAH',    hr:0.16, lo:0.08, hi:0.35, rrr:'84%' },
+    { name:'PULSAR+STELLAR 통합', sub:'통합 n=429',              hr:0.16, lo:0.08, hi:0.33, rrr:'84%' },
+    { name:'ZENITH',             sub:'FC III/IV · 고위험',       hr:0.24, lo:0.13, hi:0.43, rrr:'76%' },
+    { name:'HYPERION',           sub:'진단 1년 이내',            hr:0.24, lo:0.14, hi:0.41, rrr:'76%' }
+  ];
+  var svg = document.getElementById('forest');
+  var tip = document.getElementById('forestTip');
+  var W=760, H=260, ML=190, MR=90, MT=18, MB=46;
+  var XMIN=0.05, XMAX=2;
+  function fx(v){ return ML + (Math.log(v)-Math.log(XMIN))/(Math.log(XMAX)-Math.log(XMIN))*(W-ML-MR); }
+  function el(n,a){ var x=document.createElementNS('http://www.w3.org/2000/svg',n); for(var k in a) x.setAttribute(k,a[k]); return x; }
+
+  function drawForest(){
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+    var grid=cssv('--grid'), base=cssv('--baseline'), muted=cssv('--text-muted'),
+        sec=cssv('--text-secondary'), pri=cssv('--text-primary'), surf=cssv('--surface-1'), col=cssv('--series-1');
+    var rowH=(H-MT-MB)/fd.length;
+
+    [0.05,0.1,0.2,0.5,1,2].forEach(function(t){
+      svg.appendChild(el('line',{x1:fx(t),x2:fx(t),y1:MT,y2:H-MB,stroke:grid,'stroke-width':1}));
+      var lb=el('text',{x:fx(t),y:H-MB+18,'text-anchor':'middle',fill:muted,'font-size':11});
+      lb.textContent=t; svg.appendChild(lb);
+    });
+    // reference line at HR = 1 (no effect)
+    svg.appendChild(el('line',{x1:fx(1),x2:fx(1),y1:MT,y2:H-MB,stroke:base,'stroke-width':1.5,'stroke-dasharray':'4 3'}));
+    var nl=el('text',{x:fx(1),y:MT-6,'text-anchor':'middle',fill:muted,'font-size':10.5});
+    nl.textContent='효과 없음'; svg.appendChild(nl);
+    var xl=el('text',{x:(ML+W-MR)/2,y:H-8,'text-anchor':'middle',fill:sec,'font-size':11.5});
+    xl.textContent='위험비 (HR) — 왼쪽일수록 sotatercept 유리'; svg.appendChild(xl);
+
+    fd.forEach(function(d,i){
+      var y=MT+rowH*i+rowH/2;
+      var n1=el('text',{x:ML-12,y:y-2,'text-anchor':'end',fill:pri,'font-size':12.5,'font-weight':600});
+      n1.textContent=d.name; svg.appendChild(n1);
+      var n2=el('text',{x:ML-12,y:y+12,'text-anchor':'end',fill:muted,'font-size':11});
+      n2.textContent=d.sub; svg.appendChild(n2);
+
+      svg.appendChild(el('line',{x1:fx(d.lo),x2:fx(d.hi),y1:y,y2:y,stroke:base,'stroke-width':2,'stroke-linecap':'round'}));
+      [d.lo,d.hi].forEach(function(v){
+        svg.appendChild(el('line',{x1:fx(v),x2:fx(v),y1:y-5,y2:y+5,stroke:base,'stroke-width':2}));
+      });
+      svg.appendChild(el('circle',{cx:fx(d.hr),cy:y,r:6,fill:col,stroke:surf,'stroke-width':2}));
+
+      var vl=el('text',{x:W-MR+12,y:y+4,fill:sec,'font-size':11.5});
+      vl.textContent=d.hr.toFixed(2)+'  ('+d.rrr+'↓)'; svg.appendChild(vl);
+
+      var hit=el('rect',{x:ML,y:y-rowH/2,width:W-ML-MR,height:rowH,fill:'transparent'});
+      hit.addEventListener('mousemove',function(ev){
+        tip.innerHTML='<b>'+d.name+'</b><div class="r">HR <span>'+d.hr.toFixed(2)+'</span></div>'+
+                      '<div class="r">95% CI <span>'+d.lo+'–'+d.hi+'</span></div>'+
+                      '<div class="r">상대위험감소 <span>'+d.rrr+'</span></div>';
+        tip.style.opacity=1;
+        var r=svg.parentNode.getBoundingClientRect();
+        tip.style.left=Math.min(ev.clientX-r.left+14, r.width-tip.offsetWidth-6)+'px';
+        tip.style.top=(ev.clientY-r.top-10)+'px';
+      });
+      hit.addEventListener('mouseleave',function(){ tip.style.opacity=0; });
+      svg.appendChild(hit);
+    });
+  }
+  drawForest();
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change',function(){ paint(); drawForest(); });
+
+  /* ---------- safety heatmap ---------- */
+  var studies=['PULSAR 0.7mg','STELLAR','ZENITH','HYPERION','SOTERIA'];
+  var heat=[
+    ['비출혈 (epistaxis)',     null, 12.3, 44.2, 31.9, 22.1],
+    ['모세혈관확장증',          null, 10.4, 25.6, 26.2, 17.4],
+    ['혈색소 상승',             17,   5.5,  12.8, 11.2, null],
+    ['혈소판감소',              12,   6.1,  null, null, null],
+    ['두통',                    null, null, null, null, 16.0]
+  ];
+  var SEQ=['--seq-100','--seq-150','--seq-200','--seq-300','--seq-400','--seq-500','--seq-600'];
+  function seqFor(v){ return 'var('+SEQ[Math.min(SEQ.length-1, Math.floor(v/50*SEQ.length))]+')'; }
+  var tb=document.querySelector('#heatTable tbody');
+  heat.forEach(function(r){
+    var tr=document.createElement('tr');
+    var td0=document.createElement('td'); td0.innerHTML='<b>'+r[0]+'</b>'; tr.appendChild(td0);
+    for(var i=1;i<=5;i++){
+      var td=document.createElement('td'); td.className='cell';
+      if(r[i]===null){ td.textContent='—'; td.classList.add('na'); td.title=studies[i-1]+' — 미보고'; }
+      else{
+        td.textContent=r[i]+'%';
+        td.style.background=seqFor(r[i]);
+        td.style.color = r[i]>=22 ? '#ffffff' : 'var(--text-primary)';
+        td.title=studies[i-1]+' — '+r[0]+' '+r[i]+'%';
+      }
+      tr.appendChild(td);
+    }
+    tb.appendChild(tr);
+  });
+
+  /* ---------- source list ---------- */
+  var files=[
+    ['2상','PULSAR · 106명 · PVR −239.5','Humbert et al. N Engl J Med 2021;384:1204-15','10.1056/NEJMoa2024277'],
+    ['3상','STELLAR · 323명 · 6MWD +40.8 m · 허가 근거','Hoeper et al. N Engl J Med 2023;388:1478-90','10.1056/NEJMoa2213558'],
+    ['통합','PULSAR+STELLAR · 429명 · 우심실 역리모델링','Hoeper et al. Eur Respir J 2025;65:2401424','10.1183/13993003.01424-2024'],
+    ['3상','ZENITH · 172명 · 고위험 · 조기 종료','Humbert et al. N Engl J Med 2025;392:1987-2000','10.1056/NEJMoa2415160'],
+    ['3상','HYPERION · 320명 · 신규진단 · 조기 종료','McLaughlin et al. N Engl J Med 2025;393:1599-611','10.1056/NEJMoa2508170'],
+    ['장기','SOTERIA · 426명 · 523 환자-년','Preston et al. Eur Respir J 2025;66:2401435','10.1183/13993003.01435-2024']
+  ];
+  var ul=document.getElementById('fileList');
+  files.forEach(function(f){
+    var li=document.createElement('li');
+    li.innerHTML='<span class="tag">'+f[0]+'</span>'+
+      '<a href="https://doi.org/'+f[3]+'" target="_blank" rel="noopener">'+f[2]+'</a>'+
+      '<span style="color:var(--text-secondary);margin-left:auto">'+f[1]+'</span>';
+    ul.appendChild(li);
+  });
+})();
+</script>
+</body>
+</html>
