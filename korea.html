@@ -123,6 +123,7 @@
     <a href="#drugs">약제별 범위</a>
     <a href="#gap">국제 표준과의 거리</a>
     <a href="#pending">등재 대기</a>
+    <a href="#sources">원출처 확인</a>
   </nav>
   <button id="themeToggle" type="button">🌙 다크모드</button>
 </header>
@@ -381,6 +382,66 @@
       <li class="alt"><div class="yr">2026-08</div><div class="ti">급여 신청 후 550일 경과 · 100일 신속등재 전환 검토</div><div class="de">학회·환자단체가 100일 신속등재 1순위 지정을 촉구했고, 한국MSD도 제도 활용을 타진</div></li>
     </ol>
     <div class="note warn">함께 요구되는 항목 — <b>에포프로스테놀</b>(OECD 국가 중 국내에만 미도입), <b>타이바소</b>(ILD 동반 폐고혈압), <b>리오시구앗의 CTEPH 급여 확대</b>.</div>
+  </div>
+</section>
+
+<section id="sources">
+  <h2>기준은 바뀝니다 — 원출처에서 직접 확인하기</h2>
+  <p class="sub">이 페이지는 <b>고시 제2026-69호</b> 시점의 스냅숏입니다. 「요양급여의 적용기준 및 방법에 관한 세부사항」은 <b>월 단위로 개정</b>되므로, 실제 청구·적용 전에는 아래에서 현행 기준을 직접 확인하십시오.</p>
+
+  <div class="card">
+    <h3>1차 확인처</h3>
+    <div class="tblwrap"><table>
+      <thead><tr><th style="width:30%">기관 · 서비스</th><th>무엇을 확인하나</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><a href="http://rulesvc.hira.or.kr/lmxsrv/main/main.srv" target="_blank" rel="noopener noreferrer"><b>심평원 요양급여 적용기준 조회</b></a><br><span style="color:var(--text-muted);font-size:12px">rulesvc.hira.or.kr</span></td>
+          <td><b>현행 급여기준의 정본.</b> 고시 본문과 심사 질의응답을 항목별로 검색합니다. "폐동맥고혈압"으로 찾으면 이 페이지가 정리한 일반원칙이 나옵니다. <b>이 페이지와 내용이 다르면 이쪽이 맞습니다.</b></td>
+        </tr>
+        <tr>
+          <td><a href="https://www.hira.or.kr/bbsDummy.do?pgmid=HIRAA030014040000" target="_blank" rel="noopener noreferrer"><b>심평원 약제급여평가위원회 심의결과</b></a></td>
+          <td>등재 여부가 실제로 결정되는 자리. <b>윈레브에어(소타터셉트)의 상정·통과 여부는 여기서 가장 먼저 드러납니다.</b></td>
+        </tr>
+        <tr>
+          <td><a href="https://www.hira.or.kr/bbsDummy.do?pgmid=HIRAA030014050000" target="_blank" rel="noopener noreferrer"><b>심평원 약제급여목록표</b></a></td>
+          <td>급여 대상약제와 상한금액의 월 단위 목록. 신규 등재는 이 표에 오르며 확정됩니다.</td>
+        </tr>
+        <tr>
+          <td><a href="https://www.mohw.go.kr/board.es?mid=a10409020000&amp;bid=0026" target="_blank" rel="noopener noreferrer"><b>보건복지부 훈령·예규·고시</b></a></td>
+          <td>개정 고시 원문이 발령되는 게시판. <b>「요양급여의 적용기준 및 방법에 관한 세부사항」</b>으로 검색하면 개정 이력이 나옵니다.</td>
+        </tr>
+        <tr>
+          <td><a href="https://www.law.go.kr/" target="_blank" rel="noopener noreferrer"><b>국가법령정보센터</b></a></td>
+          <td>행정규칙 검색 → <b>신구법 비교</b>로 개정 전후 조문을 나란히 대조할 수 있습니다.</td>
+        </tr>
+        <tr>
+          <td><a href="https://nedrug.mfds.go.kr/" target="_blank" rel="noopener noreferrer"><b>의약품안전나라 (식약처)</b></a></td>
+          <td>급여가 아닌 <b>허가사항</b>. 적응증 확대는 대개 급여보다 먼저 움직이므로 선행 신호가 됩니다.</td>
+        </tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="card">
+    <h3>변동을 자동으로 받아볼 수 있나</h3>
+    <div class="grid g2">
+      <div>
+        <div class="note" style="border-left-color:var(--status-good);margin-top:0">
+          <b>보건복지부 고시 — RSS 있음</b><br>
+          훈령·예규·고시 게시판이 RSS를 제공합니다. 폐동맥고혈압 일반원칙을 담은 <b>「요양급여의 적용기준 및 방법에 관한 세부사항」</b> 개정이 여기로 올라오므로, 이 피드를 약제명으로 걸러 두면 개정을 놓치지 않습니다.
+          <div style="margin-top:8px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11.5px;word-break:break-all;color:var(--text-secondary)">https://www.mohw.go.kr/rss/board.es?mid=a10409020000&amp;bid=0026</div>
+        </div>
+      </div>
+      <div>
+        <div class="note crit" style="margin-top:0">
+          <b>심평원 — RSS 없음</b><br>
+          약제급여평가위원회 심의결과와 약제급여목록표에는 피드가 없습니다. <b>직접 들어가 확인해야 합니다.</b> 등재 여부는 복지부 고시보다 이쪽에서 먼저 움직이므로, 윈레브에어처럼 대기 중인 약제는 수동 확인이 필요합니다.
+        </div>
+      </div>
+    </div>
+    <p style="font-size:12.5px;color:var(--text-muted);margin:12px 0 0;">
+      RSS는 최근 30건만 보관합니다 — 개정 고시가 월 수 건씩 올라오므로 <b>월 1회 이상</b> 확인해야 누락이 없습니다.
+    </p>
   </div>
 </section>
 
