@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>7th WSPH 2024 — 다음 지침이 무엇을 바꿀 것인가</title>
+<meta name="description" content="7차 World Symposium on Pulmonary Hypertension (Barcelona 2024) 프로시딩 12편 정리. 2022 ESC/ERS 지침과의 차이, 2027 개정 예상 방향, 그리고 이후 나온 약제들.">
+<style>
+  :root, .viz-root {
+    color-scheme: light;
+    --surface-1:#fcfcfb; --plane:#f9f9f7;
+    --text-primary:#0b0b0b; --text-secondary:#52514e; --text-muted:#898781;
+    --grid:#e1e0d9; --baseline:#c3c2b7; --border:rgba(11,11,11,0.10);
+    --series-1:#2a78d6; --series-2:#eb6834; --series-3:#1baf7a; --series-4:#eda100;
+    --status-good:#0ca30c; --status-warning:#fab219; --status-serious:#ec835a; --status-critical:#d03b3b;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:where(:not([data-theme="light"])) {
+      color-scheme: dark;
+      --surface-1:#1a1a19; --plane:#0d0d0d;
+      --text-primary:#ffffff; --text-secondary:#c3c2b7; --text-muted:#898781;
+      --grid:#2c2c2a; --baseline:#383835; --border:rgba(255,255,255,0.10);
+      --series-1:#3987e5; --series-2:#d95926; --series-3:#199e70; --series-4:#c98500;
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --surface-1:#1a1a19; --plane:#0d0d0d;
+    --text-primary:#ffffff; --text-secondary:#c3c2b7; --text-muted:#898781;
+    --grid:#2c2c2a; --baseline:#383835; --border:rgba(255,255,255,0.10);
+    --series-1:#3987e5; --series-2:#d95926; --series-3:#199e70; --series-4:#c98500;
+  }
+  * { box-sizing:border-box; }
+  html, body { margin:0; padding:0; }
+  body { font-family: system-ui, -apple-system, "Segoe UI", "Malgun Gothic", sans-serif;
+         background:var(--plane); color:var(--text-primary); line-height:1.55; }
+  a { color:var(--series-1); }
+
+  header.top { position:sticky; top:0; z-index:20; background:var(--surface-1);
+    border-bottom:1px solid var(--border); padding:10px 20px;
+    display:flex; align-items:center; gap:14px; flex-wrap:wrap; }
+  header.top h1 { font-size:15px; margin:0; font-weight:600; white-space:nowrap; }
+  header.top .home { font-size:13px; text-decoration:none; color:var(--text-secondary); white-space:nowrap; }
+  header.top .home:hover { color:var(--text-primary); }
+  header.top .badge { font-size:10.5px; font-weight:700; letter-spacing:.04em; padding:3px 8px; border-radius:20px;
+    background:color-mix(in srgb, var(--status-warning) 20%, transparent); color:var(--status-warning); white-space:nowrap; }
+  nav.tabs { display:flex; gap:2px; flex-wrap:wrap; margin-left:auto; }
+  nav.tabs a { text-decoration:none; color:var(--text-secondary); font-size:12.5px; padding:6px 8px; border-radius:6px; }
+  nav.tabs a:hover { background:var(--grid); color:var(--text-primary); }
+  #themeToggle { border:1px solid var(--border); background:var(--surface-1); color:var(--text-primary);
+    border-radius:6px; padding:6px 10px; font-size:12px; cursor:pointer; }
+
+  main { max-width:1080px; margin:0 auto; padding:24px 20px 80px; }
+  section { margin-bottom:40px; scroll-margin-top:64px; }
+  h2 { font-size:20px; margin:0 0 4px; letter-spacing:-0.01em; }
+  h3 { font-size:14px; margin:0 0 10px; font-weight:600; }
+  .sub { color:var(--text-secondary); font-size:13px; margin:0 0 14px; }
+
+  .card { background:var(--surface-1); border:1px solid var(--border); border-radius:10px; padding:16px 18px; margin-bottom:14px; }
+  .card > h3:first-child { margin-top:0; }
+  .grid { display:grid; gap:12px; }
+  .g3 { grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); }
+  .g2 { grid-template-columns:repeat(auto-fit,minmax(330px,1fr)); }
+
+  .alert { border:1px solid var(--status-warning); border-left-width:4px; border-radius:10px;
+    background:color-mix(in srgb, var(--status-warning) 7%, var(--surface-1)); padding:16px 18px; margin-bottom:20px; }
+  .alert h3 { color:var(--status-warning); margin-bottom:8px; font-size:15px; }
+  .alert p { font-size:13.5px; margin:0 0 8px; color:var(--text-secondary); }
+  .alert p:last-child { margin-bottom:0; }
+  .alert b { color:var(--text-primary); }
+
+  .tile { background:var(--surface-1); border:1px solid var(--border); border-radius:10px; padding:14px 16px; }
+  .tile .k { font-size:11px; text-transform:uppercase; letter-spacing:.06em; color:var(--text-muted); }
+  .tile .v { font-size:25px; font-weight:650; letter-spacing:-0.02em; margin:2px 0; font-variant-numeric:tabular-nums; }
+  .tile .d { font-size:12px; color:var(--text-secondary); }
+
+  .tblwrap { overflow-x:auto; }
+  table { border-collapse:collapse; width:100%; font-size:13px; min-width:520px; }
+  th, td { text-align:left; padding:7px 9px; border-bottom:1px solid var(--grid); vertical-align:top; }
+  th { font-weight:600; color:var(--text-secondary); font-size:12px; white-space:nowrap; }
+  td.c, th.c { text-align:center; font-variant-numeric:tabular-nums; white-space:nowrap; }
+  tbody tr:hover { background:var(--grid); }
+  caption { caption-side:bottom; text-align:left; color:var(--text-muted); font-size:11.5px; padding-top:8px; }
+  .old { color:var(--text-muted); }
+  .new { color:var(--series-1); font-weight:600; }
+  .chg { color:var(--status-warning); font-weight:600; }
+  .ok  { color:var(--status-good); font-weight:600; }
+  .no  { color:var(--status-critical); font-weight:600; }
+
+  .note { font-size:12.5px; color:var(--text-secondary); border-left:3px solid var(--baseline); padding:6px 0 6px 12px; margin:10px 0; }
+  .warn { border-left-color:var(--status-warning); }
+  .crit { border-left-color:var(--status-critical); }
+  .good { border-left-color:var(--status-good); }
+  .note b { color:var(--text-primary); }
+  blockquote.q { margin:12px 0; padding:10px 14px; border-left:3px solid var(--series-1);
+    background:color-mix(in srgb, var(--series-1) 5%, transparent); font-size:13px; color:var(--text-secondary); border-radius:0 6px 6px 0; }
+  blockquote.q b { color:var(--text-primary); }
+
+  .algo { overflow-x:auto; }
+  svg.flow { width:100%; min-width:700px; height:auto; display:block; }
+  .t1 { fill:var(--text-primary); font-size:12.5px; font-weight:600; }
+  .t2 { fill:var(--text-secondary); font-size:11px; }
+  .t3 { fill:var(--text-muted); font-size:10.5px; }
+  .ed { stroke:var(--baseline); stroke-width:1.5; fill:none; }
+
+  .stage { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:10px; }
+  .stage .s { border:1px solid var(--border); border-radius:10px; padding:12px 14px; background:var(--surface-1);
+              border-top:3px solid var(--series-1); }
+  .stage .s .l { font-size:22px; font-weight:700; color:var(--series-1); }
+  .stage .s .t { font-size:13px; font-weight:600; margin:2px 0; }
+  .stage .s .d { font-size:12px; color:var(--text-secondary); }
+
+  footer { color:var(--text-muted); font-size:12px; border-top:1px solid var(--border); padding-top:14px; }
+</style>
+</head>
+<body data-palette="#2a78d6,#eb6834,#1baf7a,#eda100">
+
+<header class="top">
+  <a class="home" href="index.html">← 목차</a>
+  <h1>7th WSPH 2024</h1>
+  <span class="badge">지침 아님</span>
+  <nav class="tabs">
+    <a href="#what">읽는 법</a>
+    <a href="#delta">2022 → 2024</a>
+    <a href="#def">정의·분류</a>
+    <a href="#algo">치료 알고리듬</a>
+    <a href="#goals">치료 목표</a>
+    <a href="#pipe">개발 중 약제</a>
+    <a href="#groups">Group 2·3·4</a>
+    <a href="#tx">이식</a>
+    <a href="#2027">2027 전망</a>
+  </nav>
+  <button id="themeToggle" type="button">🌙 다크모드</button>
+</header>
+
+<main>
+
+<section id="what">
+  <h2>다음 지침이 무엇을 바꿀 것인가</h2>
+  <p class="sub">7th World Symposium on Pulmonary Hypertension, Barcelona 2024 — <i>European Respiratory Journal</i> vol. 64에 실린 태스크포스 보고 12편.</p>
+
+  <div class="alert">
+    <h3>⚠ 이 페이지는 진료지침이 아닙니다</h3>
+    <p><b>WSPH 프로시딩은 전문가 합의 문서이지 등급이 매겨진 진료지침이 아닙니다.</b> Class/Level 권고가 없습니다.</p>
+    <p><b>현행 지침은 2022 ESC/ERS이며</b>, 그 내용은 <a href="pah-policy.html">PAH 치료 방침</a> 페이지에 정리돼 있습니다.
+    이 페이지는 <b>차기 ESC/ERS 개정(2027년 예상)의 입력 문서</b>이자 <b>2022년 이후 등장한 약제·근거의 정리</b>로 읽어야 합니다.</p>
+    <p><b>두 페이지를 섞어 인용하지 마십시오.</b> 특히 아래 “제안”들은 채택 여부가 확정되지 않았습니다.</p>
+  </div>
+
+  <div class="grid g3">
+    <div class="tile"><div class="k">태스크포스 보고</div><div class="v">12편</div><div class="d">전문 오픈 액세스 (CC BY-NC)</div></div>
+    <div class="tile"><div class="k">혈류역학 정의</div><div class="v">변경 없음</div><div class="d">2022 기준을 그대로 유지 확인</div></div>
+    <div class="tile"><div class="k">최대 약물치료</div><div class="v">3제 → 4제</div><div class="d">액티빈 신호 억제제가 네 번째 경로로</div></div>
+  </div>
+</section>
+
+<section id="delta">
+  <h2>2022 → 2024, 한눈에</h2>
+  <p class="sub">회색은 현행 지침, 파란색은 WSPH 2024의 제안입니다.</p>
+  <div class="card">
+    <div class="tblwrap">
+      <table>
+        <thead><tr><th style="width:20%">영역</th><th style="width:34%">2022 ESC/ERS <span class="old">(현행 지침)</span></th><th>7차 WSPH 2024 <span class="new">(제안)</span></th></tr></thead>
+        <tbody>
+          <tr><td><b>혈류역학 정의</b></td><td class="old">mPAP &gt;20 · PVR &gt;2 WU</td><td class="ok">변경 없음 — 유지 확인</td></tr>
+          <tr><td><b>치료 대상 정의</b></td><td class="old">명시적으로 분리하지 않음</td><td class="chg">★ 알고리듬은 <b>mPAP ≥25 + PVR &gt;3 WU</b>에만 적용된다고 명시</td></tr>
+          <tr><td><b>경계 구간</b></td><td class="old">“PH”에 포함</td><td class="chg">★ <b>“early PH”</b>로 명명 (mPAP 21–24 및/또는 PVR 2–3). <b>치료 근거 없음</b></td></tr>
+          <tr><td><b>CCB 장기반응자</b></td><td class="old">2022에서 <b>삭제</b></td><td class="chg">★ 특발성 PAH 소그룹으로 <b>재도입 주장</b></td></tr>
+          <tr><td><b>동반질환 동반 PAH</b></td><td class="old">별도 분기 없음</td><td class="new">별도 소그룹·별도 치료 분기 <b>모두 거부</b></td></tr>
+          <tr><td><b>최대 약물치료</b></td><td class="old">3제</td><td class="chg">★ <b>4제</b> — 정맥/피하 PPA + ERA + PDE5i/sGC + 액티빈 신호 억제제</td></tr>
+          <tr><td><b>소타터셉트 위치</b></td><td class="old">지침 제정 후 승인</td><td class="new"><b>중등도-저 · 중등도-고 · 고위험</b> 세 구간에 진입</td></tr>
+          <tr><td><b>치료 목표</b></td><td class="old">저위험 도달</td><td class="chg">★ <b>혈류역학·영상 목표치 추가</b> (PVR &lt;5 WU, SVI &gt;37, SvO₂ &gt;65% 등)</td></tr>
+          <tr><td><b>Group 3 표현형</b></td><td class="old">서술적</td><td class="chg">★ <b>pulmonary vascular phenotype</b> · <b>IPAH with lung phenotype</b> 공식화</td></tr>
+          <tr><td><b>Group 2</b></td><td class="old">ipcPH / cpcPH</td><td class="chg">★ <b>PH-LHD 병기 A–D 신설 제안</b>, PAWP 12–18 회색지대 개별화</td></tr>
+          <tr><td><b>Group 4</b></td><td class="old">CTEPH</td><td class="new"><b>chronic thromboembolic pulmonary <i>disease</i></b> — PH 없는 경우까지 포괄</td></tr>
+          <tr><td><b>이식 술식</b></td><td class="old">등급 권고 없음</td><td class="chg">★ <b>“대부분의 PH 환자에서 심폐이식 반대”</b> 명시</td></tr>
+          <tr><td><b>유전자 검사</b></td><td class="old">일반 언급</td><td class="new">ClinGen 등급 기반 <b>패널 확정</b>, 5개 유전자는 제외</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section id="def">
+  <h2>정의와 분류 — 숫자는 그대로, 지도가 바뀐다</h2>
+  <p class="sub">Kovacs et al., <i>Eur Respir J</i> 2024;64:2401324</p>
+
+  <div class="card">
+    <h3>★★ 가장 중요한 변화 — 진단 역치와 치료 역치가 공식적으로 갈라졌다</h3>
+    <p style="font-size:13.5px;color:var(--text-secondary);margin:0 0 10px;">
+      승인된 모든 PAH·CTEPH·폐질환 PH 약제는 <b>옛 정의</b>(mPAP ≥25, PAWP ≤15, PVR &gt;3 WU)로 수행된 시험에 근거해 허가됐습니다.
+    </p>
+    <blockquote class="q">
+      “<b>Therefore, these drugs should be administered exclusively to patients meeting these definitions.</b>”<br><br>
+      “the treatment of patients with early PH, or mPAP 21–24 mmHg and PVR 2–3 WU, using PH drugs <b>lacks justification due to the absence of sufficient data from clinical trials</b>.”
+    </blockquote>
+    <p style="font-size:13.5px;color:var(--text-secondary);margin:10px 0 0;">
+      치료 알고리듬 태스크포스도 반대편에서 같은 말을 합니다 — 알고리듬은 <b>“mPAP ⩾25 mmHg and PVR &gt;3 Wood Units”</b>인 환자를 대상으로 한다고 명시했습니다.
+    </p>
+    <div class="note crit">
+      <b>따라서 한 환자가 동시에 “PH로 올바르게 진단되고” “PH 약제 대상에서 올바르게 제외될” 수 있습니다.</b>
+      태스크포스는 이 간극을 명시적으로 인정하고 이를 메울 임상시험을 강력히 촉구합니다.
+    </div>
+  </div>
+
+  <div class="grid g2">
+    <div class="card" style="margin-bottom:0">
+      <h3>★ 새 용어 — “early PH”</h3>
+      <p style="font-size:13px;color:var(--text-secondary);margin:0 0 8px;"><b>mPAP 21–24 mmHg 및/또는 PVR 2–3 WU</b>, 위험조건을 가진 환자에서.</p>
+      <ul style="font-size:13px;color:var(--text-secondary);margin:0 0 8px;padding-left:20px;line-height:1.7;">
+        <li>영국 전국 연구 — 이 구간의 <b>생존이 정상보다 나빴고</b>, 동반 폐·심질환과 무관했습니다</li>
+        <li><b>간경변</b>에서 PVR 2–3은 자주 &gt;3으로, <b>전신경화증</b>에서 mPAP 21–24는 자주 ≥25로 진행합니다</li>
+        <li><b>그러나 경도 상승 환자 상당수는 안정적</b>입니다 — 누가 진행하는지 모릅니다</li>
+      </ul>
+      <div class="note crit" style="margin-bottom:0"><b>치료하지 않습니다.</b> 가능하면 임상시험 등록, 그리고 면밀한 추적. 근거 없이 치료한다면 <b>병용이 아니라 단독요법</b>.</div>
+    </div>
+    <div class="card" style="margin-bottom:0">
+      <h3>★ CCB 장기반응자가 돌아온다</h3>
+      <div class="tblwrap"><table style="min-width:auto"><tbody>
+        <tr><td>6차 WSPH 2018</td><td><b>소그룹 1.5로 존재</b></td></tr>
+        <tr><td><b>2022 ESC/ERS</b></td><td class="no"><b>삭제</b> — 급성 반응자/비반응자로 대체</td></tr>
+        <tr><td><b>7차 WSPH 2024</b></td><td class="chg"><b>재도입 주장</b></td></tr>
+      </tbody></table></div>
+      <div class="note" style="margin-bottom:0">
+        논거 — 급성 반응자는 <b>진짜 장기반응자와 결국 PAH 약이 필요할 환자가 섞인 집단</b>이고,
+        이 소그룹만 <b>병태생리가 아니라 초기 치료 전략으로 정의</b>된다는 모순이 있습니다.<br><br>
+        급성 반응은 특발성·약물유발 PAH의 <b>약 12%</b>, 유전성의 <b>&lt;5%</b>. 그중 <b>2/3 미만</b>만 1년 이상 CCB 단독으로 유지됩니다.
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>PAWP 15 mmHg — 유지하되 단일 결정점에서 강등</h3>
+    <div class="grid g2">
+      <div class="note" style="margin-top:0">
+        정상 상한은 <b>13 mmHg</b>지만 거의 모든 PAH 시험이 <b>15까지</b> 등록했고 <b>13–15 구간에서도 효과가 입증</b>됐습니다.
+        mPAP이 높은 환자에서 <b>PAWP &lt;12와 &gt;15 모두 사망 증가</b>와 연관됩니다 — 전자는 높은 PVR, 후자는 좌심질환 때문.
+      </div>
+      <div class="note warn" style="margin-top:0">
+        → <b>후모세혈관 PH 정의는 PAWP &gt;15로 유지.</b> 다만 <b>12–18 mmHg 구간에서는 숫자로 결정하지 말 것</b> —
+        병력, 심혈관 위험인자, 폐부종 삽화, 심초음파, 유발검사 반응을 종합. <b>좌심질환 태스크포스도 독립적으로 같은 결론</b>에 도달했습니다.
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>★ “동반질환 동반 PAH” 소그룹은 만들지 않는다</h3>
+    <p style="font-size:13.5px;color:var(--text-secondary);margin:0 0 8px;">
+      레지스트리 PAH 환자의 <b>60–85%</b>, 주요 임상시험 참가자의 <b>약 50%</b>가 심폐 동반질환을 갖고, 진단 연령이 <b>60세 초과</b>인 경우가 흔한데도 — 소그룹 신설을 거부했습니다.
+    </p>
+    <ul style="font-size:13px;color:var(--text-secondary);margin:0;padding-left:20px;line-height:1.7;">
+      <li><b>중증 심장·폐 동반질환은 group 2/3로 분류할 강한 지표</b>입니다</li>
+      <li><b>PAWP &lt;15가 좌심질환을 배제하지 않습니다</b></li>
+      <li>호흡기질환 동반 시 폐기능·DLCO·<b>HRCT</b>를 함께. <b>HRCT는 특히 DLCO &lt;45% 예측치인 흡연자에서</b></li>
+      <li>“<b>어떤 단일 지표에도 의존하지 말 것</b>”을 명시적으로 경고</li>
+    </ul>
+  </div>
+</section>
+
+<section id="algo">
+  <h2>치료 알고리듬 — 네 번째 경로가 들어왔다</h2>
+  <p class="sub">Chin et al., <i>Eur Respir J</i> 2024;64:2401325 · <b>“Maximal medical therapy is now four-drug therapy.”</b></p>
+
+  <div class="card">
+    <h3>추적 시 위험도별 행동</h3>
+    <div class="algo"><svg id="algoSvg" class="flow" viewBox="0 0 980 300" role="img"
+      aria-label="WSPH 2024 추적 알고리듬. 저위험은 초기 요법 유지. 중등도-저위험은 액티빈 신호 억제제 또는 경구·흡입 프로스타사이클린 추가. 중등도-고위험과 고위험은 정맥 또는 피하 프로스타사이클린이나 액티빈 신호 억제제 추가. 지속되면 4제 요법과 폐이식 평가."></svg></div>
+    <div class="note warn">
+      <b>근거 맥락의 비대칭을 알아둘 것</b> — 경구·흡입 트레프로스티닐 시험은 <b>단독요법 환자만</b> 포함했고,
+      셀렉시팍과 소타터셉트 시험은 <b>이미 병용 중인 환자</b>를 포함했습니다.
+    </div>
+  </div>
+
+  <div class="grid g2">
+    <div class="card" style="margin-bottom:0">
+      <h3>초기 치료</h3>
+      <div class="tblwrap"><table style="min-width:auto">
+        <tbody>
+          <tr><td><b>혈관반응 양성</b><br><span class="t3" style="color:var(--text-muted);font-size:12px">특발성·유전성·약물유발</span></td><td><b class="ok">CCB 우선</b> — 저용량 시작 후 증량, 고용량이 필요할 수 있음. <b>3–4개월에 재평가</b></td></tr>
+          <tr><td><b>고위험 아님</b></td><td><b>ERA + PDE5i</b> — 같은 날 동시 시작 권고 옵션, 1–2주 순차도 허용</td></tr>
+          <tr><td><b>고위험</b></td><td><b class="chg">초기 3제 권고</b> — 정맥/피하 프로스타사이클린 포함</td></tr>
+          <tr><td>고위험은 아니나 혈류역학 중증 / RV 불량</td><td>초기 3제 <b>고려 가능</b></td></tr>
+        </tbody>
+      </table></div>
+      <div class="note good" style="margin-bottom:0">
+        <b>★ 조합 선호가 명시됐습니다</b> — <b>타달라필 + 마시텐탄 또는 암브리센탄</b>이 보센탄·실데나필 조합보다 근거가 강합니다.
+      </div>
+      <div class="note crit" style="margin-bottom:0">
+        <b>초기 3제 <i>경구</i>(셀렉시팍+PDE5i+ERA)는 권고하지 않습니다</b> — TRITON에서 26주 PVR·기타 평가변수 차이 없음.
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:0">
+      <h3>소타터셉트 vs 프로스타사이클린 — 선택 지침</h3>
+      <p style="font-size:13px;color:var(--text-secondary);margin:0 0 8px;">머리대머리 비교가 없어 강한 권고는 불가. 태스크포스의 틀:</p>
+      <div class="note good" style="margin-top:0"><b>소타터셉트</b> — <b>증상 부담이 크거나 운동능력 손상이 심한</b> 환자 (STELLAR 근거)</div>
+      <div class="note"><b>셀렉시팍 / 경구 트레프로스티닐</b> — <b>출혈 위험이 높거나</b>(예: 유전성 출혈성 모세혈관확장증), <b>장기 임상악화 감소를 목표</b>로 하거나, <b>확립된 장기 안전성</b>을 선호할 때</div>
+      <div class="note crit" style="margin-bottom:0">
+        <b>소타터셉트 안전성</b> — STELLAR 출혈 <b>22% vs 13%</b>(대개 경미한 점막 출혈, 그러나 위장관·중추신경계 출혈과 객혈도 보고).
+        모세혈관확장증, 헤모글로빈 상승, 혈소판 감소 감시. <b>태아 위해 위험</b>과 <b>남녀 모두 가임력 저하 가능성</b>(동물 자료).
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>동반질환 — 별도 분기를 만들지 않았고, 대신 해악 목록을 명시했다</h3>
+    <div class="grid g2">
+      <div>
+        <div class="note warn" style="margin-top:0">
+          <b>잠복 group 2 PH를 주의</b> — 안정시에는 전모세혈관 기준을 만족하지만 <b>운동·수액 부하에서 group 2 혈류역학</b>을 드러내는 오분류.
+          그리고 <b>흡연력 + DLCO &lt;45%</b>는 6MWD 개선이 덜하고 생존이 짧습니다.
+        </div>
+      </div>
+      <div>
+        <div class="note crit" style="margin-top:0">
+          <b>해 또는 해 가능성이 관찰된 조합</b><br>
+          • ILD에서 <b>ERA와 리오시구앗</b><br>
+          • HFpEF에서 <b>ERA</b><br>
+          • 좌측 판막질환·HFpEF 동반 group 2에서 <b>PDE5i</b><br>
+          • 겸상적혈구빈혈 연관 PH에서 <b>PDE5i</b>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="goals">
+  <h2>치료 목표 — 저위험 너머로</h2>
+  <p class="sub">Dardi et al., <i>Eur Respir J</i> 2024;64:2401323</p>
+
+  <div class="card">
+    <blockquote class="q" style="margin-top:0">
+      <b>왜 3변수로 부족한가</b> — WHO-FC와 6MWD는 <b>전반적 체력</b>을 반영하며 PAH가 아닌 인구에서도 생존과 상관합니다.
+      그리고 <b>단기 저위험 달성이 장기 임상악화의 강한 대리지표가 아니었습니다.</b>
+    </blockquote>
+    <div class="tblwrap">
+      <table>
+        <thead><tr><th style="width:26%">영역</th><th>치료 목표</th></tr></thead>
+        <tbody>
+          <tr><td><b>운동능력</b></td><td><b>6MWD &gt;440 m</b> · <b>WHO-FC I 또는 II</b></td></tr>
+          <tr><td><b>RV 부담 (생체표지자)</b></td><td><b>BNP &lt;50 ng/L</b> · <b>NT-proBNP &lt;300 ng/L</b></td></tr>
+          <tr><td><b>RV 기능 (심초음파)</b><br><span style="color:var(--text-muted);font-size:11.5px">연구 우선순위</span></td><td>RA 면적 &lt;18 cm² · 삼첨판역류 없음/미량 · TAPSE/sPAP &gt;0.32 mm/mmHg</td></tr>
+          <tr><td><b class="chg">혈류역학</b></td><td><b class="chg">RAP &lt;8 mmHg · CI ≥2.5 · SVI &gt;37 mL/m² · SvO₂ &gt;65% · PVR &lt;5 WU</b></td></tr>
+          <tr><td><b>혈류역학</b><br><span style="color:var(--text-muted);font-size:11.5px">연구 우선순위</span></td><td>mPAP &lt;30–35 mmHg · 폐동맥 유순도 ≥2.5 mL/mmHg</td></tr>
+        </tbody>
+        <caption>저자 단서 — <b>PVR &lt;5 WU 목표는 선천성 심질환에는 적용되지 않을 수 있고</b>, 이미 저위험인 환자에서 혈류역학의 추가 가치는 불확실합니다.</caption>
+      </table>
+    </div>
+    <div class="grid g3" style="margin-top:12px">
+      <div class="tile"><div class="k">mPAP ≤35 유지 시</div><div class="v">10년 90%</div><div class="d">비반응성 IPAH/HPAH/DT-PAH 267명</div></div>
+      <div class="tile"><div class="k">소타터셉트 STELLAR 사후분석</div><div class="v">−13 mmHg</div><div class="d">mPAP 감소가 RV–PA 커플링 개선과 연관</div></div>
+      <div class="tile"><div class="k">혈류역학이 값을 더하는 곳</div><div class="v">중등도 구간</div><div class="d">저·고위험에서는 추가 가치 없음. <b>SVI+SvO₂</b> 조합</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>★ “완치”에서 “관해”로</h3>
+    <blockquote class="q" style="margin-top:0">
+      만성질환인 PAH에서 <b>완치는 비현실적</b>으로 보입니다. 더 도달 가능한 목표는
+      <b>폐혈관 리모델링의 부분·완전 역전과 그에 따른 PH의 퇴행 — 즉 부분·완전 질병 관해</b>이며,
+      유지된다면 <b>정상 기대수명</b>이 미래에 더 현실적인 목표가 될 수 있습니다.
+    </blockquote>
+    <div class="note crit">
+      <b>걸림돌은 측정입니다.</b> 현재 <b>폐혈관 리모델링을 직접 측정·정량할 도구가 없습니다.</b>
+      같은 이유로 임상시험 태스크포스는 <b>“질병 조절(disease modification)”의 정의 틀이 시급히 필요하다</b>고 적었습니다.
+    </div>
+  </div>
+</section>
+
+<section id="pipe">
+  <h2>개발 중인 약제</h2>
+  <p class="sub">Weatherald et al., <i>Eur Respir J</i> 2024;64:2401205 — 시험 상태는 <b>2024년 발표 시점</b> 기준입니다.</p>
+
+  <div class="card">
+    <h3>3상</h3>
+    <div class="tblwrap">
+      <table>
+        <thead><tr><th>약제</th><th>기전</th><th>시험</th><th class="c">n</th><th>1차 평가변수</th></tr></thead>
+        <tbody>
+          <tr><td><b>Macitentan 75 mg</b></td><td>고용량 ERA</td><td><b>UNISUS</b></td><td class="c"><b>900</b></td><td>이환·사망 사건 (최대 4년)</td></tr>
+          <tr><td><b>Ralinepag</b></td><td>프로스타사이클린 수용체 작용제</td><td><b>ADVANCE</b></td><td class="c"><b>1000</b></td><td>임상악화까지의 시간</td></tr>
+          <tr><td><b>Seralutinib</b></td><td><b>흡입</b> PDGFR·CSF1R·c-KIT 억제제</td><td><b>PROSERA</b></td><td class="c">350</td><td>24주 6MWD</td></tr>
+          <tr><td><b>MK-5475</b></td><td><b>흡입</b> sGC 자극제</td><td>INSIGNIA-PAH (2/3)</td><td class="c">450</td><td>2상 PVR / 3상 6MWD</td></tr>
+          <tr><td>Sotatercept</td><td>액티빈 신호 억제제</td><td>HYPERION</td><td class="c">444</td><td>임상악화까지의 시간</td></tr>
+          <tr><td>Sotatercept</td><td>—</td><td><b>ZENITH</b></td><td class="c">166</td><td>첫 이환·사망까지의 시간</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="grid g2" style="margin-top:12px">
+      <div class="note" style="margin:0">
+        <b>2상 이하</b> — 이마티닙(경구), LAM-001(흡입 mTOR), LTP001(SMURF1), 메트포민, 올라파립(PARP),
+        <b>사트랄리주맙</b>(IL-6 수용체), 발프로산(HDAC), 스피로놀락톤, 타목시펜,
+        <b>트레프로스티닐 리포솜(L606)</b>, <b>트레프로스티닐 팔미틸 DPI</b>, <b>바데나필 DPI</b>. 소아는 소타터셉트 <b>MOONBEAM</b>.
+      </div>
+      <div class="note crit" style="margin:0">
+        <b>중단된 것</b> — <b>이마티닙 DPI (AV-101)</b>, IMPAHCT 2b/3상 n=462, <b>2024년 6월 17일 중단</b>.
+        랄리네팍 ADVANCE CAPACITY도 중단.
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>표에서 읽을 것 세 가지</h3>
+    <div class="grid g3">
+      <div class="tile"><div class="k">1</div><div class="v" style="font-size:17px">흡입 경로</div><div class="d">세랄루티닙·MK-5475·이마티닙 DPI·LAM-001·트레프로스티닐 2제형·바데나필 DPI. 전신 노출을 줄이고 <b>환기–관류 불균형</b>을 피하려는 방향</div></div>
+      <div class="tile"><div class="k">2</div><div class="v" style="font-size:17px">표적 이동</div><div class="d">혈관확장 → <b>리모델링·염증·대사</b>. 티로신키나제, mTOR, SMURF1, PARP, IL-6, HDAC, 에스트로겐 수용체</div></div>
+      <div class="tile"><div class="k">3</div><div class="v" style="font-size:17px">기존 경로의 강화</div><div class="d">최대 규모 3상 둘(<b>UNISUS</b>, <b>ADVANCE</b>)은 신규 표적이 아니라 <b>기존 경로의 고용량·고효력 버전</b></div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>규제가 설계를 규정한다</h3>
+    <blockquote class="q" style="margin-top:0">
+      3상 1차 평가변수는 환자가 <b>“어떻게 느끼고, 기능하고, 생존하는지”</b>를 직접 측정해야 하며, 현재 FDA가 허가에 인정하는 것은 이 범주뿐입니다.
+    </blockquote>
+    <div class="note">
+      따라서 <b>PVR 등 혈류역학은 2상에 적합</b>하고, <b>이식형 혈류역학 감시(CardioMEMS)</b>는 약효의 시간 경과를 보는 데 유용하지만
+      <b>3상 1차 평가변수로는 부적합</b>합니다. <b>Win ratio</b> 같은 위계적 복합 변수는 도움이 되지만
+      <b>빈발하면서 임상적 중요도가 낮은 항목에 지배되기 쉬워</b> 구성요소를 사전 규정하고 서열화해야 합니다.
+    </div>
+  </div>
+</section>
+
+<section id="groups">
+  <h2>Group 2 · 3 · 4</h2>
+
+  <div class="card">
+    <h3>Group 2 — ★ PH-LHD 병기 A–D 신설 제안</h3>
+    <p class="sub" style="margin-bottom:10px">Maron et al., <i>Eur Respir J</i> 2024;64:2401344 — 심부전 병기를 본뜬 구조</p>
+    <div class="stage">
+      <div class="s"><div class="l">A</div><div class="t">위험 단계</div><div class="d">at risk</div></div>
+      <div class="s"><div class="l">B</div><div class="t">구조적 심질환</div><div class="d">structural heart disease</div></div>
+      <div class="s"><div class="l">C</div><div class="t">증상성 심질환</div><div class="d">symptomatic heart disease</div></div>
+      <div class="s"><div class="l">D</div><div class="t">진행성</div><div class="d">advanced</div></div>
+    </div>
+    <div class="note crit">
+      <b>치료 입장은 더 강해졌습니다</b> — 주요 무작위 시험 결과가 <b>임상시험 밖에서 PAH 약제를 쓰지 말라는 기존 권고를 강화</b>했고,
+      <b>“가능한 해(possible harm)”</b>를 시사했습니다.
+    </div>
+    <div class="note">
+      나머지 두 제안 — <b>PAWP 12–18 mmHg 회색지대의 개별화</b>(정의 태스크포스와 독립적으로 같은 결론),
+      그리고 <b>PH-LHD의 분해</b>: 승모판·대동맥판 협착의 현대적 재해석, <b>비후성·아밀로이드 심근병증</b> 스펙트럼 안의 PH.
+      후자는 새 분류표의 <b>2.1.3 “특정 원인의 심근병증”</b> 항목으로 나타났습니다.
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Group 3 — ★ 두 표현형이 공식 용어가 되다</h3>
+    <p class="sub" style="margin-bottom:10px">Shlobin et al., <i>Eur Respir J</i> 2024;64:2401200</p>
+    <div class="grid g2">
+      <div class="note good" style="margin-top:0">
+        <b>COPD-PH의 “pulmonary vascular phenotype”</b><br>
+        중증 PH + 중등도 기류제한 + <b>고탄산혈증 없음</b> + 심하게 감소한 DLCO + <b>운동 시 순환 제한</b> 또는 진행성 우심실부전
+      </div>
+      <div class="note good" style="margin-top:0">
+        <b>“IPAH with lung phenotype”</b> — 거울상<br>
+        COMPERA 군집분석에서 특발성 PAH 진단 환자의 <b>52%</b>. 남성 우세·고령·흡연력·<b>DLCO &lt;45% 예측치</b>.
+        <b>생존이 나쁘고 치료 반응도 떨어집니다</b>
+      </div>
+    </div>
+    <blockquote class="q">
+      <b>“the lung function criterion alone is no longer valid in isolation to rule out significant parenchymal lung disease.”</b><br><br>
+      과거 PAH 임상시험은 FEV₁ &lt;60–70%만 배제하고 <b>CT를 선정기준에 넣지 않았으므로</b>, 이런 환자들이 상당수 포함됐을 가능성이 높습니다.
+      표현형 분류에 <b>Fleischner 폐기종 병기</b>를 도입할 것을 제안합니다.
+    </blockquote>
+    <div class="note warn">
+      <b>그리고 ILD에서 PVR &gt;5 WU 역치가 흔들립니다</b> — 한 분석은 <b>PVR &gt;5가 판별하고 8 WU가 최적</b>이라 했지만,
+      더 넓은 범위를 포함한 다른 분석은 <b>mPAP 1 mmHg마다 사망이 증가하고 PVR &gt;5는 판별자가 아니었다</b>고 보고했습니다.
+      결론 — <b>“ILD에서 PH 중증도는 단일 표지가 아니라 연속선으로 개념화하는 편이 낫다”</b>, 그리고
+      <b>예후 표지와 치료 적응증을 분리하라.</b>
+      <a href="out-of-proportion.html">Out-of-Proportion PH 페이지</a>에 이 용어사의 전체 맥락이 있습니다.
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Group 4 — 이름이 넓어졌다</h3>
+    <p class="sub" style="margin-bottom:10px">Kim et al., <i>Eur Respir J</i> 2024;64:2401294</p>
+    <p style="font-size:13.5px;color:var(--text-secondary);margin:0 0 10px;">
+      주제가 <b>CTEPH</b>에서 <b>chronic thromboembolic pulmonary <i>disease</i></b>로 — PH에 이르지 않은 만성 혈전색전성 폐질환까지 포괄합니다.
+    </p>
+    <div class="grid g2">
+      <div class="note" style="margin-top:0">
+        <b>병태생리는 두 성분의 조합</b> — <b>혈전 용해 실패에 따른 기계적 폐쇄</b> + <b>가변적 정도의 미세혈관 질환</b>.
+        둘 다 PVR에 기여하며, 이것이 치료가 여러 갈래로 나뉘는 이유입니다.
+      </div>
+      <div class="note good" style="margin-top:0">
+        <b>★ 첫 번째 결정은 여전히 수술 가능성 평가</b>이며, 증상·생존의 최선의 개선은
+        <b>기계적 치료(PEA, BPA)</b>에서 옵니다. 다중모달 치료로 <b>3년 생존 &gt;90%</b> 달성 가능.
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="tx">
+  <h2>이식 — 심폐이식에 대한 첫 명시적 권고</h2>
+  <p class="sub">Savale et al., <i>Eur Respir J</i> 2024;64:2401193</p>
+
+  <div class="card">
+    <p style="font-size:13.5px;color:var(--text-secondary);margin:0 0 10px;">
+      2022 지침에는 술식 선택에 <b>등급 권고가 없고</b> 한 문장만 있습니다. WSPH 2024가 그 공백을 채웠습니다.
+    </p>
+    <blockquote class="q" style="margin-top:0">
+      “In severe PH, <b>there is no evidence that outcomes are improved with HLT versus BLT.</b> In addition, combined HLT <b>adversely impacts the heart donor pool</b>.
+      Therefore, <b>we recommend against HLT for the majority of patients with PH.</b>”<br><br>
+      “<b>HLT should be reserved for patients with post-tricuspid congenital cardiac defects or coexisting left-sided heart disease.</b>”
+    </blockquote>
+    <div class="note good">
+      생리학적 근거 — <b>“As the RV almost always recovers sufficiently after lung transplantation, BLT is the preferred option.”</b>
+      후부하를 제거하면 우심실이 회복하므로 심장을 함께 바꿀 이유가 없습니다.
+    </div>
+    <div class="tblwrap">
+      <table>
+        <thead><tr><th style="width:34%">남는 심폐이식 적응증</th><th>근거</th></tr></thead>
+        <tbody>
+          <tr><td><b>삼첨판 이후 선천성 심결손</b></td><td>UNOS 아이젠멩거 성인 <b>442명</b>(1987–2018) — <b>심방중격결손은 양측 폐이식이 우수</b>, <b>심실중격결손 등 복잡 결손은 심폐이식이 우수</b></td></tr>
+          <tr><td><b>동반된 좌심질환</b></td><td>—</td></tr>
+          <tr><td>폐동맥류 또는 좌폐 이식을 방해하는 거대심장 <span style="color:var(--text-muted)">(드묾)</span></td><td>수술 교정 기법이 있으나 선택된 환자에서는 심폐이식이 더 안전할 수 있음</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="note crit">
+      <b>★ 좌심실 기능이상은 심폐이식의 적응증이 아닙니다.</b>
+      “most of the risk relates to haemodynamic considerations that can be mitigated in the early post-operative phase… and <b>should not be used as indications for HLT</b>.”
+    </div>
+    <div class="note">
+      <b>그리고 술기가 이 판단을 바꿨습니다</b> — <b>이식 직후 조기 VA-ECMO를 회복 브리지로 사용하면 1차 이식편 기능부전을 줄이고 심폐이식의 적응증을 제한</b>할 수 있습니다.
+      양측 폐이식은 PH 환자에서 <b>폐부종과 1차 이식편 기능부전 위험이 높아</b> 숙련된 수술 중·후 관리가 요구됩니다.
+    </div>
+  </div>
+</section>
+
+<section id="2027">
+  <h2>2027 개정에서 무엇이 쟁점이 될까</h2>
+  <p class="sub">아래는 WSPH 2024가 남긴 미결 문제를 정리한 것이며, <b>실제 개정 내용에 대한 예측이 아닙니다.</b></p>
+
+  <div class="grid g2">
+    <div class="card" style="margin-bottom:0">
+      <h3>거의 확실히 다뤄질 것</h3>
+      <ul style="font-size:13px;color:var(--text-secondary);margin:0;padding-left:20px;line-height:1.8;">
+        <li><b>진단 역치와 치료 역치의 분리</b> — 두 태스크포스가 독립적으로 같은 문제를 지적했습니다. 어떤 형태로든 문서화될 가능성이 높습니다</li>
+        <li><b>소타터셉트의 알고리듬 내 위치</b> — 이미 허가됐고 WSPH가 세 구간에 배치했습니다</li>
+        <li><b>Group 3 표현형 용어</b> — “pulmonary vascular phenotype”이 1차 자료에 정착했습니다</li>
+        <li><b>이식 술식 권고</b> — 현재 등급 권고가 없는 공백입니다</li>
+      </ul>
+    </div>
+    <div class="card" style="margin-bottom:0">
+      <h3>채택이 불확실한 것</h3>
+      <ul style="font-size:13px;color:var(--text-secondary);margin:0;padding-left:20px;line-height:1.8;">
+        <li><b>CCB 장기반응자 재도입</b> — 2022가 의도적으로 삭제한 것을 되돌리자는 제안입니다</li>
+        <li><b>PH-LHD 병기 A–D</b> — 완전히 새로운 구조이며 검증 자료가 없습니다</li>
+        <li><b>확장된 혈류역학 치료 목표</b> — 저위험 환자에서 추가 가치가 불확실하다고 저자들이 스스로 적었습니다</li>
+        <li><b>“early PH” 치료</b> — 임상시험 결과 없이는 움직이기 어렵습니다</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>판도를 바꿀 수 있는 진행 중 시험</h3>
+    <div class="note">
+      <b>UNISUS</b>(마시텐탄 75 mg, n=900, 이환·사망) · <b>ADVANCE</b>(랄리네팍, n=1000) · <b>PROSERA</b>(세랄루티닙) ·
+      <b>INSIGNIA-PAH</b>(MK-5475) · <b>HYPERION</b>·<b>ZENITH</b>(소타터셉트).
+      앞의 둘이 양성이면 다음 논점은 <b>새 기전이 아니라 기존 계열 안에서의 용량과 효력</b>이 됩니다.
+    </div>
+    <div class="note warn">
+      그리고 <b>mPAP 21–24 / PVR 2–3 구간의 임상시험</b>(NCT04797286 등)이 나오기 전에는
+      진단·치료 역치 분리 문제가 해소되지 않습니다.
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>이 페이지가 다루지 않는 것</h3>
+    <div class="note crit" style="margin-bottom:0">
+      WSPH 2024 시리즈 중 <b>12편만 정리했습니다</b> — 소아 PH 태스크포스 등이 빠져 있습니다.
+      그리고 위 표의 시험 상태는 <b>2024년 발표 시점</b> 기준이므로 <b>상당수가 이미 결과를 발표했을 수 있습니다.</b> 인용 전 확인하십시오.
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p style="margin:0 0 8px"><b>면책</b> — 공개된 논문을 요약·정리한 학습용 자료이며 진료 지침이나 의학적 조언이 아닙니다.
+  <b>특히 이 페이지의 내용은 등급이 매겨진 진료지침이 아닌 전문가 합의 문서입니다.</b> 임상 판단은 원문과 현행 지침을 직접 확인하십시오.</p>
+  <p style="margin:0 0 8px"><b>1차 출처</b> — 7th World Symposium on Pulmonary Hypertension (Barcelona 2024), <i>Eur Respir J</i> 2024; 64, 전문 오픈 액세스 (CC BY-NC):
+  Kovacs 2401324 · Chin 2401325 · Dardi 2401323 · Weatherald 2401205 · Shlobin 2401200 · Maron 2401344 · Kim 2401294 · Savale 2401193 ·
+  Austin 2401370 · Preston 2401180 · Hemnes 2401321 · Guignabert 2401095.</p>
+  <p style="margin:0">작성 2026-09-13 · 현행 지침 기반 페이지: <a href="pah-policy.html">PAH 치료 방침 (2022 ESC/ERS)</a> · 관련: <a href="out-of-proportion.html">Out-of-Proportion PH</a> · <a href="korea.html">한국 급여기준</a> · <a href="sotatercept.html">Sotatercept</a> · <a href="riociguat.html">Riociguat</a></p>
+</footer>
+
+</main>
+
+<script>
+(function () {
+  "use strict";
+  var btn = document.getElementById('themeToggle'), stored = null;
+  try { stored = localStorage.getItem('ph-theme'); } catch (e) {}
+  if (stored) document.documentElement.setAttribute('data-theme', stored);
+  function isDark() {
+    var t = document.documentElement.getAttribute('data-theme');
+    if (t) return t === 'dark';
+    return window.matchMedia('(prefers-color-scheme: dark)').matches;
+  }
+  function paint() { btn.textContent = isDark() ? '☀️ 라이트모드' : '🌙 다크모드'; }
+  btn.addEventListener('click', function () {
+    var next = isDark() ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    try { localStorage.setItem('ph-theme', next); } catch (e) {}
+    paint();
+  });
+  paint();
+
+  var NS = 'http://www.w3.org/2000/svg';
+  function el(n, a) { var e = document.createElementNS(NS, n); for (var k in a) e.setAttribute(k, a[k]); return e; }
+  var svg = document.getElementById('algoSvg');
+  var rows = [
+    { k: '저위험', a: '초기 요법 유지', c: 'var(--status-good)' },
+    { k: '중등도-저위험', a: '액티빈 신호 억제제, 또는 경구·흡입 PPA 추가 · PDE5i→sGC 전환 고려 가능', c: 'var(--series-1)' },
+    { k: '중등도-고위험', a: '정맥/피하 PPA 또는 액티빈 신호 억제제 추가', c: 'var(--series-4)' },
+    { k: '고위험', a: '정맥/피하 PPA(미사용 시 1순위) 또는 액티빈 신호 억제제 추가', c: 'var(--status-serious)' }
+  ];
+  var x0 = 20, bw = 160, colX = 210, colW = 750, y = 16, h = 46, gap = 10;
+  rows.forEach(function (r, i) {
+    var yy = y + i * (h + gap);
+    svg.appendChild(el('rect', { x: x0, y: yy, width: bw, height: h, rx: 8, fill: 'var(--surface-1)', stroke: r.c, 'stroke-width': 1.8 }));
+    var t = el('text', { x: x0 + bw / 2, y: yy + h / 2 + 4.5, 'class': 't1', 'text-anchor': 'middle', fill: r.c });
+    t.textContent = r.k; svg.appendChild(t);
+    svg.appendChild(el('rect', { x: colX, y: yy, width: colW, height: h, rx: 8, fill: 'var(--surface-1)', stroke: 'var(--border)', 'stroke-width': 1 }));
+    var a = el('text', { x: colX + 16, y: yy + h / 2 + 4.5, 'class': 't2' });
+    a.textContent = r.a; svg.appendChild(a);
+    svg.appendChild(el('line', { x1: x0 + bw, x2: colX, y1: yy + h / 2, y2: yy + h / 2, 'class': 'ed' }));
+  });
+  var fy = y + rows.length * (h + gap) + 6;
+  svg.appendChild(el('rect', { x: x0, y: fy, width: colX + colW - x0, height: 52, rx: 8,
+    fill: 'color-mix(in srgb, var(--status-critical) 7%, var(--surface-1))', stroke: 'var(--status-critical)', 'stroke-width': 1.8 }));
+  var f1 = el('text', { x: x0 + 18, y: fy + 21, 'class': 't1', fill: 'var(--status-critical)' });
+  f1.textContent = '중등도-고위험 또는 고위험이 지속되면 — 최대 치료: 4제'; svg.appendChild(f1);
+  var f2 = el('text', { x: x0 + 18, y: fy + 39, 'class': 't2' });
+  f2.textContent = '정맥/피하 PPA + ERA + PDE5i 또는 sGC 자극제 + 액티빈 신호 억제제 · 그리고 폐이식 평가'; svg.appendChild(f2);
+})();
+</script>
+</body>
+</html>
