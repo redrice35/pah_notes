@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>폐고혈압에서의 폐이식 — 현재까지의 근거</title>
+<meta name="description" content="PH/PAH에서 폐·심폐이식: 의뢰와 등재, 양측 폐이식 대 심폐이식, ECMO 브리징과 수술전후 관리, 이식 후 성적. 근거 층위를 구분해 정리.">
+<style>
+  :root, .viz-root {
+    color-scheme: light;
+    --surface-1:#fcfcfb; --plane:#f9f9f7;
+    --text-primary:#0b0b0b; --text-secondary:#52514e; --text-muted:#898781;
+    --grid:#e1e0d9; --baseline:#c3c2b7; --border:rgba(11,11,11,0.10);
+    --series-1:#2a78d6; --series-2:#eb6834; --series-3:#1baf7a; --series-4:#eda100;
+    --status-good:#0ca30c; --status-warning:#fab219; --status-serious:#ec835a; --status-critical:#d03b3b;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:where(:not([data-theme="light"])) {
+      color-scheme: dark;
+      --surface-1:#1a1a19; --plane:#0d0d0d;
+      --text-primary:#ffffff; --text-secondary:#c3c2b7; --text-muted:#898781;
+      --grid:#2c2c2a; --baseline:#383835; --border:rgba(255,255,255,0.10);
+      --series-1:#3987e5; --series-2:#d95926; --series-3:#199e70; --series-4:#c98500;
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --surface-1:#1a1a19; --plane:#0d0d0d;
+    --text-primary:#ffffff; --text-secondary:#c3c2b7; --text-muted:#898781;
+    --grid:#2c2c2a; --baseline:#383835; --border:rgba(255,255,255,0.10);
+    --series-1:#3987e5; --series-2:#d95926; --series-3:#199e70; --series-4:#c98500;
+  }
+  * { box-sizing:border-box; }
+  html, body { margin:0; padding:0; }
+  body { font-family: system-ui, -apple-system, "Segoe UI", "Malgun Gothic", sans-serif;
+         background:var(--plane); color:var(--text-primary); line-height:1.55; }
+  a { color:var(--series-1); }
+
+  header.top { position:sticky; top:0; z-index:20; background:var(--surface-1);
+    border-bottom:1px solid var(--border); padding:10px 20px;
+    display:flex; align-items:center; gap:14px; flex-wrap:wrap; }
+  header.top h1 { font-size:15px; margin:0; font-weight:600; white-space:nowrap; }
+  header.top .home { font-size:13px; text-decoration:none; color:var(--text-secondary); white-space:nowrap; }
+  header.top .home:hover { color:var(--text-primary); }
+  nav.tabs { display:flex; gap:2px; flex-wrap:wrap; margin-left:auto; }
+  nav.tabs a { text-decoration:none; color:var(--text-secondary); font-size:12.5px; padding:6px 8px; border-radius:6px; }
+  nav.tabs a:hover { background:var(--grid); color:var(--text-primary); }
+  #themeToggle { border:1px solid var(--border); background:var(--surface-1); color:var(--text-primary);
+    border-radius:6px; padding:6px 10px; font-size:12px; cursor:pointer; }
+
+  main { max-width:1080px; margin:0 auto; padding:24px 20px 80px; }
+  section { margin-bottom:40px; scroll-margin-top:64px; }
+  h2 { font-size:20px; margin:0 0 4px; letter-spacing:-0.01em; }
+  h3 { font-size:14px; margin:0 0 10px; font-weight:600; }
+  .sub { color:var(--text-secondary); font-size:13px; margin:0 0 14px; }
+
+  .card { background:var(--surface-1); border:1px solid var(--border); border-radius:10px; padding:16px 18px; margin-bottom:14px; }
+  .card > h3:first-child { margin-top:0; }
+  .grid { display:grid; gap:12px; }
+  .g3 { grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); }
+  .g2 { grid-template-columns:repeat(auto-fit,minmax(330px,1fr)); }
+
+  .tile { background:var(--surface-1); border:1px solid var(--border); border-radius:10px; padding:14px 16px; }
+  .tile .k { font-size:11px; text-transform:uppercase; letter-spacing:.06em; color:var(--text-muted); }
+  .tile .v { font-size:25px; font-weight:650; letter-spacing:-0.02em; margin:2px 0; font-variant-numeric:tabular-nums; }
+  .tile .d { font-size:12px; color:var(--text-secondary); }
+
+  .tblwrap { overflow-x:auto; }
+  table { border-collapse:collapse; width:100%; font-size:13px; min-width:520px; }
+  th, td { text-align:left; padding:7px 9px; border-bottom:1px solid var(--grid); vertical-align:top; }
+  th { font-weight:600; color:var(--text-secondary); font-size:12px; white-space:nowrap; }
+  td.c, th.c { text-align:center; font-variant-numeric:tabular-nums; white-space:nowrap; }
+  tbody tr:hover { background:var(--grid); }
+  caption { caption-side:bottom; text-align:left; color:var(--text-muted); font-size:11.5px; padding-top:8px; }
+  .ok  { color:var(--status-good); font-weight:600; }
+  .no  { color:var(--status-critical); font-weight:600; }
+  .mid { color:var(--status-warning); font-weight:600; }
+
+  .lv { display:inline-block; font-size:10.5px; font-weight:700; letter-spacing:.03em; padding:2px 7px; border-radius:20px; white-space:nowrap; }
+  .lv.g  { background:color-mix(in srgb, var(--status-good) 18%, transparent); color:var(--status-good); }
+  .lv.c  { background:color-mix(in srgb, var(--series-1) 18%, transparent); color:var(--series-1); }
+  .lv.d  { background:color-mix(in srgb, var(--status-warning) 20%, transparent); color:var(--status-warning); }
+  .lv.o  { background:color-mix(in srgb, var(--text-muted) 22%, transparent); color:var(--text-secondary); }
+
+  .note { font-size:12.5px; color:var(--text-secondary); border-left:3px solid var(--baseline); padding:6px 0 6px 12px; margin:10px 0; }
+  .warn { border-left-color:var(--status-warning); }
+  .crit { border-left-color:var(--status-critical); }
+  .good { border-left-color:var(--status-good); }
+  .note b { color:var(--text-primary); }
+  blockquote.q { margin:12px 0; padding:10px 14px; border-left:3px solid var(--series-1);
+    background:color-mix(in srgb, var(--series-1) 5%, transparent); font-size:13px; color:var(--text-secondary); border-radius:0 6px 6px 0; }
+  blockquote.q b { color:var(--text-primary); }
+
+  .chartwrap { overflow-x:auto; }
+  svg.chart, svg.flow { width:100%; min-width:640px; height:auto; display:block; font-family:inherit; }
+  .lbl { fill:var(--text-secondary); font-size:11px; }
+  .lblm { fill:var(--text-muted); font-size:10.5px; }
+  .lbp { fill:var(--text-primary); font-size:11.5px; font-weight:600; }
+  .gl { stroke:var(--grid); stroke-width:1; }
+  .ax { stroke:var(--baseline); stroke-width:1; }
+  .t1 { fill:var(--text-primary); font-size:12.5px; font-weight:600; }
+  .t2 { fill:var(--text-secondary); font-size:11px; }
+  .ed { stroke:var(--baseline); stroke-width:1.5; fill:none; }
+
+  ol.tl { list-style:none; margin:0; padding:0 0 0 20px; border-left:2px solid var(--grid); }
+  ol.tl li { position:relative; padding:0 0 13px 12px; }
+  ol.tl li::before { content:""; position:absolute; left:-19px; top:5px; width:8px; height:8px; border-radius:50%;
+                     background:var(--series-1); box-shadow:0 0 0 2px var(--surface-1); }
+  ol.tl li.hot::before { background:var(--status-critical); }
+  ol.tl .yr { font-size:11.5px; color:var(--text-muted); }
+  ol.tl .ti { font-size:13px; font-weight:600; }
+  ol.tl .de { font-size:12.5px; color:var(--text-secondary); }
+
+  #tip { position:fixed; pointer-events:none; opacity:0; transition:opacity .1s; z-index:50;
+    background:var(--surface-1); border:1px solid var(--border); border-radius:7px; padding:7px 10px;
+    font-size:12px; color:var(--text-primary); box-shadow:0 4px 14px rgba(0,0,0,.13); max-width:250px; }
+  #tip b { display:block; margin-bottom:2px; }
+  #tip .s { color:var(--text-secondary); font-size:11.5px; }
+
+  footer { color:var(--text-muted); font-size:12px; border-top:1px solid var(--border); padding-top:14px; }
+</style>
+</head>
+<body data-palette="#2a78d6,#eb6834,#1baf7a,#eda100">
+
+<header class="top">
+  <a class="home" href="index.html">← 목차</a>
+  <h1>폐고혈압에서의 폐이식</h1>
+  <nav class="tabs">
+    <a href="#evidence">근거 층위</a>
+    <a href="#when">언제</a>
+    <a href="#who">누구를</a>
+    <a href="#which">어떤 수술</a>
+    <a href="#periop">수술전후</a>
+    <a href="#outcome">성적</a>
+    <a href="#access">접근성</a>
+    <a href="#gaps">미해결</a>
+  </nav>
+  <button id="themeToggle" type="button">🌙 다크모드</button>
+</header>
+
+<div id="tip"></div>
+
+<main>
+
+<section id="evidence">
+  <h2>근거가 어떤 층으로 쌓여 있는지부터</h2>
+  <p class="sub">이 분야에는 <b>무작위 대조시험이 없고 앞으로도 없을 것입니다.</b> 이식은 무작위 배정할 수 없기 때문입니다.</p>
+
+  <div class="card">
+    <div class="tblwrap">
+      <table>
+        <thead><tr><th style="width:16%">층</th><th style="width:34%">출처</th><th>성격</th></tr></thead>
+        <tbody>
+          <tr><td><span class="lv g">지침</span></td><td><b>2022 ESC/ERS</b> — 의뢰·등재 기준</td><td><b>등급 권고 2개, 둘 다 Class I <span class="mid">Level C</span></b> — 근거 수준은 전문가 합의</td></tr>
+          <tr><td><span class="lv c">합의</span></td><td><b>7차 WSPH 2024</b> (Savale) — 술식 선택, 브리징</td><td>전문가 합의 프로시딩. <b>Class/Level 없음</b></td></tr>
+          <tr><td><span class="lv d">Delphi</span></td><td><b>PVRI 2025</b> (Kolaitis) — 실무 세부</td><td><b>근거가 없어서 만든 구조화된 전문가 의견.</b> 29인, 223문항 중 <b>141개(63%) 합의</b></td></tr>
+          <tr><td><span class="lv o">관찰</span></td><td>ISHLT 레지스트리 · UNOS/OPTN · 단일기관 시리즈</td><td>레지스트리와 후향 자료</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="note warn">
+      <b>이 페이지의 “4.43 ± 0.74” 같은 숫자는 효과크기가 아닙니다.</b>
+      −5에서 +5까지의 <b>Likert 동의 점수 평균 ± 표준편차</b>이며, 합의 기준은 <b>평균 ≥2.5 또는 ≤−2.5이면서 표준편차가 0을 넘지 않을 것</b>이었습니다.
+      위험비나 확률과 혼동하지 마십시오.
+    </div>
+  </div>
+
+  <div class="grid g3">
+    <div class="tile"><div class="k">1년 생존 후 조건부 중앙 생존</div><div class="v">10.0년</div><div class="d">특발성 PAH 일차 이식, ISHLT 레지스트리</div></div>
+    <div class="tile"><div class="k">전 세계 폐이식 중 PAH 비중</div><div class="v">&lt;5%</div><div class="d">연간 4500건 이상 중</div></div>
+    <div class="tile"><div class="k">PVRI Delphi 합의율</div><div class="v">141/223</div><div class="d">63% — 나머지 82개는 연구가 필요한 영역</div></div>
+  </div>
+</section>
+
+<section id="when">
+  <h2>언제 — 대화, 의뢰, 등재는 다른 시점입니다</h2>
+  <p class="sub">기존 지침은 의뢰와 등재만 다룹니다. <b>“환자와 이식 이야기를 언제 시작할까”</b>는 PVRI Delphi가 처음 채운 공백입니다.</p>
+
+  <div class="card">
+    <h3>패널의 가장 강한 두 문항이 자기비판입니다</h3>
+    <div class="chartwrap"><svg id="cSelf" class="chart" viewBox="0 0 900 150" role="img"
+      aria-label="PVRI Delphi 자기평가 두 문항. 의뢰 시점에 대한 인식 제고가 필요하다 4.15점, 이식 논의가 너무 늦게 이루어진다 3.65점. 모두 5점 만점."></svg></div>
+  </div>
+
+  <div class="grid g3">
+    <div class="card" style="margin-bottom:0">
+      <h3><span class="lv d">Delphi</span> 대화 시작</h3>
+      <ul style="font-size:13px;color:var(--text-secondary);margin:0;padding-left:18px;line-height:1.75;">
+        <li><b>진단 시 또는 직후</b> — ESC/ERS 3단계 또는 REVEAL 2.0으로 <b>고위험</b></li>
+        <li><b>진단 시점</b> — <b>PVOD/PCH</b> 의심·확진</li>
+        <li><b>추적 중</b> — 적절한 치료에도 <b>중등도-고위험</b>일 때</li>
+        <li>악화 중 · <b>3제 시작</b> · <b>비경구 프로스타사이클린 시작</b></li>
+        <li><b>임신했거나 임신을 고려할 때</b></li>
+        <li>저산소혈증 · 객혈 · 말단장기 기능이상</li>
+      </ul>
+    </div>
+    <div class="card" style="margin-bottom:0">
+      <h3><span class="lv g">지침</span> + <span class="lv d">Delphi</span> 의뢰</h3>
+      <p style="font-size:12.5px;color:var(--text-muted);margin:0 0 6px;"><b>2022 ESC/ERS</b> — 중등도-고위험 또는 고위험, 또는 <b>REVEAL &gt;7</b> (Class I, Level C)</p>
+      <ul style="font-size:13px;color:var(--text-secondary);margin:0;padding-left:18px;line-height:1.75;">
+        <li>Delphi가 더한 구체 기준 — <b>REVEAL 2.0 ≥8</b> · <b>WHO FC III–IV 지속</b></li>
+        <li>우심실 기능이상·확장 · 질병 진행 · PAH 입원 · 객혈</li>
+        <li><b>심낭삼출</b> · <b>심계수 &lt;2 L/min/m²</b> · 신·간 기능이상</li>
+        <li><b>치료와 무관하게</b> — 비경구 프로스타사이클린 필요 · PVOD/PCH · <b>유전성 PAH</b> · 폐동맥류 · 좌심질환 · <b>관상동맥 압박</b> · 반복 부정맥 · 심방중격절개술 기왕</li>
+      </ul>
+    </div>
+    <div class="card" style="margin-bottom:0">
+      <h3><span class="lv g">지침</span> + <span class="lv d">Delphi</span> 등재</h3>
+      <p style="font-size:12.5px;color:var(--text-muted);margin:0 0 6px;"><b>2022 ESC/ERS</b> — 고위험 또는 <b>REVEAL ≥10</b>, 비경구 프로스타사이클린 포함 최적 치료에도 (Class I, Level C)</p>
+      <ul style="font-size:13px;color:var(--text-secondary);margin:0;padding-left:18px;line-height:1.75;">
+        <li>Delphi — 4단계 <b>중등도-고위험</b> 또는 <b>REVEAL 2.0 ≥9</b></li>
+        <li>중증 우심실 확장·기능이상</li>
+        <li>진행 중이나 <b>말기는 아닌</b> 신·간 기능이상</li>
+        <li>생명을 위협하는 객혈 · 진행성 저산소혈증 · PVOD/PCH</li>
+        <li><b class="ok">ECMO 중 (4.66 ± 0.61)</b> · <b class="ok">강심제·승압제 의존 (4.36 ± 1.93)</b></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>의뢰의 절차 원칙 세 가지</h3>
+    <div class="tblwrap">
+      <table>
+        <thead><tr><th>진술</th><th class="c" style="width:22%">평균 ± SD</th></tr></thead>
+        <tbody>
+          <tr><td>PAH 팀과 이식 프로그램의 긴밀한 협력이 중요하다</td><td class="c"><b class="ok">5 ± 0 — 만장일치</b></td></tr>
+          <tr><td><b>금기로 보이는 요소가 있어도 의뢰하고, 후보 적격성 판단은 이식센터에 맡긴다</b></td><td class="c"><b class="ok">4.43 ± 0.74</b></td></tr>
+          <tr><td>마지막 치료 선택지까지 써보고 효과가 불충분할 때까지 의뢰를 미룬다</td><td class="c"><b class="no">−3.71 ± 2.17 — 반대 합의</b></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="note good">한 센터에서 거절되면 <b>PAH 이식 경험이 있는 프로그램에서 2차 의견</b>을 받아야 한다는 데도 합의했습니다.</div>
+  </div>
+</section>
+
+<section id="who">
+  <h2>누구를 — 금기 대부분이 금기가 아닙니다</h2>
+  <p class="sub">PVRI Delphi에서 가장 실무적으로 유용한 부분입니다.</p>
+  <div class="card">
+    <div class="tblwrap">
+      <table>
+        <thead><tr><th style="width:32%">항목</th><th>합의</th></tr></thead>
+        <tbody>
+          <tr><td><b>중증 질환 (critical illness)</b></td><td><b class="ok">금기가 아니다 (4.24 ± 0.83).</b> 평가를 마치기 위해 <b>ECMO를 쓰는 것도 적절</b></td></tr>
+          <tr><td>ECMO·기계환기 중인 환자</td><td><b>동의할 수 있을 만큼 각성돼 있을 때만 평가 (3.00 ± 1.92)</b></td></tr>
+          <tr><td><b>연령 상한</b></td><td>상한이 <b>있어야 한다는 데는 합의</b>, 그러나 <b>숫자에는 합의 실패</b>. <b class="no">“60세 미만으로 제한”은 반대 합의 (−3.42 ± 1.68)</b></td></tr>
+          <tr><td>혈소판감소증</td><td>절대 금기 수치에 합의 실패. <b class="no">“혈소판 10만 미만이 금기”에는 반대 합의</b></td></tr>
+          <tr><td><b>조절되지 않는 출혈성 질환</b></td><td><b class="no">절대 금기</b></td></tr>
+          <tr><td>약물 연관 PAH</td><td><b>최소 6개월 금단</b> 후 후보 자격</td></tr>
+          <tr><td><b>CKD-EPI &lt;30 mL/min</b></td><td><b class="mid">신장이식 병행 없이 폐이식 단독은 안 된다</b></td></tr>
+          <tr><td><b>간경변 · 식도정맥류 · 유의한 문맥고혈압 · 빌리루빈 &gt;10 · MELD &gt;20</b></td><td><b class="mid">간이식 병행 없이 폐이식 단독은 안 된다</b></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <blockquote class="q">
+      이식은 진화하고 있고 센터들은 복잡한 증례에 점점 능숙해지고 있습니다.
+      <b>신·간 기능 저하나 중증 질환이 있어도 이식이 적절할 수 있으므로 환자에게 기회를 주어야 합니다.</b>
+    </blockquote>
+  </div>
+</section>
+
+<section id="which">
+  <h2>어떤 수술 — 거의 모두 양측 폐이식</h2>
+
+  <div class="card">
+    <h3>세 문서가 같은 방향으로 강해집니다</h3>
+    <ol class="tl">
+      <li><div class="yr">2022 ESC/ERS <span class="lv g">지침</span></div><div class="ti">한 문장, 등급 권고 없음</div><div class="de">“대부분 양측 폐이식을 받으며, 심폐이식은 <b>교정 불가능한 심장 병변</b>이 있는 환자에게 한정된다”</div></li>
+      <li class="hot"><div class="yr">2024 WSPH <span class="lv c">합의</span></div><div class="ti">명시적 권고로 전환</div><div class="de"><b>“we recommend against HLT for the majority of patients with PH”</b> — 결과가 낫다는 근거가 없고, <b>심장 공여자 풀을 잠식</b>하기 때문</div></li>
+      <li class="hot"><div class="yr">2025 PVRI <span class="lv d">Delphi</span></div><div class="ti">한 걸음 더</div><div class="de"><b>어떤 정도의 우심실 기능이상도 폐이식 단독을 배제하지 못한다 (2.86 ± 2.09)</b> · <b>단일 폐이식은 제공해서는 안 된다 (3.57 ± 2.03)</b></div></li>
+    </ol>
+    <div class="note good">
+      생리학적 근거는 하나입니다 — <b>“As the RV almost always recovers sufficiently after lung transplantation.”</b>
+      후부하를 제거하면 우심실이 회복하므로 심장을 함께 바꿀 이유가 없습니다.
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>심폐이식이 남는 자리</h3>
+    <div class="chartwrap"><svg id="cTree" class="flow" viewBox="0 0 900 250" role="img"
+      aria-label="수술 선택 흐름도. 기본은 양측 폐이식. 심폐이식은 수술 교정 불가능한 복잡 선천성 심질환, 동반된 유의한 좌심질환, 재관류 불가능한 관상동맥질환에 한정. 심방중격결손이나 동맥관처럼 수술 중 교정 가능한 경우는 심폐이식 반대."></svg></div>
+    <div class="grid g2">
+      <div class="note good" style="margin-top:0">
+        <b>심폐이식이 적절한 경우</b> — 수술로 <b>교정 불가능한</b> 복잡 선천성 심질환 · 동반된 <b>유의한 좌심질환</b> · <b>재관류 불가능한</b> 관상동맥질환.
+        드물게 <b>폐동맥류나 좌폐 이식을 방해하는 거대심장</b>.
+      </div>
+      <div class="note crit" style="margin-top:0">
+        <b>심폐이식에 반대 합의가 난 경우</b> — <b>수술 교정이 가능한 심방중격결손</b> · <b>수술 교정이 가능한 열린 동맥관</b> · <b>수술적 폐쇄가 가능한 심방중격절개술 부위</b>.
+        즉 <b>양측 폐이식 중에 고칠 수 있으면 고치라</b>는 것입니다.
+      </div>
+    </div>
+    <div class="note warn">
+      <b>UNOS 아이젠멩거 성인 442명</b>(1987–2018) — <b>심방중격결손은 양측 폐이식이 생존 우수</b>, <b>심실중격결손 등 더 복잡한 결손은 심폐이식이 우수</b>.
+      단 이 비교는 <b>심폐 블록의 더 긴 대기시간</b>을 고려하지 않았을 수 있습니다.
+    </div>
+    <div class="note crit">
+      <b>★ 좌심실 기능이상은 심폐이식의 적응증이 아닙니다.</b>
+      중증 PH와 우심실 확장이 있으면 좌심실 기능 추정 자체가 어렵고,
+      <b>“위험의 대부분은 수술 직후에 완화할 수 있는 혈류역학적 고려에서 오므로 심폐이식의 적응증으로 쓰여서는 안 된다”</b>는 것이 WSPH의 입장입니다.
+      실제 자료가 이를 뒷받침합니다 — <a href="#outcome">아래 성적 항목</a> 참고.
+    </div>
+  </div>
+</section>
+
+<section id="periop">
+  <h2>수술전후 — 등급 권고가 전혀 없는 영역</h2>
+  <p class="sub">PAH는 <b>주로 혈관 구획을 침범하는 유일한 주요 이식 적응증</b>이고, 폐동맥압 상승과 우심실 기능이상 자체가 수술전후 위험입니다.</p>
+
+  <div class="card">
+    <h3>브리징</h3>
+    <div class="tblwrap">
+      <table>
+        <thead><tr><th>전략</th><th class="c" style="width:22%">평균 ± SD</th></tr></thead>
+        <tbody>
+          <tr><td><b>불응성 우심부전에 ECMO를 이식 브리지로</b></td><td class="c"><b class="ok">4.68 ± 0.48</b></td></tr>
+          <tr><td>불응성 저산소혈증에 ECMO</td><td class="c"><b class="ok">4.07 ± 0.98</b></td></tr>
+          <tr><td><b>말초 정맥-동맥 ECMO</b> — 캐뉼러 전략 중 최고 합의</td><td class="c"><b>4.09 ± 0.81</b></td></tr>
+          <tr><td>악화 위험이 있는 입원 환자에서 <b>조기 예방적 캐뉼러 삽입</b></td><td class="c"><b>2.93 ± 1.69</b></td></tr>
+          <tr><td>우심방–폐동맥 카테터를 브리징에 사용</td><td class="c"><b class="no">반대 합의</b></td></tr>
+        </tbody>
+        <caption>합의 실패 — ECMO로 브리징 중 <b>혈관확장제를 어떻게 할 것인가</b>, <b>예방적 기관지 측부혈관 색전술의 이득</b>.</caption>
+      </table>
+    </div>
+  </div>
+
+  <div class="grid g2">
+    <div class="card" style="margin-bottom:0">
+      <h3>수술 중</h3>
+      <div class="tblwrap"><table style="min-width:auto"><tbody>
+        <tr><td>비경구 프로스타사이클린</td><td><b>VA-ECMO·인공심폐기 가동 후 중단 (3.87)</b></td></tr>
+        <tr><td><b>술후 비경구 프로스타사이클린</b></td><td><b class="no">강한 반대 합의 (−4.00 ± 1.60)</b></td></tr>
+        <tr><td>지원 방식</td><td><b>중심 VA-ECMO</b>를 인공심폐기·말초 ECMO보다 선호</td></tr>
+        <tr><td>승압·강심</td><td><b class="no">밀리논 회피</b> · <b class="ok">노르에피네프린 선호</b></td></tr>
+        <tr><td>마취 유도</td><td>캐뉼러용 holding wire를 <b>유도 전</b> 삽입 · <b>유도 시 외과의가 수술방에</b> · 저혈압 회피 · 중증 RV 기능이상에서 <b>선제적 각성 VA-ECMO</b></td></tr>
+        <tr><td>감시</td><td>동맥압선 + <b>폐동맥 카테터 (4.38)</b> · <b>지속적 경식도 심초음파 (3.35)</b></td></tr>
+      </tbody></table></div>
+    </div>
+    <div class="card" style="margin-bottom:0">
+      <h3>수술 후</h3>
+      <div class="note crit" style="margin-top:0">
+        <b>★ 선제적 VA-ECMO의 일상적 술후 사용에는 합의하지 못했습니다.</b>
+        대신 <b>혈류역학 반응과 경식도 심초음파 소견에 따라</b> 결정하도록 합의했습니다.
+        PAH는 1차 이식편 기능부전의 주요 위험인자이고 이 전략이 흔히 쓰이는데도 합의가 안 났다는 것 자체가 소견입니다.
+      </div>
+      <div class="note" style="margin-bottom:0">
+        감시 — 폐동맥 카테터 <b>48시간</b>(2.67) · 동맥압선 <b>48시간</b>(3.86) · 도뇨관 <b>72시간</b>(3.36).
+        <b>조기 술후 노르에피네프린을 에피네프린보다 선호</b>(3.26).<br><br>
+        <b>합의 실패</b> — 술후 산화질소, 기계환기 기간, 진정 기간, 발관 전략.
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="outcome">
+  <h2>성적 — 위험은 앞쪽에 몰려 있습니다</h2>
+
+  <div class="card">
+    <blockquote class="q" style="margin-top:0">
+      <b>1년을 넘긴 특발성 PAH 일차 이식 환자의 조건부 중앙 생존은 10.0년입니다.</b><br><br>
+      그래서 질문은 “이식이 효과가 있는가”가 아니라 <b>“이 환자가 수술전후 기간을 넘길 것인가”</b>입니다.
+      의뢰 역치가 <b>내과적 1년 사망률이 이식 후 사망률을 넘어서는 지점</b>(중등도-고위험, 즉 &gt;10%)에 설정된 것도 같은 계산입니다.
+    </blockquote>
+  </div>
+
+  <div class="card">
+    <h3>현대 술기에서의 조기 성적 — 단일기관 시리즈</h3>
+    <p class="sub" style="margin-bottom:10px">멜버른, 2006–2019, PAH 폐이식 <b>50명 연속</b></p>
+    <div class="grid g3">
+      <div class="tile"><div class="k">12개월 생존</div><div class="v ok" style="color:var(--status-good)">96%</div><div class="d">48/50</div></div>
+      <div class="tile"><div class="k">ECMO 사용</div><div class="v">52%</div><div class="d">26명 · <b>예방적 VA-ECMO가 기간 중 증가</b></div></div>
+      <div class="tile"><div class="k">술후 좌심실 기능이상</div><div class="v mid" style="color:var(--status-warning)">42%</div><div class="d">21명 · <b>12개월 생존에 차이 없음</b></div></div>
+    </div>
+    <div class="note good">
+      <b>★ 이것이 권고의 근거입니다.</b> 거의 절반에서 술후 좌심실 기능이상이 생겼지만 <b>12개월 생존과 좌심실 기능 모두 차이가 없었습니다.</b>
+      WSPH가 <b>좌심실 기능이상을 심폐이식의 적응증으로 쓰지 말라</b>고 한 근거가 이런 자료입니다.
+    </div>
+    <div class="note warn">
+      <b>한계</b> — 단일기관, 50명, 그리고 ECMO 경험이 풍부한 센터입니다. <b>달성 가능한 수준</b>을 보여줄 뿐 <b>전형적인 수준</b>은 아닙니다.
+      그리고 이 자료는 <b>초록만 확보</b>했습니다.
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>양측 폐이식 대 심폐이식 — 생존은 같고, 주술기 부담은 다릅니다</h3>
+    <p class="sub" style="margin-bottom:10px">UNOS/OPTN, 2004–2022, PAH 성인 <b>914명</b> (선천성·구조적 심장 이상 제외)</p>
+    <div class="chartwrap"><svg id="cBlt" class="chart" viewBox="0 0 900 230" role="img"
+      aria-label="양측 폐이식과 심폐이식 비교. 72시간 ECMO 사용은 양측 폐이식 24.2퍼센트 대 심폐이식 10.8퍼센트, 삽관 유지는 43.0퍼센트 대 23.9퍼센트로 양측 폐이식이 높다. 1년과 5년 사망 위험비는 통계적으로 유의하지 않다."></svg></div>
+    <div class="tblwrap">
+      <table>
+        <thead><tr><th>지표</th><th class="c">양측 폐이식 (n=776)</th><th class="c">심폐이식 (n=138)</th><th class="c">p</th></tr></thead>
+        <tbody>
+          <tr><td>심계수</td><td class="c">2.4</td><td class="c">2.2</td><td class="c">0.02</td></tr>
+          <tr><td>폐모세혈관쐐기압</td><td class="c">11</td><td class="c">13</td><td class="c">&lt;0.001</td></tr>
+          <tr><td><b>72시간 ECMO</b></td><td class="c"><b class="mid">24.2%</b></td><td class="c">10.8%</td><td class="c">0.02</td></tr>
+          <tr><td><b>삽관 유지</b></td><td class="c"><b class="mid">43.0%</b></td><td class="c">23.9%</td><td class="c">&lt;0.001</td></tr>
+          <tr><td>1년 사망 (보정 HR, 심폐이식)</td><td class="c" colspan="2"><b>1.82 (0.89–3.71)</b></td><td class="c">0.10</td></tr>
+          <tr><td>5년 사망 (HR, 심폐이식)</td><td class="c" colspan="2"><b>1.49 (0.87–2.54)</b></td><td class="c">0.14</td></tr>
+        </tbody>
+        <caption>초록만 확보한 자료입니다. 혈류역학 하위군 전반에서 결과가 일관됐습니다.</caption>
+      </table>
+    </div>
+    <div class="note crit">
+      <b>이 표를 조심해서 읽으십시오.</b> 심폐이식을 권하는 근거가 <b>아닙니다.</b>
+      저자들의 결론은 양측 폐이식이 <b>“적절히 선택된 환자에서 타당한 대안”</b>이고,
+      학계의 입장은 <b>생존 우위가 아니라 공여장기 관리와 우심실 회복</b>에 근거합니다.<br><br>
+      다만 자료가 보여주는 것 하나 — <b>양측 폐이식은 주술기 비용이 더 큽니다.</b> ECMO를 더 쓰고 더 오래 삽관합니다.
+      그것이 심장을 쓰지 않는 대가이며, <b>PAH 환자가 가장 취약한 바로 그 구간에서 지불</b>됩니다.
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>1차 이식편 기능부전 — 조기 위험의 본체</h3>
+    <div class="grid g2">
+      <div class="note crit" style="margin-top:0">
+        <b>PAH는 1차 이식편 기능부전(PGD)의 주요 위험인자</b>이고, PGD는 <b>사망 증가와 삶의 질 악화</b>와 연관됩니다.
+        <b>단일 폐이식은 PGD에 더 취약</b>합니다.
+      </div>
+      <div class="note good" style="margin-top:0">
+        <b>브리징된 환자도 잘합니다</b> — ECMO로 이식에 브리징된 환자는 <b>우수한 결과</b>를 얻을 수 있고
+        <b>이식 후 삶의 질 개선도 브리징하지 않은 환자와 유사</b>합니다. 이것이 “중증 질환은 금기가 아니다”의 근거입니다.
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="access">
+  <h2>접근성 — 성적과는 별개의 문제</h2>
+  <div class="card">
+    <div class="tblwrap">
+      <table>
+        <thead><tr><th>진술</th><th class="c" style="width:22%">평균 ± SD</th></tr></thead>
+        <tbody>
+          <tr><td><b>현행 배분 시스템은 PAH의 질병 중증도를 과소평가한다</b></td><td class="c"><b class="ok">4.32 ± 0.61</b></td></tr>
+          <tr><td>건강 불평등과 불균등한 의료 접근이 PAH 환자에게 영향을 준다</td><td class="c">4.23 ± 0.71</td></tr>
+          <tr><td><b>고위험 PAH 환자를 위한 예외 제도가 필요하다</b></td><td class="c"><b class="ok">4.18 ± 1.02</b></td></tr>
+          <tr><td><b>우선순위 기반 배분이 아니라면 고응급 제도가 필요하다</b></td><td class="c"><b class="ok">4.46 ± 0.57</b></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="note warn">
+      <b>★ 수축기 폐동맥압은 미국 LAS와 현행 Composite Allocation Score에 들어 있지만, 배분에 유용하다는 합의를 얻지 못했습니다.</b>
+      패널이 대신 넣어야 한다고 본 것 — <b>우심실 기능이상, 심계수, 일회박출량지수, 우심방압, PAH 위험예측 점수</b>.
+    </div>
+    <blockquote class="q">
+      구조적 원인은 하나입니다 — <b>현재의 위험평가 도구는 사망 위험을 예측하도록 설계됐지, 이식 후 결과나 이식까지의 생존을 예측하도록 설계되지 않았습니다.</b>
+      그 도구가 나오기 전까지 배분 모델은 PAH 중증도를 반영하지 못하는 변수를 계속 쓰게 됩니다.
+    </blockquote>
+    <div class="note">대기자 명단 사망률이 <b>여전히 용납하기 어려울 정도로 높다</b>는 데도 합의했습니다.</div>
+  </div>
+</section>
+
+<section id="gaps">
+  <h2>확립되지 않은 것</h2>
+  <div class="grid g2">
+    <div class="card" style="margin-bottom:0">
+      <h3>합의조차 이루지 못한 항목</h3>
+      <ul style="font-size:13px;color:var(--text-secondary);margin:0;padding-left:18px;line-height:1.8;">
+        <li><b>선제적 술후 VA-ECMO</b>의 일상적 사용</li>
+        <li><b>술후 흡입 산화질소</b>, 기계환기·진정 기간, 발관 전략</li>
+        <li>성인에서의 <b>Potts 단락</b></li>
+        <li><b>심방중격절개술</b>의 유용성</li>
+        <li><b>우심실 보조장치</b>의 유용성</li>
+        <li>브리징에서 <b>중심 ECMO</b>의 역할</li>
+        <li><b>기관지동맥 측부 색전술</b>의 시행 시점</li>
+        <li>ECMO 중 <b>혈관확장제</b> 처리</li>
+      </ul>
+    </div>
+    <div class="card" style="margin-bottom:0">
+      <h3>구조적 공백</h3>
+      <div class="note crit" style="margin-top:0"><b>무작위 근거가 없고 앞으로도 없습니다.</b> 전 분야가 레지스트리·단일기관 시리즈·구조화된 합의 위에 서 있습니다.</div>
+      <div class="note warn"><b>PAH 특이 이식 후 결과 예측 도구가 존재하지 않습니다.</b> 그래서 배분 모델이 계속 어긋납니다.</div>
+      <div class="note"><b>이 페이지의 성적 자료 두 건은 초록만 확보</b>했습니다 — 멜버른 50명 시리즈와 UNOS 914명 비교. 전문 대조를 거치지 않은 수치입니다.</div>
+      <div class="note" style="margin-bottom:0"><b>국내 자료가 전혀 없습니다</b> — 한국의 폐이식 접근성·배분·성적은 이 정리에 포함돼 있지 않습니다.</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p style="margin:0 0 8px"><b>면책</b> — 공개된 논문을 요약·정리한 학습용 자료이며 진료 지침이나 의학적 조언이 아닙니다.
+  <b>이 분야에는 무작위 근거가 없으며, 인용된 Likert 점수는 전문가 동의 수준이지 효과크기가 아닙니다.</b> 임상 판단은 원문과 현행 지침을 직접 확인하십시오.</p>
+  <p style="margin:0 0 8px"><b>1차 출처</b> —
+  <b>2022 ESC/ERS</b> PH 지침 6.3.8절 및 Recommendation Table 13 (<i>Eur Heart J</i> 2022;43:3618-3731) ·
+  <b>Savale L, et al.</b> Transplantation, bridging, and support technologies in pulmonary hypertension. <i>Eur Respir J</i> 2024;64:2401193 (7차 WSPH) ·
+  <b>Kolaitis NA, et al.</b> Approach to Lung Transplantation in PAH: A Delphi Consensus on Behalf of the Transplant Task Force of the PVRI. <i>Pulm Circ</i> 2025;15(2):e70088.
+  <b>초록만 확보</b> — Otto M, et al. <i>J Crit Care</i> 2022 (PMID 35914371) · Zarrabian B, et al. <i>J Heart Lung Transplant</i> 2026 (PMID 41412359).</p>
+  <p style="margin:0">작성 2026-09-13 · 관련: <a href="wsph2024.html">7th WSPH 2024</a> · <a href="pah-policy.html">PAH 치료 방침</a> · <a href="out-of-proportion.html">Out-of-Proportion PH</a> · <a href="korea.html">한국 급여기준</a></p>
+</footer>
+
+</main>
+
+<script>
+(function () {
+  "use strict";
+  var btn = document.getElementById('themeToggle'), stored = null;
+  try { stored = localStorage.getItem('ph-theme'); } catch (e) {}
+  if (stored) document.documentElement.setAttribute('data-theme', stored);
+  function isDark() {
+    var t = document.documentElement.getAttribute('data-theme');
+    if (t) return t === 'dark';
+    return window.matchMedia('(prefers-color-scheme: dark)').matches;
+  }
+  function paint() { btn.textContent = isDark() ? '☀️ 라이트모드' : '🌙 다크모드'; }
+  btn.addEventListener('click', function () {
+    var next = isDark() ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    try { localStorage.setItem('ph-theme', next); } catch (e) {}
+    paint();
+  });
+  paint();
+
+  var tip = document.getElementById('tip');
+  function showTip(e, html) {
+    tip.innerHTML = html; tip.style.opacity = '1';
+    var x = e.clientX + 14, y = e.clientY + 14;
+    if (x + tip.offsetWidth > window.innerWidth - 10) x = e.clientX - tip.offsetWidth - 14;
+    if (y + tip.offsetHeight > window.innerHeight - 10) y = e.clientY - tip.offsetHeight - 14;
+    tip.style.left = x + 'px'; tip.style.top = y + 'px';
+  }
+  function hideTip() { tip.style.opacity = '0'; }
+  var NS = 'http://www.w3.org/2000/svg';
+  function el(n, a) { var e = document.createElementNS(NS, n); for (var k in a) e.setAttribute(k, a[k]); return e; }
+  function hook(node, html) {
+    node.addEventListener('mousemove', function (e) { showTip(e, html); });
+    node.addEventListener('mouseleave', hideTip);
+  }
+
+  /* self-criticism bars */
+  (function () {
+    var d = [
+      { k: '의뢰 시점에 대한 인식 제고가 필요하다', v: 4.15, sd: 0.53 },
+      { k: '이식 논의가 질병 경과에서 너무 늦게 이루어진다', v: 3.65, sd: 0.75 }
+    ];
+    var svg = document.getElementById('cSelf');
+    var W = 900, L = 380, R = 70, T = 22, h = 34, gap = 18;
+    var iw = W - L - R, max = 5;
+    [0, 1, 2, 3, 4, 5].forEach(function (v) {
+      var x = L + v / max * iw;
+      svg.appendChild(el('line', { x1: x, x2: x, y1: T - 8, y2: T + d.length * (h + gap), 'class': v === 0 ? 'ax' : 'gl' }));
+      var t = el('text', { x: x, y: T + d.length * (h + gap) + 16, 'class': 'lblm', 'text-anchor': 'middle' });
+      t.textContent = v; svg.appendChild(t);
+    });
+    d.forEach(function (r, i) {
+      var y = T + i * (h + gap);
+      var lb = el('text', { x: L - 14, y: y + h / 2 + 4.5, 'class': 'lbl', 'text-anchor': 'end' });
+      lb.textContent = r.k; svg.appendChild(lb);
+      var w = r.v / max * iw;
+      var bar = el('rect', { x: L, y: y + 5, width: w, height: h - 10, rx: 3, fill: 'var(--series-1)' });
+      hook(bar, '<b>' + r.k + '</b><span class="s">평균 ' + r.v.toFixed(2) + ' ± ' + r.sd.toFixed(2) + ' (최대 5)</span>');
+      svg.appendChild(bar);
+      var v = el('text', { x: L + w + 10, y: y + h / 2 + 4.5, 'class': 'lbp' });
+      v.textContent = r.v.toFixed(2) + ' ± ' + r.sd.toFixed(2); svg.appendChild(v);
+    });
+    var cap = el('text', { x: L, y: 14, 'class': 'lblm' });
+    cap.textContent = 'Likert 동의 점수 (−5 ~ +5), 합의 기준 ≥2.5'; svg.appendChild(cap);
+  })();
+
+  /* procedure decision tree */
+  (function () {
+    var svg = document.getElementById('cTree');
+    function box(x, y, w, h, stroke, fill) {
+      return el('rect', { x: x, y: y, width: w, height: h, rx: 8, fill: fill || 'var(--surface-1)', stroke: stroke, 'stroke-width': 1.8 });
+    }
+    function txt(x, y, s, cls, fill, anchor) {
+      var t = el('text', { x: x, y: y, 'class': cls, 'text-anchor': anchor || 'middle' });
+      if (fill) t.setAttribute('fill', fill);
+      t.textContent = s; return t;
+    }
+    svg.appendChild(box(20, 100, 180, 52, 'var(--series-1)'));
+    svg.appendChild(txt(110, 122, 'PH로 이식이 필요한 환자', 't1'));
+    svg.appendChild(txt(110, 140, '우심실 기능이상 정도와 무관', 't2'));
+
+    svg.appendChild(box(300, 22, 250, 52, 'var(--status-good)', 'color-mix(in srgb, var(--status-good) 8%, var(--surface-1))'));
+    svg.appendChild(txt(425, 44, '양측 폐이식', 't1', 'var(--status-good)'));
+    svg.appendChild(txt(425, 62, '기본 선택 — 대부분의 환자', 't2'));
+
+    svg.appendChild(box(300, 178, 250, 52, 'var(--status-warning)', 'color-mix(in srgb, var(--status-warning) 8%, var(--surface-1))'));
+    svg.appendChild(txt(425, 200, '심폐이식', 't1', 'var(--status-warning)'));
+    svg.appendChild(txt(425, 218, '아래 세 조건에 한정', 't2'));
+
+    svg.appendChild(el('path', { d: 'M200 126 C 250 126, 250 48, 300 48', 'class': 'ed' }));
+    svg.appendChild(el('path', { d: 'M200 126 C 250 126, 250 204, 300 204', 'class': 'ed' }));
+
+    var conds = [
+      '수술로 교정 불가능한 복잡 선천성 심질환',
+      '동반된 유의한 좌심질환',
+      '재관류 불가능한 관상동맥질환'
+    ];
+    conds.forEach(function (c, i) {
+      var y = 160 + i * 30;
+      svg.appendChild(txt(600, y + 12, '· ' + c, 't2', null, 'start'));
+    });
+    svg.appendChild(el('line', { x1: 550, x2: 590, y1: 204, y2: 204, 'class': 'ed' }));
+
+    var nos = ['수술 교정 가능한 심방중격결손', '수술 교정 가능한 열린 동맥관', '수술적 폐쇄 가능한 심방중격절개술'];
+    svg.appendChild(txt(600, 40, '심폐이식 반대 합의 —', 't1', 'var(--status-critical)', 'start'));
+    nos.forEach(function (c, i) {
+      svg.appendChild(txt(600, 58 + i * 18, '· ' + c, 't2', null, 'start'));
+    });
+    svg.appendChild(el('line', { x1: 550, x2: 590, y1: 48, y2: 48, 'class': 'ed' }));
+  })();
+
+  /* BLT vs HLT perioperative burden */
+  (function () {
+    var d = [
+      { k: '72시간 ECMO', blt: 24.2, hlt: 10.8 },
+      { k: '삽관 유지', blt: 43.0, hlt: 23.9 }
+    ];
+    var svg = document.getElementById('cBlt');
+    var W = 900, L = 130, R = 170, T = 34, h = 30, gap = 34;
+    var iw = W - L - R, max = 50;
+    [0, 10, 20, 30, 40, 50].forEach(function (v) {
+      var x = L + v / max * iw;
+      svg.appendChild(el('line', { x1: x, x2: x, y1: T - 10, y2: T + d.length * (h * 2 + gap) - 10, 'class': v === 0 ? 'ax' : 'gl' }));
+      var t = el('text', { x: x, y: T + d.length * (h * 2 + gap) + 6, 'class': 'lblm', 'text-anchor': 'middle' });
+      t.textContent = v + '%'; svg.appendChild(t);
+    });
+    d.forEach(function (r, i) {
+      var y0 = T + i * (h * 2 + gap);
+      var lb = el('text', { x: L - 14, y: y0 + h + 2, 'class': 'lbp', 'text-anchor': 'end' });
+      lb.textContent = r.k; svg.appendChild(lb);
+      [['양측 폐이식', r.blt, 'var(--status-warning)'], ['심폐이식', r.hlt, 'var(--series-1)']].forEach(function (s, j) {
+        var y = y0 + j * (h - 4) - 6, w = s[1] / max * iw;
+        var bar = el('rect', { x: L, y: y, width: w, height: h - 10, rx: 3, fill: s[2] });
+        hook(bar, '<b>' + r.k + ' — ' + s[0] + '</b><span class="s">' + s[1].toFixed(1) + '%</span>');
+        svg.appendChild(bar);
+        var v = el('text', { x: L + w + 9, y: y + (h - 10) / 2 + 4, 'class': 'lbl' });
+        v.textContent = s[0] + '  ' + s[1].toFixed(1) + '%'; svg.appendChild(v);
+      });
+    });
+    var cap = el('text', { x: L, y: 16, 'class': 'lblm' });
+    cap.textContent = '주술기 부담 — 값이 낮을수록 좋음 (생존은 두 군이 같았음)'; svg.appendChild(cap);
+  })();
+})();
+</script>
+</body>
+</html>
