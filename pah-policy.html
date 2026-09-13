@@ -349,7 +349,7 @@
   </div>
 
   <div class="card">
-    <b style="font-size:13px;">4단계 위험도 계산기</b>
+    <b style="font-size:13px;">ESC/ERS 4단계 위험도 계산기</b>
     <p class="subtitle" style="margin-top:4px;">세 변수의 점수를 평균 후 반올림 (가이드라인 방식). 교육용 참고 도구입니다.</p>
     <div class="calc-grid">
       <div class="field">
@@ -372,6 +372,94 @@
     <div class="calc-result">
       <span id="calcBadge" class="badge good">Low</span>
       <span class="risk-text" id="calcText">위험도 계산 결과가 여기에 표시됩니다.</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <b style="font-size:13px;">단순화 프랑스 위험점수 (Simplified French Risk Score)</b>
+    <p class="subtitle" style="margin-top:4px;">이진 도구 — <b>세 항목을 모두 만족</b>해야 저위험. STELLAR·ZENITH·HYPERION·SOTERIA의 2차 평가변수로 쓰인 바로 그 정의입니다.</p>
+    <div class="calc-grid">
+      <div class="field">
+        <label for="frFC">WHO Functional Class</label>
+        <select id="frFC">
+          <option value="1">I 또는 II</option>
+          <option value="3">III</option>
+          <option value="4">IV</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="fr6MWD">6분 보행거리 (m)</label>
+        <input id="fr6MWD" type="number" value="380" min="0" max="800" step="10">
+      </div>
+      <div class="field">
+        <label for="frBNP">NT-proBNP (pg/mL)</label>
+        <input id="frBNP" type="number" value="500" min="0" max="20000" step="10">
+      </div>
+    </div>
+    <div class="calc-result">
+      <span id="frBadge" class="badge good">Low</span>
+      <span class="risk-text" id="frText"></span>
+    </div>
+    <div id="frDetail" style="font-size:12.5px;color:var(--text-secondary);margin-top:8px;"></div>
+    <p style="font-size:12px;color:var(--text-muted);margin:10px 0 0;">
+      <b>주의</b> — 6MWD 440 m 컷오프 때문에 <b>고령이거나 동반질환이 많은 환자에게 불리</b>합니다.
+      HYPERION에서 저위험 프랑스 점수 2차 평가변수가 근소하게 유의성을 놓친 것도 이 때문으로 논의됐습니다.
+    </p>
+  </div>
+
+  <div class="card">
+    <b style="font-size:13px;">다른 위험점수 계산기 — 외부 링크</b>
+    <p class="subtitle" style="margin-top:4px;">아래 두 계산기는 이 페이지에 직접 구현하지 않았습니다. 이유는 표 아래에 적었습니다.</p>
+    <table>
+        <thead><tr><th style="width:26%">도구</th><th style="width:16%">용도</th><th>변수</th><th class="num" style="width:14%">여기 구현</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><b>ESC/ERS 4단계</b></td><td>추적</td>
+            <td>WHO FC · 6MWD · BNP/NT-proBNP</td>
+            <td class="num"><span class="badge good">있음</span></td>
+          </tr>
+          <tr>
+            <td><b>단순화 프랑스 점수</b></td><td>추적</td>
+            <td>WHO FC · 6MWD · NT-proBNP</td>
+            <td class="num"><span class="badge good">있음</span></td>
+          </tr>
+          <tr>
+            <td><b>REVEAL Lite 2</b></td><td>추적</td>
+            <td>WHO FC · <b>수축기혈압</b> · <b>심박수</b> · 6MWD · NT-proBNP · <b>신기능</b> — 6변수, 1–14점</td>
+            <td class="num"><span class="badge serious">외부</span></td>
+          </tr>
+          <tr>
+            <td><b>REVEAL 2.0</b></td><td>진단 시</td>
+            <td>혈역학·영상·검사를 포함한 다변수</td>
+            <td class="num"><span class="badge serious">외부</span></td>
+          </tr>
+          <tr>
+            <td><b>COMPERA 2.0</b></td><td>추적</td>
+            <td>ESC/ERS 4단계와 같은 세 변수 기반</td>
+            <td class="num"><span class="badge good">위와 동일</span></td>
+          </tr>
+        </tbody>
+    </table>
+
+    <div class="note" style="border-left-color:var(--status-warning)">
+      <b>REVEAL 계열을 여기에 구현하지 않은 이유</b> — 이 볼트에는 REVEAL Lite 2의 <b>변수별 배점표가 없습니다.</b>
+      6개 변수와 1–14점 범위, 그리고 시험별 컷오프(ZENITH ≥9, HYPERION ≥6)는 확인했지만 <b>각 변수에 몇 점을 주는지는 원문을 확보하지 못했습니다.</b>
+      점수표를 추정해서 계산기를 만드는 것은 <b>임상용 도구에서 해서는 안 되는 일</b>이므로 외부 링크로 두었습니다.
+    </div>
+
+    <p style="font-size:13px;margin:12px 0 6px;"><b>PAH Initiative 계산기 모음</b></p>
+    <p style="font-size:13px;color:var(--text-secondary);margin:0 0 10px;">
+      REVEAL 2.0 · 2022 ESC/ERS · REVEAL Lite 2 · COMPERA 2.0 · 프랑스 비침습 기준 다섯 가지를 한 곳에 모아둔 페이지입니다.
+      대부분은 다시 <b>독립 운영 사이트로 연결</b>됩니다.
+    </p>
+    <p style="margin:0 0 10px;">
+      <a href="https://www.pahinitiative.com/hcp/pah-prognosis-survival/calculators" target="_blank" rel="noopener noreferrer"><b>pahinitiative.com — PAH Risk Score Calculators →</b></a>
+    </p>
+    <div class="note" style="border-left-color:var(--status-critical)">
+      <b>이 사이트에 대해 알아둘 것</b> — <b>United Therapeutics가 후원·운영</b>하며(© 2025 United Therapeutics Corporation),
+      <b>미국 보건의료인 대상으로 명시</b>돼 있습니다. 흡입 트레프로스티닐을 비롯한 여러 PH 약제의 제조사이므로,
+      계산기 자체는 공개된 도구를 구현한 것이지만 <b>자료 선택과 맥락에는 상업적 이해가 개입할 수 있습니다.</b>
+      계산 결과는 어느 쪽이든 <b>원 논문의 정의로 되짚어 확인</b>하십시오.
     </div>
   </div>
 </section>
@@ -779,6 +867,45 @@
   }
   [fc, mwd, bnp].forEach(function(el){ el.addEventListener('input', recalc); el.addEventListener('change', recalc); });
   recalc();
+
+  /* ---------- simplified French risk score ---------- */
+  var frFC = document.getElementById('frFC');
+  var frMwd = document.getElementById('fr6MWD');
+  var frBnp = document.getElementById('frBNP');
+  var frBadge = document.getElementById('frBadge');
+  var frText = document.getElementById('frText');
+  var frDetail = document.getElementById('frDetail');
+
+  function frRecalc(){
+    var okFC = parseInt(frFC.value, 10) === 1;
+    var okMwd = (parseFloat(frMwd.value) || 0) > 440;
+    var okBnp = (parseFloat(frBnp.value) || 0) < 300;
+    var met = [okFC, okMwd, okBnp].filter(Boolean).length;
+    var low = met === 3;
+
+    frBadge.className = 'badge ' + (low ? 'good' : (met === 2 ? 'warning' : (met === 1 ? 'serious' : 'critical')));
+    frBadge.textContent = low ? 'Low risk' : 'Not low risk';
+    frText.innerHTML = '';
+    var b = document.createElement('b');
+    b.textContent = '3개 중 ' + met + '개 충족. ';
+    frText.appendChild(b);
+    frText.appendChild(document.createTextNode(
+      low ? '저위험 프랑스 점수를 만족합니다.'
+          : '하나라도 미충족이면 저위험이 아닙니다 (이진 도구이므로 부분 점수는 없습니다).'));
+
+    function row(ok, label, rule){
+      return '<div style="display:flex;gap:8px;align-items:baseline;margin:2px 0;">' +
+        '<span style="color:' + (ok ? 'var(--status-good)' : 'var(--status-critical)') + ';font-weight:700;width:14px;">' +
+        (ok ? '\u2713' : '\u2717') + '</span>' +
+        '<span><b>' + label + '</b> <span style="color:var(--text-muted)">' + rule + '</span></span></div>';
+    }
+    frDetail.innerHTML =
+      row(okFC, 'WHO FC I 또는 II', '') +
+      row(okMwd, '6MWD &gt;440 m', '(경계값 440은 미충족)') +
+      row(okBnp, 'NT-proBNP &lt;300 pg/mL', '(경계값 300은 미충족)');
+  }
+  [frFC, frMwd, frBnp].forEach(function(el){ el.addEventListener('input', frRecalc); el.addEventListener('change', frRecalc); });
+  frRecalc();
 
   /* ---------- decision tree ---------- */
   function wireChoice(rowId, cb){
