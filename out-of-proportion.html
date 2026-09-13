@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Out-of-Proportion PH — 개념, 역사, 그리고 현재</title>
+<meta name="description" content="Out-of-proportion 폐고혈압: Group 2와 Group 3에서 서로 다른 두 계보, 각각의 치료 성적, 그리고 현재 쓰이는 용어">
+<style>
+  :root, .viz-root {
+    color-scheme: light;
+    --surface-1:#fcfcfb; --plane:#f9f9f7;
+    --text-primary:#0b0b0b; --text-secondary:#52514e; --text-muted:#898781;
+    --grid:#e1e0d9; --baseline:#c3c2b7; --border:rgba(11,11,11,0.10);
+    --series-1:#2a78d6; --series-2:#eb6834; --series-3:#1baf7a; --series-4:#eda100;
+    --status-good:#0ca30c; --status-warning:#fab219; --status-serious:#ec835a; --status-critical:#d03b3b;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:where(:not([data-theme="light"])) {
+      color-scheme: dark;
+      --surface-1:#1a1a19; --plane:#0d0d0d;
+      --text-primary:#ffffff; --text-secondary:#c3c2b7; --text-muted:#898781;
+      --grid:#2c2c2a; --baseline:#383835; --border:rgba(255,255,255,0.10);
+      --series-1:#3987e5; --series-2:#d95926; --series-3:#199e70; --series-4:#c98500;
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --surface-1:#1a1a19; --plane:#0d0d0d;
+    --text-primary:#ffffff; --text-secondary:#c3c2b7; --text-muted:#898781;
+    --grid:#2c2c2a; --baseline:#383835; --border:rgba(255,255,255,0.10);
+    --series-1:#3987e5; --series-2:#d95926; --series-3:#199e70; --series-4:#c98500;
+  }
+  * { box-sizing:border-box; }
+  html, body { margin:0; padding:0; }
+  body { font-family: system-ui, -apple-system, "Segoe UI", "Malgun Gothic", sans-serif;
+         background:var(--plane); color:var(--text-primary); line-height:1.55; }
+  a { color:var(--series-1); }
+
+  header.top { position:sticky; top:0; z-index:20; background:var(--surface-1);
+    border-bottom:1px solid var(--border); padding:10px 20px;
+    display:flex; align-items:center; gap:14px; flex-wrap:wrap; }
+  header.top h1 { font-size:15px; margin:0; font-weight:600; white-space:nowrap; }
+  header.top .home { font-size:13px; text-decoration:none; color:var(--text-secondary); white-space:nowrap; }
+  header.top .home:hover { color:var(--text-primary); }
+  nav.tabs { display:flex; gap:2px; flex-wrap:wrap; margin-left:auto; }
+  nav.tabs a { text-decoration:none; color:var(--text-secondary); font-size:12.5px; padding:6px 8px; border-radius:6px; }
+  nav.tabs a:hover { background:var(--grid); color:var(--text-primary); }
+  nav.tabs a.g2 { color:var(--series-2); }
+  #themeToggle { border:1px solid var(--border); background:var(--surface-1); color:var(--text-primary);
+    border-radius:6px; padding:6px 10px; font-size:12px; cursor:pointer; }
+
+  main { max-width:1080px; margin:0 auto; padding:24px 20px 80px; }
+  section { margin-bottom:40px; scroll-margin-top:64px; }
+  h2 { font-size:20px; margin:0 0 4px; letter-spacing:-0.01em; }
+  h2 .tag { font-size:11px; font-weight:600; padding:2px 7px; border-radius:20px; vertical-align:3px; margin-right:7px; }
+  .tag.t3 { background:color-mix(in srgb, var(--series-1) 16%, transparent); color:var(--series-1); }
+  .tag.t2 { background:color-mix(in srgb, var(--series-2) 16%, transparent); color:var(--series-2); }
+  h3 { font-size:14px; margin:0 0 10px; font-weight:600; }
+  .sub { color:var(--text-secondary); font-size:13px; margin:0 0 14px; }
+
+  .card { background:var(--surface-1); border:1px solid var(--border); border-radius:10px; padding:16px 18px; margin-bottom:14px; }
+  .card > h3:first-child { margin-top:0; }
+  .card.a2 { border-left:3px solid var(--series-2); }
+  .card.a3 { border-left:3px solid var(--series-1); }
+  .grid { display:grid; gap:12px; }
+  .g3 { grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); }
+  .g2 { grid-template-columns:repeat(auto-fit,minmax(330px,1fr)); }
+
+  .tile { background:var(--surface-1); border:1px solid var(--border); border-radius:10px; padding:14px 16px; }
+  .tile .k { font-size:11px; text-transform:uppercase; letter-spacing:.06em; color:var(--text-muted); }
+  .tile .v { font-size:25px; font-weight:650; letter-spacing:-0.02em; margin:2px 0; font-variant-numeric:tabular-nums; }
+  .tile .d { font-size:12px; color:var(--text-secondary); }
+
+  .tblwrap { overflow-x:auto; }
+  table { border-collapse:collapse; width:100%; font-size:13px; min-width:520px; }
+  th, td { text-align:left; padding:7px 9px; border-bottom:1px solid var(--grid); vertical-align:top; }
+  th { font-weight:600; color:var(--text-secondary); font-size:12px; white-space:nowrap; }
+  td.num, th.num, td.c, th.c { text-align:center; font-variant-numeric:tabular-nums; white-space:nowrap; }
+  tbody tr:hover { background:var(--grid); }
+  caption { caption-side:bottom; text-align:left; color:var(--text-muted); font-size:11.5px; padding-top:8px; }
+  .ok   { color:var(--status-good); font-weight:600; }
+  .bad  { color:var(--status-critical); font-weight:600; }
+  .mid  { color:var(--status-warning); font-weight:600; }
+
+  .note { font-size:12.5px; color:var(--text-secondary); border-left:3px solid var(--baseline); padding:6px 0 6px 12px; margin:10px 0; }
+  .warn { border-left-color:var(--status-warning); }
+  .crit { border-left-color:var(--status-critical); }
+  .good { border-left-color:var(--status-good); }
+  .note b { color:var(--text-primary); }
+  blockquote.q { margin:12px 0; padding:10px 14px; border-left:3px solid var(--series-1);
+    background:color-mix(in srgb, var(--series-1) 5%, transparent); font-size:13px; color:var(--text-secondary); border-radius:0 6px 6px 0; }
+  blockquote.q.o { border-left-color:var(--series-2); background:color-mix(in srgb, var(--series-2) 5%, transparent); }
+
+  .chartwrap { overflow-x:auto; }
+  svg.chart { width:100%; min-width:560px; height:auto; display:block; font-family:inherit; }
+  svg.flow { width:100%; min-width:620px; height:auto; display:block; }
+  .ax { stroke:var(--baseline); stroke-width:1; }
+  .gl { stroke:var(--grid); stroke-width:1; }
+  .lbl { fill:var(--text-secondary); font-size:11px; }
+  .lblm { fill:var(--text-muted); font-size:10.5px; }
+  .lbp { fill:var(--text-primary); font-size:11.5px; font-weight:600; }
+  .bar { transition:opacity .12s; }
+  .bar:hover { opacity:.75; }
+  .n   { fill:var(--surface-1); stroke:var(--series-1); stroke-width:1.5; }
+  .n.alt { stroke:var(--series-2); }
+  .n.no { stroke:var(--baseline); }
+  .t1 { fill:var(--text-primary); font-size:12.5px; font-weight:600; }
+  .t2 { fill:var(--text-secondary); font-size:11px; }
+  .ed { stroke:var(--baseline); stroke-width:1.5; fill:none; }
+
+  .legend { display:flex; gap:16px; flex-wrap:wrap; font-size:12px; color:var(--text-secondary); margin:8px 0 0; }
+  .legend span { display:inline-flex; align-items:center; gap:6px; }
+  .legend i { width:11px; height:11px; border-radius:3px; display:inline-block; }
+
+  ol.tl { list-style:none; margin:0; padding:0 0 0 20px; border-left:2px solid var(--grid); }
+  ol.tl li { position:relative; padding:0 0 13px 12px; }
+  ol.tl li::before { content:""; position:absolute; left:-19px; top:5px; width:8px; height:8px; border-radius:50%;
+                     background:var(--series-1); box-shadow:0 0 0 2px var(--surface-1); }
+  ol.tl.o li::before { background:var(--series-2); }
+  ol.tl li.kill::before { background:var(--status-critical); }
+  ol.tl .yr { font-size:11.5px; color:var(--text-muted); font-variant-numeric:tabular-nums; }
+  ol.tl .ti { font-size:13px; font-weight:600; }
+  ol.tl .de { font-size:12.5px; color:var(--text-secondary); }
+
+  #tip { position:fixed; pointer-events:none; opacity:0; transition:opacity .1s; z-index:50;
+    background:var(--surface-1); border:1px solid var(--border); border-radius:7px; padding:7px 10px;
+    font-size:12px; color:var(--text-primary); box-shadow:0 4px 14px rgba(0,0,0,.13); max-width:260px; }
+  #tip b { display:block; margin-bottom:2px; }
+  #tip .s { color:var(--text-secondary); font-size:11.5px; }
+
+  footer { color:var(--text-muted); font-size:12px; border-top:1px solid var(--border); padding-top:14px; }
+</style>
+</head>
+<body data-palette="#2a78d6,#eb6834,#1baf7a,#eda100">
+
+<header class="top">
+  <a class="home" href="index.html">← 목차</a>
+  <h1>Out-of-Proportion PH</h1>
+  <nav class="tabs">
+    <a href="#overview">개요</a>
+    <a href="#history">역사</a>
+    <a href="#g3">Group 3</a>
+    <a href="#g3tx">Group 3 치료</a>
+    <a class="g2" href="#g2">Group 2</a>
+    <a class="g2" href="#g2tx">Group 2 치료</a>
+    <a href="#now">현재 용어</a>
+    <a href="#use">정리</a>
+  </nav>
+  <button id="themeToggle" type="button">🌙 다크모드</button>
+</header>
+
+<div id="tip"></div>
+
+<main>
+
+<section id="overview">
+  <h2>기저질환이 설명하는 것보다 심한 폐고혈압</h2>
+  <p class="sub">2005–2018년경 널리 쓰인 임상 용어. 지금은 지침에서 사라졌지만, 그 질문은 남아 있습니다.</p>
+
+  <div class="card">
+    <blockquote class="q" style="margin-top:0">
+      <b style="color:var(--text-primary)">이 용어의 가장 중요한 사실</b> — <b style="color:var(--text-primary)">서로 다른 두 WHO 군에서 서로 다른 두 가지를 가리켰고, 둘 다 폐기됐으며, 각각 PVR 역치로 대체되었습니다.</b>
+      옛 문헌을 읽을 때는 반드시 어느 계보인지부터 확인해야 합니다 — 컷오프가 호환되지 않습니다.
+    </blockquote>
+
+    <div class="tblwrap">
+      <table>
+        <thead>
+          <tr><th style="width:20%"></th><th style="width:40%">폐질환 계보 (Group 3)</th><th style="width:40%">좌심질환 계보 (Group 2)</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><b>묻는 질문</b></td><td>실질 폐질환이 설명하는 것보다 PH가 심한가?</td><td>좌방압이 설명하는 것보다 PH가 심한가?</td></tr>
+          <tr><td><b>정의 수치</b></td><td><b style="color:var(--series-1)">mPAP &gt;35 mmHg</b></td><td><b style="color:var(--series-2)">TPG &gt;12 mmHg</b> (2009 ESC/ERS)</td></tr>
+          <tr><td><b>1차 대체</b></td><td>“severe PH” — mPAP ≥35, 또는 &gt;25 + CI &lt;2.0 <span style="color:var(--text-muted)">(5차 WSPH 2013 / 2015 ESC/ERS)</span></td><td><b>DPG ≥7 mmHg</b> → Cpc-PH <span style="color:var(--text-muted)">(5차 WSPH 2013)</span></td></tr>
+          <tr><td><b>현재 (2022)</b></td><td><b class="ok">PVR &gt;5 WU</b> = 중증 Group 3 PH</td><td><b class="ok">PVR &gt;2 WU</b> = Cpc-PH · <b class="bad">DPG 삭제</b></td></tr>
+          <tr><td><b>후계 용어</b></td><td><b>pulmonary vascular phenotype</b><br><span style="color:var(--text-muted)">거울상: iPAH with a lung phenotype</span></td><td><b>Cpc-PH</b><br><span style="color:var(--text-muted)">서술적 분류이지 기전이 아님</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="note good">
+      <b>두 계보가 같은 곳에 도착했습니다</b> — <b>압력이 비례하는지 눈으로 보지 말고 저항을 재라.</b>
+      mPAP은 혈류량과 좌심 충만압에 따라 같이 올라가는 값이고, PVR만이 폐혈관 자체의 몫을 분리해 냅니다. 폐혈관확장제가 작용할 수 있는 대상이 바로 그 몫입니다.
+      좌심질환 계보에서는 이것이 유행의 변화가 아니라 <b>같은 코호트·같은 결과변수에서의 정면 패배</b>였습니다.
+    </div>
+  </div>
+
+  <div class="grid g3">
+    <div class="tile"><div class="k">PubMed 제목 검색</div><div class="v">10편</div><div class="d">“out of proportion” + 폐고혈압, <b>역사상 전체</b></div></div>
+    <div class="tile"><div class="k">그중 2019년 이후</div><div class="v">1편</div><div class="d">2021년 증례 1건. 같은 기간 “severe PH + COPD”는 48편</div></div>
+    <div class="tile"><div class="k">사용 정점</div><div class="v">2013년</div><div class="d">5차 WSPH가 대체 용어를 제안한 바로 그 해</div></div>
+  </div>
+</section>
+
+<section id="history">
+  <h2>역사 — 두 계보가 나란히 무너진다</h2>
+  <p class="sub">PubMed 전문 검색에서 이 용어를 쓴 논문 수. 2012–13년에 정점을 찍고 무너집니다.</p>
+
+  <div class="card">
+    <div class="chartwrap"><svg id="cUse" class="chart" viewBox="0 0 900 250" role="img"
+      aria-label="연도별 out-of-proportion 폐고혈압 용어 사용 논문 수. 2008년 5편에서 2013년 16편으로 정점에 이른 뒤 2020년대에는 연 0–3편으로 감소."></svg></div>
+    <p style="font-size:12px;color:var(--text-muted);margin:6px 0 0;">
+      PubMed 전문 검색 <code>"out of proportion" AND pulmonary hypertension</code>, 연도별 건수(2026-09-12 조회). 부수적 용례를 포함하므로 절대값보다 추세로 읽을 것.
+    </p>
+  </div>
+
+  <div class="grid g2">
+    <div class="card a3">
+      <h3><span style="color:var(--series-1)">●</span> Group 3 — 폐질환 계보</h3>
+      <ol class="tl">
+        <li><div class="yr">1997</div><div class="ti">진행성 PLCH에서 중증 PH 최초 기술</div><div class="de">이후 사르코이드증·IPF·CPFE로 확장. 낭성 소견을 공유하는 LAM에서는 PH가 드물고 경하다</div></li>
+        <li><div class="yr">2005</div><div class="ti">COPD 역학이 그림을 만든다</div><div class="de">Thabut n=215, Chaouat n=998 — 중증 PH 환자의 폐기능이 오히려 보존돼 있다</div></li>
+        <li><div class="yr">2012</div><div class="ti">Harari 편집자 논평 · Boerrigter CPET</div><div class="de">“a paradigm for rare diseases”. mPAP &gt;35는 <b>저자 본인이 임의적이라 명시</b></div></li>
+        <li class="kill"><div class="yr">2013</div><div class="ti">5차 WSPH — “severe PH”로 대체 제안</div><div class="de">mPAP ≥35, 또는 &gt;25 + CI &lt;2.0. 2015 ESC/ERS가 채택</div></li>
+        <li><div class="yr">2018</div><div class="ti">Chatterjee: “그래도 여전히 널리 쓰인다”</div><div class="de">“대안인 severe PH보다 질병 과정을 더 포괄적으로 전달하기 때문”</div></li>
+        <li class="kill"><div class="yr">2022</div><div class="ti">ESC/ERS — “due to” → “associated with”</div><div class="de">중증도는 <b>PVR &gt;5 WU</b>가 담당</div></li>
+        <li><div class="yr">2023</div><div class="ti">Olsson: pulmonary vascular phenotype</div><div class="de">PVR &gt;5 WU가 <b>예후 + 운동 시 순환 제한 + 표현형</b>을 함께 식별</div></li>
+      </ol>
+    </div>
+
+    <div class="card a2">
+      <h3><span style="color:var(--series-2)">●</span> Group 2 — 좌심질환 계보</h3>
+      <ol class="tl o">
+        <li><div class="yr">2009</div><div class="ti">ESC/ERS — TPG &gt;12 mmHg로 정의</div><div class="de">“reactive” 또는 “out-of-proportion” PH</div></li>
+        <li><div class="yr">2013</div><div class="ti">Naeije — TPG 해체, DPG 제안</div><div class="de">심장이식 20명에서 <b>“TPG &gt;12는 동전 던지기보다 나을 게 없었다”</b></div></li>
+        <li><div class="yr">2013</div><div class="ti">Gerges — DPG ≥7의 결과 근거</div><div class="de">n=1094, 생존 78 vs 101개월. <b>조직병리로 뒷받침</b></div></li>
+        <li><div class="yr">2013</div><div class="ti">5차 WSPH — DPG를 <b>유일한</b> 판별자로 채택</div><div class="de">원 논문의 주장보다 한 걸음 더 나간 결정</div></li>
+        <li class="kill"><div class="yr">2015</div><div class="ti">Tampakakis — 검증 실패</div><div class="de">n=469. <b>어떤 컷오프에서도 예측 실패, PVR은 성공</b></div></li>
+        <li class="kill"><div class="yr">2016</div><div class="ti">Handoko — 생리학적 전제 붕괴</div><div class="de"><b>dPAP = 0.62 × mPAP</b> → DPG도 PAWP·CO에 똑같이 의존</div></li>
+        <li class="kill"><div class="yr">2022</div><div class="ti">ESC/ERS — DPG 삭제</div><div class="de">Cpc-PH는 <b>PVR &gt;2 WU</b>로만 정의</div></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section id="g3">
+  <h2><span class="tag t3">GROUP 3</span>폐질환 계보</h2>
+  <p class="sub">폐이식 후보 선정용 우심도자가 늘면서 눈에 들어온 집단 — PFT·CT는 경미한데 설명되지 않는 중증 PH.</p>
+
+  <div class="card">
+    <h3>흔한 PH, 드문 중증 PH — 그리고 중증인 쪽의 폐가 더 멀쩡하다</h3>
+    <div class="tblwrap">
+      <table>
+        <thead><tr><th>연구</th><th>집단</th><th>소견</th></tr></thead>
+        <tbody>
+          <tr><td><b>Thabut 2005</b></td><td>COPD 215명, 이식·LVRS 의뢰</td><td>PH 50.2%. 그러나 mPAP 36–45는 <b>9.8%</b>, &gt;45는 <b>3.7%</b>. 초고압 하위군의 <b class="mid">FEV₁은 평균 48.5% 예측치</b></td></tr>
+          <tr><td><b>Chaouat 2005</b></td><td>COPD 998명</td><td>다른 원인 없이 mPAP ≥40은 <b>11명(1.1%)</b>. <b>중증 저산소혈증 + 경도~중등도 폐쇄</b>, 전원 저탄산혈증</td></tr>
+          <tr><td>Scharf 2002</td><td>중증 폐기종 (NETT)</td><td>5%가 mPAP ≥35</td></tr>
+          <tr><td><b>ASPIRE</b> 2013</td><td>COPD-PH 101명, 치료 경험 없음</td><td>mPAP ≥40: <b class="bad">1년 70% · 3년 33%</b> · mPAP 25–39: 1년 83% · 3년 55%</td></tr>
+        </tbody>
+        <caption>COPD에서 PH 유병률은 25–91%, 중증 PH는 1–3%. 이식 대기 COPD에서는 82%가 mPAP &gt;20.</caption>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>가장 쓸모 있는 부분 — 운동생리 (Boerrigter 2012)</h3>
+    <div class="tblwrap">
+      <table style="min-width:auto">
+        <thead><tr><th>최대운동 시</th><th>중증 PH + COPD (PAP ≥40)</th><th>PH 없는 COPD</th></tr></thead>
+        <tbody>
+          <tr><td>제한 요인</td><td><b style="color:var(--series-1)">순환 (circulatory)</b></td><td><b>환기 (ventilatory)</b></td></tr>
+          <tr><td>최고운동 SvO₂</td><td><b class="bad">30 ± 6%</b> — 붕괴</td><td>상대적으로 보존</td></tr>
+          <tr><td>환기 예비력</td><td><b class="mid">37 ± 11% 남아 있음</b></td><td>소진</td></tr>
+          <tr><td>PaCO₂</td><td>오르지 않음</td><td>오름</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="note">
+      <b>환기 예비력을 3분의 1이나 남겨둔 채 순환이 못 따라가서 운동을 멈추는 COPD 환자는, 생리학적으로 COPD 딱지를 붙인 폐혈관 환자입니다.</b>
+      이것이 옛 개념의 생리학적 핵심이고, 지금도 대체된 적이 없습니다.
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>병태생리 — 화살표가 반대일 수 있다</h3>
+    <p style="font-size:13.5px;color:var(--text-secondary);margin:0 0 10px;">
+      Olsson 2023은 <b>혈관 소실이 실질 손상의 결과가 아니라 병렬 또는 상류 과정</b>이라는 증거를 모읍니다.
+    </p>
+    <ul style="font-size:13px;color:var(--text-secondary);margin:0;padding-left:20px;">
+      <li><b>IPF 적출폐</b>에서 혈관 리모델링이 <b>폐 구조가 보존된 부위</b>에서 발견된다</li>
+      <li><b>Framingham Heart Study</b> CT — 혈관 가지치기(pruning)가 간질성 이상을 예측했고 <b>객관적 간질 리모델링보다 먼저 검출</b>됐다</li>
+      <li>흡연 경험자에서 pruning이 <b>폐기종의 더 빠른 발생·진행</b>을 예측했다</li>
+      <li>담배연기 노출 마우스에서 <b>내피세포 아포토시스에 의한 모세혈관 소실이 폐기종에 선행</b>했다</li>
+    </ul>
+    <div class="note good">
+      <b>이것은 옛 직관을 무너뜨리는 게 아니라 떠받칩니다.</b> 폐혈관병증이 독립적으로(또는 먼저) 진행한다면,
+      “폐질환이 설명하는 것보다 심한 PH”는 설명해야 할 역설이 아니라 <b>생물학이 예측하는 소견</b>입니다.
+      2022년 <b>“due to” → “associated with”</b> 변경이 정확히 이 논리입니다.
+    </div>
+    <p style="font-size:12.5px;color:var(--text-muted);margin:10px 0 0;">
+      조직 소견: 퇴행성과 증식성 변화가 공존해 중막 비후와 내막 경화를 만든다. COPD 적출폐에서 중증 PH의 표지는 <b>현저한 근육화 + 모세혈관 밀도 감소</b>.
+      <b>총상병변(plexiform lesion)은 대개 없다</b> — IPAH와의 결정적 차이이며, 대부분의 COPD가 급속진행 PH로 가지 않는 이유일 수 있다.
+    </p>
+  </div>
+</section>
+
+<section id="g3tx">
+  <h2><span class="tag t3">GROUP 3</span>치료 성적</h2>
+  <p class="sub">양성 연구는 우심도자로 선별했고, 음성 연구는 심초음파나 “어떤 정도의 PH든” 등록했습니다.</p>
+
+  <div class="card">
+    <h3>PVR 구간별 결정 트리 (Olsson 2023)</h3>
+    <div class="chartwrap"><svg id="tree" class="flow" viewBox="0 0 900 260" role="img"
+      aria-label="PVR 구간별 Group 3 치료 결정 트리. PVR 3 WU 미만이면 양쪽 모두 치료 안 함. 3에서 5 WU면 ILD만 흡입 트레프로스티닐 고려. 5 WU 초과면 ILD는 흡입 트레프로스티닐, COPD와 CPFE는 PDE5 억제제 고려."></svg></div>
+    <div class="note warn">
+      우심도자는 <b>PH가 의심되고 치료적 귀결이 예상될 때만</b>, 그리고 <b>PH 센터에서</b> 시행·결정합니다.
+      흡입 트레프로스티닐은 <b>미국에서만 ILD-PH에 허가</b>됐고, <b>PDE5 억제제는 Group 3에 허가된 바 없습니다.</b>
+      <b>하지 말아야 할 때</b> — 치료 결정에 정보를 주지 못할 때, 말기 폐질환이나 다중 동반질환으로 보존적 치료가 적응될 때.
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>시험 성적 — 선별 방법이 결과를 가른다</h3>
+    <div class="tblwrap">
+      <table>
+        <thead><tr><th>약제 · 연구</th><th>선별</th><th>결과</th></tr></thead>
+        <tbody id="g3tbl"></tbody>
+        <caption>RHC = 우심도자로 혈류역학 확인 후 등록 · Echo = 심초음파 기준 등록 · 혼합 = 메타분석</caption>
+      </table>
+    </div>
+    <div class="grid g2" style="margin-top:12px">
+      <div class="note crit" style="margin:0">
+        <b>COPD 메타분석 두 편이 상충합니다</b> — <b>Chen 2015</b>(9개 시험, 365명) Δ6MWD <b>+66.4 m (59.4–73.3), 유의</b> vs
+        <b>Prins 2017</b>(5개 시험, 257명) <b>+42.7 m (−1.0~86.3), 유의하지 않음</b>. 3편이 중복되고 총 11개 연구(실데나필 8, 보센탄 2, 타달라필 1).
+        <b>Prins만 인용해 COPD 문헌이 한결같이 음성인 것처럼 쓰면 안 됩니다.</b>
+      </div>
+      <div class="note good" style="margin:0">
+        <b>사망률을 낮춘 유일한 개입은 장기 산소요법입니다.</b> MRC: 5년 사망 <b>45% vs 67%</b>, <b>NNT 5</b>.
+        NOTT: 12시간군 사망이 지속군의 <b>1.94배</b>.
+      </div>
+    </div>
+    <blockquote class="q">
+      <b style="color:var(--text-primary)">왜 PAH에서 듣는 약이 여기서는 안 듣나</b> — <b style="color:var(--text-primary)">환기–관류 불균형의 악화</b>가 유력한 설명입니다.
+      흡입 경로는 이를 줄일 수 있습니다. 실제로 흡입 NO는 mPAP를 내리면서 <b style="color:var(--text-primary)">PaO₂도 함께 떨어뜨립니다</b> — 단락이 아니라 V/Q 악화 때문입니다.
+      그리고 ILD의 음성 실데나필 시험들은 <b style="color:var(--text-primary)">등록 전 PH 여부를 체계적으로 선별하지 않았습니다.</b>
+    </blockquote>
+  </div>
+
+  <div class="card">
+    <h3>CPFE가 따로 떼어져 있는 이유</h3>
+    <div class="grid g3">
+      <div class="tile"><div class="k">IPF 대비 PH 유병률</div><div class="v">OR 19</div><div class="d">95% CI 5.1–68.7 · 폐기종 없는 IPF 대비</div></div>
+      <div class="tile"><div class="k">PH 동반 시 5년 생존</div><div class="v">75% → 25%</div><div class="d">사망 HR 4.03 (1.17–27.9), p=0.03</div></div>
+      <div class="tile"><div class="k">INCREASE의 CPFE 하위군</div><div class="v">개선 없음</div><div class="d">RISE-IIP에서 리오시구앗 불량 결과에도 기여</div></div>
+    </div>
+    <div class="note crit">
+      <b>진단 함정</b> — 폐기종성 과팽창이 섬유성 제한을 상쇄해 <b>폐활량계와 총폐용량이 정상일 수 있습니다.</b>
+      <b>가스교환(DLCO)을 측정하지 않으면 놓칩니다.</b>
+    </div>
+  </div>
+</section>
+
+<section id="g2">
+  <h2><span class="tag t2">GROUP 2</span>좌심질환 계보 — DPG의 흥망</h2>
+  <p class="sub">이론과 결과 양쪽에서 찬반이 붙었고, 양쪽 모두에서 DPG가 졌습니다.</p>
+
+  <div class="card">
+    <h3>왜 TPG를 의심했나 — 타당한 출발점</h3>
+    <p style="font-size:13.5px;color:var(--text-secondary);margin:0 0 10px;">
+      PVR 방정식은 압력–유량 관계가 선형이고 원점을 지나며 좌방압과 무관하다고 가정하지만, <b>셋 다 성립하지 않습니다.</b>
+      폐혈관은 확장하기 때문입니다 — 정상적으로 <b>압력 1 mmHg당 직경 2%</b>.
+    </p>
+    <div class="tblwrap">
+      <table style="min-width:auto">
+        <thead><tr><th>상황</th><th>TPG에 생기는 일</th><th>결과</th></tr></thead>
+        <tbody>
+          <tr><td>심박출량·좌방압 상승</td><td>혈관 모집·확장으로 <b>거짓으로 낮아짐</b></td><td class="bad">과소진단</td></tr>
+          <tr><td>탈모집된 폐 (저심박출·고폐포압)</td><td>기울기 상승으로 <b>거짓으로 높아짐</b></td><td class="bad">과대진단</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <blockquote class="q o">
+      심장이식 전후 혈류역학이 있는 <b style="color:var(--text-primary)">20명</b>에서 mPAP와 PAWP가 나란히 떨어졌습니다(18과 17 mmHg) — <b style="color:var(--text-primary)">순수 수동성 PH</b>의 서명입니다.
+      그런데 이식 전 TPG는 평균 &gt;12, 범위 6–20이었습니다.<br><br>
+      <b style="color:var(--text-primary)">“A TPG &gt;12 mmHg did not predict ‘out of proportion’ pulmonary hypertension better than flipping a coin.”</b>
+    </blockquote>
+    <p style="font-size:12.5px;color:var(--text-muted);margin:10px 0 0;">
+      DPG를 대안으로 제시한 논거: 정상 순환에서 <b>확장기 PAP ≈ 좌방압</b>이며 정상 상한은 <b>0–5 mmHg</b>(17–83세 건강인 44명에서 확립).
+      그리고 좌심질환에서는 좌방압 상승이 폐동맥을 경직시켜 <b>유순도가 저항보다 비례적으로 더 떨어지므로 TPG만 거짓 상승</b>한다 — “이것이 TPG를 거짓으로 올리지만 DPG에는 영향을 주지 않는다.”
+    </p>
+  </div>
+
+  <div class="card">
+    <h3>4단 붕괴</h3>
+    <div class="tblwrap">
+      <table>
+        <thead><tr><th style="width:15%">단계</th><th style="width:28%">문헌</th><th>결과</th></tr></thead>
+        <tbody>
+          <tr><td><b class="ok">이론 · 찬성</b></td><td><b>Naeije 2013</b><br><span style="color:var(--text-muted);font-size:12px">Eur Respir J 41:217</span></td><td>TPG는 유량·쐐기압에 오염됨; DPG는 아니다</td></tr>
+          <tr><td><b class="ok">결과 · 찬성</b></td><td><b>Gerges 2013</b><br><span style="color:var(--text-muted);font-size:12px">Chest 143:758</span></td><td>n=1094. DPG ≥7 → 생존 중앙값 <b>78 vs 101개월</b> (P=0.010). 조직에서 중막비후 혈관 <b>86.3% vs 35.1%</b></td></tr>
+          <tr><td><b class="bad">결과 · 반대</b></td><td><b>Tampakakis 2015</b><br><span style="color:var(--text-muted);font-size:12px">JACC HF 3:9</span></td><td>n=469. <b>어떤 컷오프에서도 예측 실패</b>(보정 HR 1.02, p=0.10). <b>PVR은 성공</b>(HR 1.11, p=0.002)</td></tr>
+          <tr><td><b class="bad">이론 · 반대</b></td><td><b>Handoko 2016</b><br><span style="color:var(--text-muted);font-size:12px">Physiol Rep 4:e12910</span></td><td>n=1054. <b>dPAP = 0.62 × mPAP</b> → DPG도 쐐기압·심박출량에 똑같이 의존</td></tr>
+          <tr><td><b>판정</b></td><td><b>2022 ESC/ERS</b></td><td><b class="bad">DPG 삭제</b>. Cpc-PH는 <b class="ok">PVR &gt;2 WU</b>로만 정의</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>세 코호트가 같은 답을 냅니다</h3>
+    <div class="chartwrap"><svg id="cForest" class="chart" viewBox="0 0 900 260" role="img"
+      aria-label="좌심질환 폐고혈압에서 사망 위험비 forest plot. DPG는 두 코호트 모두 신뢰구간이 1을 포함해 비유의. TPG는 경계. PVR은 두 코호트 모두 1보다 크고 유의."></svg></div>
+    <div class="legend">
+      <span><i style="background:var(--baseline)"></i> DPG</span>
+      <span><i style="background:var(--series-4)"></i> TPG</span>
+      <span><i style="background:var(--series-1)"></i> PVR</span>
+    </div>
+    <p style="font-size:12px;color:var(--text-muted);margin:8px 0 0;">
+      Tampakakis는 사분위수 범위당 보정 위험비(지표 간 비교를 위해 저자들이 재모수화한 값), Assad는 정의별 보정 위험비.
+      세로선은 HR = 1. <b>가로선이 1을 지나면 비유의</b>입니다.
+      이식 대기 심부전 약 6000명 코호트에서도 DPG는 어떤 컷오프에서도 생존 차이를 만들지 못했습니다.
+    </p>
+  </div>
+
+  <div class="card">
+    <h3>컷오프를 올릴수록 위험비가 <i>내려갑니다</i></h3>
+    <div class="chartwrap"><svg id="cCut" class="chart" viewBox="0 0 900 230" role="img"
+      aria-label="DPG 컷오프별 사망 위험비. 컷오프 1에서 1.20, 3에서 1.28, 5에서 1.19, 7에서 0.93, 9에서 0.75로 감소하며 모두 비유의."></svg></div>
+    <div class="note crit">
+      제안된 컷오프인 <b>DPG ≥7에서 HR이 1 아래로 내려갑니다</b>(0.93). 전부 통계적으로 유의하지 않지만 방향이 문제입니다 —
+      저자들의 설명은 <b>낮은 DPG가 오히려 더 아픈 환자를 골라냈다</b>는 것입니다(PAWP 26 vs 22 mmHg, 전신혈압 더 낮음).
+      그리고 <b>PVR이 이미 높은 환자 안에서 DPG는 아무 정보도 더하지 못했습니다.</b>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>왜 DPG가 실무에서 실패했나 — 측정 그 자체</h3>
+    <div class="grid g2">
+      <div>
+        <div class="note crit" style="margin-top:0">
+          <b>음수 DPG가 3분의 1</b> — Tampakakis 코호트 전체의 <b>30.2%</b>, 좌심질환 PH의 <b>36.0%</b>.
+          중환자 측정의 18.5%, 그리고 고전적 연구에서는 좌심질환 환자의 <b>평균 DPG가 −2 mmHg</b>였습니다.
+          Handoko의 식은 <b>PAWP ≈29 mmHg 이상에서 음수</b>가 됨을 예측합니다.
+        </div>
+        <div class="note">
+          <b>절대값이 작아 작은 오차가 지배합니다.</b> TPG는 <b>평균압</b>을 쓰고 DPG는 <b>순간압</b>을 씁니다 — 평균압이 카테터 인공물에 훨씬 덜 취약합니다.
+        </div>
+      </div>
+      <div>
+        <div class="note warn" style="margin-top:0">
+          <b>쐐기압 측정법이 답을 바꿉니다.</b> 호흡주기 평균 판독은 참값을 과소평가하고, 부정확한 wedging은 과대평가해 DPG를 거짓으로 낮춥니다.
+          <b>승모판역류의 V파</b>가 가변적으로 섞여 들어갑니다.
+          Gerges는 8심박 평균과 V파 처리까지 표준화했고, Tampakakis는 여러 시술자가 보고한 값을 썼습니다 —
+          <b>그 차이가 곧 전문센터와 실세계의 차이입니다.</b>
+        </div>
+        <div class="note">
+          <b>혈관과 무관한 것들이 DPG를 올립니다</b> — ARDS·COPD의 저산소혈증, 관상동맥우회술 후, 패혈증, 그리고 단순 <b>빈맥</b>.
+          게다가 <b>DPG ≥7인 환자의 절반은 애초에 PH가 아니었습니다.</b>
+        </div>
+      </div>
+    </div>
+    <blockquote class="q o">
+      <b style="color:var(--text-primary)">제안자들 본인이 인정했습니다</b> (Naeije 2017) — “DPG는 작은 숫자이고 불안정성에 노출돼 있다 …
+      정상 PVR인데 높은 DPG가 나오거나 DPG가 음수로 보고되는 것은 <b style="color:var(--text-primary)">둘 다 생리학적으로 불가능</b>하다 …
+      한편 <b style="color:var(--text-primary)">예후에 미치는 영향은 PH의 중증도와 우심실 기능부전의 정도가 지배적일 수 있다.</b>”
+    </blockquote>
+    <div class="note good">
+      <b>PVR이 이긴 개념적 이유</b> — “심박출량을 오차의 원천으로 볼 게 아니라 계산에 포함시켜라.”
+      DPG는 유량을 <b>피하려</b> 했고 PVR은 유량을 <b>포함</b>합니다. 그리고 유량이야말로 우심실이 실제로 만들어내야 하는 것입니다.
+      <b>DPG는 우심실 부하의 작은 일부만 설명합니다.</b>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>그런데 Cpc-PH는 단순한 Ipc-PH의 진행형이 아닐 수 있습니다</h3>
+    <p style="font-size:13.5px;color:var(--text-secondary);margin:0 0 10px;">
+      Assad 2016 (Vanderbilt BioVU, PH 환자 <b>2817명</b> — Cpc-PH 13%, Ipc-PH 52%, PAH 20%):
+    </p>
+    <ul style="font-size:13px;color:var(--text-secondary);margin:0 0 10px;padding-left:20px;">
+      <li>Cpc-PH 환자는 <b>평균 6년 젊은데 폐혈관질환은 더 중증</b>입니다 — 동반질환과 좌심질환의 유병률·중증도·만성도는 비슷한데도.</li>
+      <li><b>Cpc-PH와 PAH가 75개 엑손 SNP를 공유</b>합니다. 세포 구조·세포외기질·면역 기능 경로에 농축되고, 이 유전자들은 <b>폐에서 평균 32% 더 높게 발현</b>됩니다.</li>
+      <li>후보 유전자 — <b>COL18A1</b>(엔도스타틴, PAH와 연관 보고), <b>SMCR7</b>(미토콘드리아 분열 조절).</li>
+    </ul>
+    <blockquote class="q o">“좌심실 질환의 중증도와 만성도가 이 환자들의 중증 폐혈관질환 발생을 <b style="color:var(--text-primary)">완전히 설명하지는 못한다.</b>”</blockquote>
+    <div class="note">
+      유전 분석은 <b>Cpc-PH 36명</b>, 백인, 엑손 SNP에 한정된 <b>탐색적</b> 분석입니다.
+      그래도 두 읽기를 함께 쥐고 있을 만합니다 — <b>Cpc-PH는 서술적 혈류역학 범주</b>이지만 그 안에 <b>생물학적으로 구분되는 집단</b>이 들어 있을 수 있습니다.
+      생리학적으로도 <b>무산소역치의 Ve/VCO₂가 PAH와 Ipc-PH의 중간</b>에 위치합니다.
+    </div>
+  </div>
+</section>
+
+<section id="g2tx">
+  <h2><span class="tag t2">GROUP 2</span>치료 성적</h2>
+  <p class="sub">모든 계열에서 같은 패턴 — 혈류역학은 좋아지고, 환자는 아니며, 몇몇은 해를 입혔습니다.</p>
+
+  <div class="card">
+    <div class="tblwrap">
+      <table>
+        <thead><tr><th>계열 · 시험</th><th>대상</th><th>결과</th></tr></thead>
+        <tbody id="g2tbl"></tbody>
+        <caption>PH-LHD를 선정기준에 명시한 시험은 MELODY-1과 SIOVAC 정도뿐이라는 점이 이 문헌 전체의 구조적 약점입니다.</caption>
+      </table>
+    </div>
+  </div>
+
+  <div class="grid g2">
+    <div class="card" style="margin-bottom:0">
+      <h3>가장 관대한 요약조차 치료 근거가 되지 못합니다</h3>
+      <p style="font-size:13px;color:var(--text-secondary);margin:0 0 10px;">
+        PAH 약제 <b>10개 RCT 메타분석</b>(PDE5i 6, ERA 3, sGC 1)에서 <b>사망 증가는 없었고 혈류역학은 개선</b>됐습니다. 그럼에도:
+      </p>
+      <blockquote class="q o" style="margin:0">
+        “대부분의 무작위 시험이 중립적이거나 오히려 해로웠으며, 따라서 <b style="color:var(--text-primary)">좌심질환 PH에서 PAH 약제 치료는 권고되지 않는다
+        (권고 수준 III-C).</b>”
+      </blockquote>
+      <div class="note warn">
+        사용을 계속 제약하는 부작용 — <b>저혈압</b>, 그리고 <b>PCWP 상승을 동반한 체액저류</b>.
+        후자가 바로 폐혈관확장제가 여기서 <b>폐부종</b>을 일으키는 기전입니다.
+        Cpc-PH 환자는 <b>PH 전문센터로 의뢰</b>해 선택적 상황에서만 고려합니다.
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:0">
+      <h3>급성 가역성도 치료 대상을 골라주지 못합니다</h3>
+      <p style="font-size:13px;color:var(--text-secondary);margin:0 0 10px;">
+        Ghio 2017이 <b>HFrEF-PH 156명</b>에게 급성 혈관확장제를 투여하고 세 정의를 비교했습니다.
+        <b>PVR이 2.5 WU 미만으로 떨어진 비율:</b>
+      </p>
+      <div class="tblwrap"><table style="min-width:auto">
+        <tbody>
+          <tr><td>Cpc-PH</td><td class="num"><b>28.3%</b></td></tr>
+          <tr><td>DPG ≥7 mmHg</td><td class="num"><b>26.7%</b></td></tr>
+          <tr><td>TPG &gt;12 mmHg</td><td class="num"><b>18.9%</b></td></tr>
+        </tbody>
+      </table></div>
+      <div class="note crit">
+        Cpc-PH는 PVR·DPG·TPG 모두에서 Ipc-PH보다 <b>더 많이</b> 개선됐지만(모두 P<sub>int</sub> &lt;0.001),
+        <b>폐동맥 유순도만은 덜 개선</b>됐고(P<sub>int</sub>=0.007) <b>PVR–유순도 역쌍곡선의 불리한 구간에 그대로 남았습니다.</b><br><br>
+        <b>숫자는 움직이는데 우심실이 지는 부하는 그대로입니다.</b> 만성 시험들이 실패한 것과 같은 실패의 혈류역학적 형태입니다.
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>그래서 대안은 — 단발 측정에서 벗어나기</h3>
+    <p style="font-size:13.5px;color:var(--text-secondary);margin:0 0 8px;">
+      Chatterjee &amp; Lewis가 제안한 후계자는 또 하나의 기울기가 아니라 <b>우심실–폐혈관(RV–PV) 단위</b>입니다.
+      통합 지표가 어떤 단일 압력보다 결과를 잘 예측하며, 그들의 순위표에서 <b>운동 중 ΔPAP/ΔWork와 RV 탈커플링</b>, <b>mPAP + RVEF 조합</b>이 가장 큰 위험비를 보이고
+      <b>DPG 단독이 맨 아래에서 유일하게 비유의</b>합니다.
+    </p>
+    <div class="note good">
+      <b>권고되는 측정 방식</b> — 치료 전후 혈류역학, <b>운동 부하</b>, 선택적 폐혈관확장제를 이용한 <b>급성 혈관반응성 검사</b>, 이식형 장치를 통한 <b>지속적 폐동맥압 측정</b>.
+      그리고 실무적으로 — <b>PCWP가 12–15 mmHg일 때는 수액부하나 운동으로 숨은 좌심질환 PH를 드러내야</b> 합니다.
+    </div>
+  </div>
+</section>
+
+<section id="now">
+  <h2>현재 쓰이는 개념</h2>
+  <p class="sub">용어는 사라졌지만 개념은 이름을 바꿔 살아남았습니다.</p>
+
+  <div class="grid g2">
+    <div class="card a3" style="margin-bottom:0">
+      <h3>Pulmonary vascular phenotype <span style="font-weight:400;color:var(--text-muted)">— 직계 후손</span></h3>
+      <blockquote class="q" style="margin-top:0">
+        “<b style="color:var(--text-primary)">PVR &gt;5 Wood units</b>로 정의되는 중증 폐고혈압의 존재는 <b style="color:var(--text-primary)">더 나쁜 예후,
+        운동 시 순환 제한, 그리고 이른바 pulmonary vascular phenotype</b>을 가진 환자를 식별한다.”
+      </blockquote>
+      <div class="note">
+        <b>역치가 단독으로 서 있지 않습니다.</b> PVR &gt;5 WU는 <b>진입 기준</b>이고, 그것이 식별하는 것은
+        <b>Boerrigter의 운동생리를 명시적으로 포함한 묶음</b>입니다. 관계적 내용이 표현형 안에 살아남았습니다.
+      </div>
+      <p style="font-size:12.5px;color:var(--text-muted);margin:8px 0 0;">
+        다만 저자들 본인의 단서 — 이 컷오프는 <b>“추가 검증이 필요”</b>하며 COPD 관리에서의 의의는 <b>“아직 불분명”</b>합니다.
+      </p>
+    </div>
+
+    <div class="card a3" style="margin-bottom:0">
+      <h3>Idiopathic PAH with a lung phenotype <span style="font-weight:400;color:var(--text-muted)">— 거울상</span></h3>
+      <div class="tblwrap"><table style="min-width:auto">
+        <tbody>
+          <tr><td>혈류역학</td><td><b>중증 전모세혈관 PH</b></td></tr>
+          <tr><td>흡연력</td><td><b>보통 30갑년 초과</b></td></tr>
+          <tr><td>DLCO</td><td><b>&lt;45% 예측치</b></td></tr>
+          <tr><td>그 외 폐기능</td><td>정상 또는 정상에 가까움</td></tr>
+          <tr><td>흉부 CT</td><td>실질 이상 없음 또는 최소</td></tr>
+        </tbody>
+      </table></div>
+      <div class="note">
+        현행 기준으로는 <b>PAH</b>로 분류되지만, 저자들은 <b>폐질환 연관 PH로 분류해야 한다</b>고 봅니다 — 이들 폐의 예비 조직검사에서
+        현미경적 폐기종성·섬유성 변화가 확인됐기 때문입니다.<br><br>
+        <b>“Out-of-proportion PH”와 “iPAH with a lung phenotype”은 같은 환자를 폐 쪽과 혈관 쪽에서 부르는 두 이름입니다.</b>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>용어를 흡수한 건 2022년의 조용한 한 단어</h3>
+    <p style="font-size:14px;margin:0 0 8px;">
+      Group 3 명칭이 <b style="color:var(--series-2)">“PH <i>due to</i> lung disease”</b> → <b style="color:var(--series-1)">“PH <i>associated with</i> lung disease”</b>로 바뀌었습니다.
+    </p>
+    <blockquote class="q">
+      “폐혈관질환은 기저 폐질환의 결과이기만 한 것이 아니라 <b style="color:var(--text-primary)">독립적으로 발생하고 진행할 수 있다.</b>
+      일부 환자에서는 폐고혈압이 임상상을 지배한다.”
+    </blockquote>
+    <div class="note good">
+      <b>“due to”를 버린 것이 별도의 “불균형” 딱지를 불필요하게 만들었습니다.</b>
+      폐질환이 PH를 <i>일으킨다</i>는 인과 주장을 포기하면, PH가 폐질환을 앞지르는 환자는 예외가 아니라 <b>예상되는 경우</b>가 됩니다.
+    </div>
+    <p style="font-size:13px;color:var(--text-secondary);margin:10px 0 0;">
+      그리고 질문 자체가 지침의 검사 트리거 목록에 들어가 있습니다 —
+      <b>“호흡곤란이 폐질환의 범위로 예상되는 것보다 심할 때”</b> 폐고혈압 평가를 고려하라.
+      2023년 Lancet 시리즈에 문장만 바뀌어 실려 있습니다.
+    </p>
+  </div>
+</section>
+
+<section id="use">
+  <h2>정리 — 사장된 개념인가</h2>
+
+  <div class="card">
+    <h3>용어는 죽었고, 질문은 현역입니다</h3>
+    <div class="tblwrap">
+      <table>
+        <thead><tr><th style="width:42%">항목</th><th>상태</th></tr></thead>
+        <tbody>
+          <tr><td>용어 자체 (지침 언어로서)</td><td><b class="bad">소멸</b> — 2022 ESC/ERS와 7차 WSPH에 없음</td></tr>
+          <tr><td>정의 수치 (mPAP &gt;35 / TPG &gt;12 / DPG ≥7)</td><td><b class="bad">전부 은퇴</b></td></tr>
+          <tr><td>“PAH처럼 치료하라”는 함의</td><td><b class="bad">시험으로 반박됨</b></td></tr>
+          <tr><td>임상 질문 (“기저질환이 설명하는 것보다 심한가?”)</td><td><b class="ok">여전히</b> 우심도자·의뢰·치료 고려를 결정</td></tr>
+          <tr><td>제도적 후손</td><td><b class="ok">Group 3의 severe/non-severe (PVR &gt;5 WU)</b> · <b class="ok">Group 2의 Cpc-PH (PVR &gt;2 WU)</b></td></tr>
+          <tr><td>생리학적 핵심 (CPET 순환 vs 환기 제한)</td><td><b class="ok">대체된 적 없음</b></td></tr>
+          <tr><td>두 축 구조</td><td><b class="ok">이름이 바뀐 것</b> — “pulmonary vascular phenotype”이 PVR 역치와 운동 제한을 함께 묶음</td></tr>
+          <tr><td>Group 1의 거울상</td><td><b class="ok">“iPAH with a lung phenotype”</b></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="grid g2">
+    <div class="card" style="margin-bottom:0">
+      <h3>옛 표현 아래에 있는 방어 가능한 질문 다섯 개</h3>
+      <ol style="font-size:13px;color:var(--text-secondary);margin:0;padding-left:20px;line-height:1.7;">
+        <li><b>PVR이 높은가?</b> 폐질환 &gt;5 WU / 좌심질환은 PAWP &gt;15에 PVR &gt;2</li>
+        <li><b>폐기능이 상대적으로 보존됐는가?</b> FEV₁ &gt;60%, CT 파괴 최소, &lt;40갑년, &lt;55세</li>
+        <li><b>운동이 순환 때문에 멈추는가, 환기 때문인가?</b> CPET</li>
+        <li><b>Group 1이나 4가 숨어 있지 않은가?</b> CTD 혈청, HIV, 문맥고혈압, 단락, 자극제, V/Q 스캔</li>
+        <li><b>의미 있는 좌심질환이 있는가?</b> 있다면 폐부종 위험 — 치료하지 말아야 할 가장 강한 근거</li>
+      </ol>
+    </div>
+    <div class="card" style="margin-bottom:0">
+      <h3>실무 원칙</h3>
+      <div class="note crit" style="margin-top:0"><b>글에 정의처럼 쓰지 마십시오.</b> 현행 기준은 PVR이고, 옛 용어를 쓰면 어느 계보인지부터 되물어야 합니다.</div>
+      <div class="note"><b>진료 중 구어로는 무방합니다.</b> 2018년 리뷰 저자들도 그렇게 썼습니다.</div>
+      <div class="note warn"><b>2020년 이전 문헌은 계보를 확인하고 읽으십시오.</b> mPAP &gt;35(Group 3)와 TPG &gt;12(Group 2)는 호환되지 않습니다.</div>
+      <div class="note good"><b>우심도자 없이 PAH 특이치료를 시작하지 말고, 시작 전 PH 전문센터에 의뢰하십시오.</b> 두 리뷰가 공통으로 못박는 절차적 원칙입니다.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>남은 숙제</h3>
+    <ul style="font-size:13px;color:var(--text-secondary);margin:0;padding-left:20px;line-height:1.75;">
+      <li><b>PVR &gt;5 WU 컷오프 자체가 미검증</b>입니다 — Olsson 본인이 “추가 검증 필요”, COPD에서의 의의는 “불분명”이라고 씁니다.</li>
+      <li><b>CPET 기반 정의</b>(순환 제한이 환기 제한에 선행)가 가장 좋은 조작적 정의일 수 있으나 <b>전향적으로 검증된 적이 없습니다.</b></li>
+      <li><b>COPD 메타분석의 상충</b>(Chen vs Prins)이 표본 중복 외의 이유로는 설명되지 않았습니다.</li>
+      <li><b>DPG는 HFpEF와 극단값에서 형식적으로 미검증</b>입니다 — Tampakakis 코호트는 대부분 확장성 심근병증이었고 DPG &gt;20은 4명뿐이었습니다.</li>
+      <li><b>Cpc-PH의 유전 근거는 36명짜리 탐색적 분석</b>입니다.</li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  <p style="margin:0 0 8px"><b>면책</b> — 공개된 논문을 요약·정리한 학습용 자료이며 진료 지침이나 의학적 조언이 아닙니다. 임상 판단은 원문과 최신 진료지침을 직접 확인하십시오.</p>
+  <p style="margin:0 0 8px"><b>1차 출처</b> — Harari <i>Chest</i> 2012;142:1087 · Chatterjee K <i>Curr Opin Pulm Med</i> 2018;24:161 · Olsson <i>Lancet Respir Med</i> 2023;11:820 ·
+  Naeije <i>Eur Respir J</i> 2013;41:217 · Gerges <i>Chest</i> 2013;143:758 · Tampakakis <i>JACC Heart Fail</i> 2015;3:9 · Chatterjee NA &amp; Lewis <i>JACC Heart Fail</i> 2015;3:17 ·
+  Handoko <i>Physiol Rep</i> 2016;4:e12910 · Assad <i>J Am Coll Cardiol</i> 2016;68:2525 · Naeije <i>Circ Heart Fail</i> 2017;10:e004082 · Ghio <i>Eur J Heart Fail</i> 2017 ·
+  Al-Omary <i>Hypertension</i> 2020;75:1397 · Chang <i>Korean Circ J</i> 2025;55:998.</p>
+  <p style="margin:0">작성 2026-09-13 · 관련 페이지: <a href="pah-policy.html">PAH 치료 방침</a> · <a href="korea.html">한국 급여기준</a> · <a href="sotatercept.html">Sotatercept</a> · <a href="riociguat.html">Riociguat</a></p>
+</footer>
+
+</main>
+
+<script>
+(function () {
+  "use strict";
+
+  /* ---------- theme ---------- */
+  var btn = document.getElementById('themeToggle'), stored = null;
+  try { stored = localStorage.getItem('ph-theme'); } catch (e) {}
+  if (stored) document.documentElement.setAttribute('data-theme', stored);
+  function isDark() {
+    var t = document.documentElement.getAttribute('data-theme');
+    if (t) return t === 'dark';
+    return window.matchMedia('(prefers-color-scheme: dark)').matches;
+  }
+  function paint() { btn.textContent = isDark() ? '☀️ 라이트모드' : '🌙 다크모드'; }
+  btn.addEventListener('click', function () {
+    var next = isDark() ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    try { localStorage.setItem('ph-theme', next); } catch (e) {}
+    paint();
+  });
+  paint();
+
+  /* ---------- tooltip ---------- */
+  var tip = document.getElementById('tip');
+  function showTip(e, html) {
+    tip.innerHTML = html; tip.style.opacity = '1';
+    var x = e.clientX + 14, y = e.clientY + 14;
+    var w = tip.offsetWidth, h = tip.offsetHeight;
+    if (x + w > window.innerWidth - 10) x = e.clientX - w - 14;
+    if (y + h > window.innerHeight - 10) y = e.clientY - h - 14;
+    tip.style.left = x + 'px'; tip.style.top = y + 'px';
+  }
+  function hideTip() { tip.style.opacity = '0'; }
+
+  var NS = 'http://www.w3.org/2000/svg';
+  function el(n, a) { var e = document.createElementNS(NS, n); for (var k in a) e.setAttribute(k, a[k]); return e; }
+  function hook(node, html) {
+    node.addEventListener('mousemove', function (e) { showTip(e, html); });
+    node.addEventListener('mouseleave', hideTip);
+  }
+
+  /* ---------- chart 1: term usage ---------- */
+  (function () {
+    var d = [[2008,5],[2009,8],[2010,6],[2011,5],[2012,13],[2013,16],[2014,5],[2015,4],[2016,3],
+             [2017,5],[2018,2],[2019,3],[2020,1],[2021,1],[2022,2],[2023,3],[2024,0],[2025,3]];
+    var svg = document.getElementById('cUse');
+    var W = 900, H = 250, L = 40, R = 16, T = 26, B = 40;
+    var iw = W - L - R, ih = H - T - B, max = 16;
+    var bw = iw / d.length;
+    function y(v) { return T + ih - (v / max) * ih; }
+
+    [0, 4, 8, 12, 16].forEach(function (v) {
+      svg.appendChild(el('line', { x1: L, x2: W - R, y1: y(v), y2: y(v), 'class': 'gl' }));
+      var t = el('text', { x: L - 7, y: y(v) + 4, 'class': 'lblm', 'text-anchor': 'end' });
+      t.textContent = v; svg.appendChild(t);
+    });
+    svg.appendChild(el('line', { x1: L, x2: W - R, y1: y(0), y2: y(0), 'class': 'ax' }));
+
+    // annotations
+    var ax = L + bw * 5 + bw / 2;
+    svg.appendChild(el('line', { x1: ax, x2: ax, y1: T - 4, y2: y(16) - 6, stroke: 'var(--status-critical)', 'stroke-width': 1, 'stroke-dasharray': '3 3' }));
+    var at = el('text', { x: ax + 5, y: T + 6, 'class': 'lbp', fill: 'var(--status-critical)' });
+    at.textContent = '2013 5차 WSPH — 대체 용어 제안'; svg.appendChild(at);
+
+    d.forEach(function (row, i) {
+      var x = L + i * bw + bw * 0.16, w = bw * 0.68;
+      var h = Math.max(row[1] === 0 ? 0 : 2, y(0) - y(row[1]));
+      if (row[1] > 0) {
+        var r = el('rect', { x: x, y: y(row[1]), width: w, height: h, rx: 2.5, fill: 'var(--series-1)', 'class': 'bar' });
+        hook(r, '<b>' + row[0] + '년</b><span class="s">' + row[1] + '편</span>');
+        svg.appendChild(r);
+      }
+      if (row[0] % 2 === 0 || row[1] >= 13) {
+        var t = el('text', { x: x + w / 2, y: H - B + 16, 'class': 'lblm', 'text-anchor': 'middle' });
+        t.textContent = row[0]; svg.appendChild(t);
+      }
+      if (row[1] >= 13) {
+        var v = el('text', { x: x + w / 2, y: y(row[1]) - 6, 'class': 'lbp', 'text-anchor': 'middle' });
+        v.textContent = row[1]; svg.appendChild(v);
+      }
+    });
+    var yl = el('text', { x: L - 7, y: T - 10, 'class': 'lblm', 'text-anchor': 'end' });
+    yl.textContent = '논문 수'; svg.appendChild(yl);
+  })();
+
+  /* ---------- chart 2: forest ---------- */
+  (function () {
+    var rows = [
+      { g: 'Tampakakis 2015 (n=469)', m: 'DPG', hr: 1.14, lo: 0.98, hi: 1.34, p: 'p = 0.10', sig: false, c: 'var(--baseline)' },
+      { g: 'Tampakakis 2015 (n=469)', m: 'TPG', hr: 1.19, lo: 1.00, hi: 1.40, p: 'p = 0.046', sig: true, c: 'var(--series-4)' },
+      { g: 'Tampakakis 2015 (n=469)', m: 'PVR', hr: 1.25, lo: 1.09, hi: 1.44, p: 'p = 0.002', sig: true, c: 'var(--series-1)' },
+      { g: 'Assad 2016 (n=2817)', m: 'DPG', hr: 1.14, lo: 0.96, hi: 1.35, p: 'p = 0.15', sig: false, c: 'var(--baseline)' },
+      { g: 'Assad 2016 (n=2817)', m: 'PVR >3 WU', hr: 1.35, lo: 1.18, hi: 1.55, p: 'p < 0.001', sig: true, c: 'var(--series-1)' }
+    ];
+    var svg = document.getElementById('cForest');
+    var W = 900, H = 260, L = 210, R = 120, T = 34, B = 34;
+    var iw = W - L - R, ih = H - T - B;
+    var lo = 0.85, hi = 1.65;
+    function x(v) { return L + (v - lo) / (hi - lo) * iw; }
+    var step = ih / rows.length;
+
+    [0.9, 1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6].forEach(function (v) {
+      svg.appendChild(el('line', { x1: x(v), x2: x(v), y1: T - 6, y2: T + ih, 'class': v === 1 ? 'ax' : 'gl' }));
+      var t = el('text', { x: x(v), y: T + ih + 16, 'class': 'lblm', 'text-anchor': 'middle' });
+      t.textContent = v.toFixed(1); svg.appendChild(t);
+    });
+    var rt = el('text', { x: x(1), y: T - 12, 'class': 'lbp', 'text-anchor': 'middle' });
+    rt.textContent = 'HR = 1'; svg.appendChild(rt);
+    var xt = el('text', { x: L + iw / 2, y: H - 4, 'class': 'lblm', 'text-anchor': 'middle' });
+    xt.textContent = '사망 위험비 (보정)'; svg.appendChild(xt);
+
+    var lastG = '';
+    rows.forEach(function (r, i) {
+      var cy = T + step * i + step / 2;
+      if (r.g !== lastG) {
+        var gl = el('text', { x: 8, y: cy - 1, 'class': 'lbp' });
+        gl.textContent = r.g; svg.appendChild(gl);
+        lastG = r.g;
+      }
+      var ml = el('text', { x: L - 12, y: cy + 4, 'class': 'lbl', 'text-anchor': 'end' });
+      ml.textContent = r.m; svg.appendChild(ml);
+
+      svg.appendChild(el('line', { x1: x(r.lo), x2: x(r.hi), y1: cy, y2: cy, stroke: r.c, 'stroke-width': 2 }));
+      svg.appendChild(el('line', { x1: x(r.lo), x2: x(r.lo), y1: cy - 5, y2: cy + 5, stroke: r.c, 'stroke-width': 2 }));
+      svg.appendChild(el('line', { x1: x(r.hi), x2: x(r.hi), y1: cy - 5, y2: cy + 5, stroke: r.c, 'stroke-width': 2 }));
+      var dot = el('circle', { cx: x(r.hr), cy: cy, r: 5.5, fill: r.c, stroke: 'var(--surface-1)', 'stroke-width': 2 });
+      hook(dot, '<b>' + r.m + ' — ' + r.g + '</b><span class="s">HR ' + r.hr.toFixed(2) +
+        ' (95% CI ' + r.lo.toFixed(2) + '–' + r.hi.toFixed(2) + ')<br>' + r.p +
+        (r.sig ? '' : ' · <b>비유의</b>') + '</span>');
+      svg.appendChild(dot);
+
+      var pl = el('text', { x: W - R + 12, y: cy + 4, 'class': r.sig ? 'lbp' : 'lbl' });
+      pl.textContent = r.p; if (!r.sig) pl.setAttribute('fill', 'var(--text-muted)');
+      svg.appendChild(pl);
+    });
+  })();
+
+  /* ---------- chart 3: DPG cutoffs ---------- */
+  (function () {
+    var d = [
+      { k: '≥1', hr: 1.20, lo: 0.90, hi: 1.60 },
+      { k: '≥3', hr: 1.28, lo: 0.96, hi: 1.71 },
+      { k: '≥5', hr: 1.19, lo: 0.87, hi: 1.64 },
+      { k: '≥7', hr: 0.93, lo: 0.61, hi: 1.42 },
+      { k: '≥9', hr: 0.75, lo: 0.42, hi: 1.31 }
+    ];
+    var svg = document.getElementById('cCut');
+    var W = 900, H = 230, L = 64, R = 30, T = 26, B = 46;
+    var iw = W - L - R, ih = H - T - B;
+    var lo = 0.35, hi = 1.8;
+    function y(v) { return T + ih - (v - lo) / (hi - lo) * ih; }
+    var step = iw / d.length;
+
+    [0.5, 0.75, 1.0, 1.25, 1.5, 1.75].forEach(function (v) {
+      svg.appendChild(el('line', { x1: L, x2: W - R, y1: y(v), y2: y(v), 'class': v === 1 ? 'ax' : 'gl' }));
+      var t = el('text', { x: L - 8, y: y(v) + 4, 'class': 'lblm', 'text-anchor': 'end' });
+      t.textContent = v.toFixed(2); svg.appendChild(t);
+    });
+    var rl = el('text', { x: W - R, y: y(1) - 6, 'class': 'lbp', 'text-anchor': 'end', fill: 'var(--text-muted)' });
+    rl.textContent = 'HR = 1'; svg.appendChild(rl);
+
+    var path = '';
+    d.forEach(function (r, i) {
+      var cx = L + step * i + step / 2;
+      path += (i ? 'L' : 'M') + cx + ' ' + y(r.hr) + ' ';
+      var c = r.hr >= 1 ? 'var(--baseline)' : 'var(--status-critical)';
+      svg.appendChild(el('line', { x1: cx, x2: cx, y1: y(r.lo), y2: y(r.hi), stroke: c, 'stroke-width': 2, opacity: .55 }));
+      svg.appendChild(el('line', { x1: cx - 5, x2: cx + 5, y1: y(r.lo), y2: y(r.lo), stroke: c, 'stroke-width': 2, opacity: .55 }));
+      svg.appendChild(el('line', { x1: cx - 5, x2: cx + 5, y1: y(r.hi), y2: y(r.hi), stroke: c, 'stroke-width': 2, opacity: .55 }));
+      var t = el('text', { x: cx, y: H - B + 18, 'class': 'lbl', 'text-anchor': 'middle' });
+      t.textContent = r.k + ' mmHg'; svg.appendChild(t);
+    });
+    svg.appendChild(el('path', { d: path, fill: 'none', stroke: 'var(--series-2)', 'stroke-width': 2 }));
+    d.forEach(function (r, i) {
+      var cx = L + step * i + step / 2;
+      var c = r.hr >= 1 ? 'var(--series-2)' : 'var(--status-critical)';
+      var dot = el('circle', { cx: cx, cy: y(r.hr), r: 5.5, fill: c, stroke: 'var(--surface-1)', 'stroke-width': 2 });
+      hook(dot, '<b>DPG ' + r.k + ' mmHg</b><span class="s">HR ' + r.hr.toFixed(2) +
+        ' (95% CI ' + r.lo.toFixed(2) + '–' + r.hi.toFixed(2) + ')<br>모두 비유의</span>');
+      svg.appendChild(dot);
+      var v = el('text', { x: cx, y: y(r.hr) - 11, 'class': 'lbp', 'text-anchor': 'middle' });
+      v.textContent = r.hr.toFixed(2); svg.appendChild(v);
+    });
+    var yl = el('text', { x: L - 8, y: T - 8, 'class': 'lblm', 'text-anchor': 'end' });
+    yl.textContent = '사망 HR'; svg.appendChild(yl);
+    var xl = el('text', { x: L + iw / 2, y: H - 6, 'class': 'lblm', 'text-anchor': 'middle' });
+    xl.textContent = 'DPG 컷오프 (제안된 값은 ≥7)'; svg.appendChild(xl);
+  })();
+
+  /* ---------- decision tree ---------- */
+  (function () {
+    var svg = document.getElementById('tree');
+    var bands = [
+      { k: 'PVR < 3 WU', ild: 'PH 치료 안 함', copd: 'PH 치료 안 함', ic: 'no', cc: 'no' },
+      { k: 'PVR 3–5 WU', ild: '흡입 트레프로스티닐 고려', copd: 'PH 치료 안 함', ic: 'ok', cc: 'no' },
+      { k: 'PVR > 5 WU', ild: '흡입 트레프로스티닐 고려', copd: 'PDE5 억제제 고려', ic: 'ok', cc: 'ok' }
+    ];
+    var x0 = 24, bw = 176, gap = 18, colX = 236, colW = 306;
+    // header
+    [['ILD', colX], ['COPD / CPFE', colX + colW + gap]].forEach(function (h) {
+      var t = el('text', { x: h[1] + colW / 2, y: 26, 'class': 't1', 'text-anchor': 'middle' });
+      t.textContent = h[0]; svg.appendChild(t);
+    });
+    bands.forEach(function (b, i) {
+      var y = 42 + i * 70;
+      var r0 = el('rect', { x: x0, y: y, width: bw, height: 54, rx: 8, 'class': 'out' });
+      r0.setAttribute('fill', 'var(--surface-1)'); r0.setAttribute('stroke', 'var(--baseline)'); r0.setAttribute('stroke-width', '1');
+      svg.appendChild(r0);
+      var t0 = el('text', { x: x0 + bw / 2, y: y + 32, 'class': 't1', 'text-anchor': 'middle' });
+      t0.textContent = b.k; svg.appendChild(t0);
+
+      [[b.ild, b.ic, colX], [b.copd, b.cc, colX + colW + gap]].forEach(function (c) {
+        var stroke = c[1] === 'ok' ? 'var(--series-1)' : 'var(--baseline)';
+        var r = el('rect', { x: c[2], y: y, width: colW, height: 54, rx: 8, fill: 'var(--surface-1)', stroke: stroke, 'stroke-width': c[1] === 'ok' ? 1.8 : 1 });
+        svg.appendChild(r);
+        var t = el('text', { x: c[2] + colW / 2, y: y + 32, 'class': c[1] === 'ok' ? 't1' : 't2', 'text-anchor': 'middle' });
+        t.textContent = c[0];
+        if (c[1] === 'ok') t.setAttribute('fill', 'var(--series-1)');
+        svg.appendChild(t);
+      });
+      svg.appendChild(el('line', { x1: x0 + bw, x2: colX, y1: y + 27, y2: y + 27, 'class': 'ed' }));
+    });
+    var f = el('text', { x: 24, y: 254, 'class': 't2' });
+    f.textContent = '전 구간에서 임상시험 적격성 확인 · 우심도자는 치료적 귀결이 예상될 때만, PH 센터에서';
+    svg.appendChild(f);
+  })();
+
+  /* ---------- tables ---------- */
+  var G3 = [
+    ['<b>흡입 트레프로스티닐</b> — INCREASE', 'RHC', '<b class="ok">ILD-PH에서 양성</b> · 위약보정 Δ6MWD <b>+31 m</b>, 복합 임상악화 감소, 급성 악화 감소. 고용량일수록 이득 증가'],
+    ['흡입 트레프로스티닐 — <b>PERFECT</b>', 'RHC', '<b class="bad">COPD-PH에서 조기 중단</b> · 중대 이상반응 17 vs 6, 사망 5 vs 1'],
+    ['실데나필 — Vitulo 2017', 'RHC (mPAP ≥35)', '<b class="ok">PVR −1.4 WU</b>(위약보정), BODE·QOL·DLCO 개선'],
+    ['실데나필 — Blanco 2013', 'RHC', '지구력·6MWD·QOL <b>개선 없음</b>'],
+    ['실데나필 — Rao 2011', '<b>Echo</b>', '6MWD +190 vs 0 m — 심초음파 선별'],
+    ['타달라필 — Goudie 2014', '<b>Echo</b> (어떤 정도든)', '6MWD·QOL <b>개선 없음</b>. 다수가 경계역~경도 PH'],
+    ['보센탄 — Stolz 2008', 'RHC (중증 PH는 <b>제외</b>)', '<b class="bad">해로움</b> · QOL 악화, PaO₂ 감소, A-a 차이 증가'],
+    ['모든 PH 치료 — Girard 2015', 'RHC (중앙 mPAP 48)', '<b class="mid">PVR 8.5→6.6, mPAP 48→42</b> — 그러나 호흡곤란·6MWD·NT-proBNP는 그대로'],
+    ['<b>GO DEEP</b> 메타레지스트리 (n=836)', 'RHC, 후향', '<b class="ok">사망 이득 (p&lt;0.001)</b> — <b>PVR &gt;5 WU + FEV₁ 보존</b> 표현형에 집중. 후향 자료'],
+    ['<b>장기 산소요법</b> — MRC / NOTT', '—', '<b class="ok">사망률을 낮춘 유일한 개입</b> · 5년 사망 45% vs 67%, <b>NNT 5</b>']
+  ];
+  var G2 = [
+    ['<b>프로스타사이클린</b> — Sueta', '중증 좌심실 수축기능부전 (중앙 EF 15%), n=33', '12주 6분보행 개선'],
+    ['프로스타사이클린 — <b>FIRST</b>', '증상성 HFrEF <b>n=471</b>, LVEF &lt;25%, mPAP 38', '<b class="bad">사망 증가로 조기 종료</b> — 심계수 증가·PCWP 감소에도 불구하고'],
+    ['<b>ERA</b> — 다루센탄 (Lüscher)', '3주 단기', '심계수 증가. <b class="bad">30 mg 초과 용량에서 사망·심부전 입원 증가</b>'],
+    ['ERA — <b>ENABLE</b> (보센탄 ×2)', 'HFrEF EF&lt;35%, <b>n=1613</b>, <b>PH 선정기준 아님</b>', '<b class="bad">사망·심부전 입원 감소 없음</b> · 체액저류, 간효소 이상'],
+    ['ERA — <b>MELODY-1</b> (마시텐탄)', '<b>PH-LHD + PVR &gt;3 WU, n=63</b>', '<b class="bad">유의한 체액저류</b> · PVR·PCWP·NT-proBNP <b>변화 없음</b>'],
+    ['<b>PDE5i</b> — Guazzi', 'HFpEF + sPAP &gt;40, n=44', '<b class="mid">mPAP·우심실 기능 개선, 운동능력은 개선 없음</b>'],
+    ['PDE5i — Guazzi', 'HFrEF + PH, n=34', '<b class="ok">운동능력·심계수·PVR 모두 개선</b>'],
+    ['PDE5i — <b>메타분석 9 RCT, n=612</b>', 'HFrEF 6 / HFpEF 3', '<b class="mid">최고 VO₂가 HFrEF에서는 상승, HFpEF에서는 아님</b>. 3개 시험만 우심도자 보고'],
+    ['PDE5i — 코호트, n=40', 'Cpc-PH, 12개월', '<b class="ok">호흡곤란·6MWT·우심실 기능·BNP·입원 개선</b>, 안전성 문제 없음'],
+    ['PDE5i — <b>RELAX</b>', '<b>HFpEF n=216</b>, 24주', '<b class="bad">6MWT·삶의 질 개선 없음</b>'],
+    ['PDE5i — <b>SIOVAC</b>', '판막수술 1년 후 지속되는 PH', '<b class="bad">오히려 나쁜 임상 결과</b>']
+  ];
+  function fill(id, rows) {
+    var tb = document.getElementById(id);
+    rows.forEach(function (r) {
+      var tr = document.createElement('tr');
+      r.forEach(function (c, i) {
+        var td = document.createElement('td');
+        td.innerHTML = c;
+        if (i === 1) td.style.whiteSpace = 'nowrap';
+        tr.appendChild(td);
+      });
+      tb.appendChild(tr);
+    });
+  }
+  fill('g3tbl', G3);
+  fill('g2tbl', G2);
+})();
+</script>
+</body>
+</html>
